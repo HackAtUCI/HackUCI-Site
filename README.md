@@ -1,22 +1,56 @@
+# HackUCI-Site
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## First-Time Setup
 
-First, run the development server:
+This project combines a Next.js frontend with a Python API.
 
-```bash
+### Next.js
+
+1. Install dependencies
+   ```shell
+   npm ci
+   ```
+
+### Python API
+
+1. Create a virtual environment
+
+   ```shell
+   python3 -m venv .venv --prompt HackUCI-Site
+   ```
+
+2. Activate virtual environment
+
+   VS Code may prompt to automatically select the newly created virtual environment. Otherwise, run
+
+   ```shell
+   source .venv/bin/activate
+   ```
+
+3. Install dependencies
+   ```shell
+   pip install -r requirements.txt -r requirements-dev.txt
+   ```
+
+## Running Development Environment
+
+Run the Next.js development server
+
+```shell
 npm run dev
 # or
 yarn dev
 ```
 
+Run the FastAPI app with uvicorn
+
+```shell
+python3 src/app/dev.py
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ## Learn More
 
