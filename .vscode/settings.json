@@ -1,0 +1,27 @@
+{
+   "python.envFile": "${workspaceFolder}/.env",
+   "python.formatting.provider": "black",
+   "python.linting.flake8Enabled": true,
+   "python.linting.mypyEnabled": true,
+   "python.linting.enabled": true,
+   "python.testing.pytestArgs": [
+      "tests"
+   ],
+   "python.testing.unittestEnabled": false,
+   "python.testing.pytestEnabled": true,
+   "files.exclude": {
+      ".coverage": true,
+      ".mypy_cache": true,
+      ".next": true,
+      ".pytest_cache": true
+   },
+   "isort.check": true,
+   "isort.args": [
+      "--settings-path",
+      "${workspaceFolder}/pyproject.toml"
+   ],
+   "editor.formatOnSave": true,
+   "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+   }
+}
