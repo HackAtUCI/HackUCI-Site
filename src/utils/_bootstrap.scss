@@ -1,0 +1,15 @@
+// this partial can be used where Bootstrap mixins are applied
+
+@import "~bootstrap/scss/functions";
+
+/* variable overrides */
+// <put overrides here>
+
+@import "~bootstrap/scss/variables";
+
+/* map overrides */
+// <put overrides here>
+
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
