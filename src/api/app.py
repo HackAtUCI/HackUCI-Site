@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 
+import routers.user
+
 app = FastAPI()
+app.include_router(routers.user.router)
 
 
 @app.get("/")
