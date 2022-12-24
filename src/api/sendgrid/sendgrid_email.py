@@ -1,7 +1,6 @@
 # using SendGrid's Python Library
 # https://github.com/sendgrid/sendgrid-python
 import os
-from dotenv import load_dotenv
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail, Email, Personalization
 
@@ -10,9 +9,6 @@ def send_email(template_id: str, sender_email: str, receiver_data: dict or list,
     '''
     Send a personalized templated email to one or multiple receivers via SendGrid
     '''
-    load_dotenv()
-    sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
-
     try:
         email_message = Mail()
 
@@ -35,7 +31,7 @@ def send_email(template_id: str, sender_email: str, receiver_data: dict or list,
         email_message.from_email = sender_email
         email_message.template_id = template_id
 
-        sg = SendGridAPIClient(sendgrid_api_key)
+        sg = SendGridAPIClient(SENDGRID_API_KEY)
         response = sg.send(email_message)
         print(response.status_code)
         print(response.body)
