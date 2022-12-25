@@ -26,15 +26,12 @@ async def retrieve_users(
 ) -> list[dict[str, object]]:
     """Search for and retrieve the specified fields of all users' applications
     (if any exist) that satisfy the provided query."""
-    # Create a dictionary containing the specific fields to be retrieved from
-    # the document
-    proj_dict: dict[str, Union[int, bool]] = {field: 1 for field in fields}
 
     if not _modify_query(query):
         return []
 
     output = []
-    user_data: AsyncIOMotorCursor = USERS.find(query, proj_dict)
+    user_data: AsyncIOMotorCursor = USERS.find(query, fields)
 
     # The value associated with `_id` keys is of type ObjectId, which is not
     # processable by FastAPI (throws an error). Convert each ObjectId to a str.
