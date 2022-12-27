@@ -4,6 +4,8 @@ import os
 import aiosendgrid
 from sendgrid.helpers.mail import Email, Mail, Personalization
 
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+
 
 async def send_email(template_id: str, sender_email: str, receiver_data: dict or list, send_to_multiple: bool = False) -> None:
     '''
