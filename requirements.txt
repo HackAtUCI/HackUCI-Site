@@ -1,3 +1,4 @@
 fastapi==0.88.0
 httpx==0.23.1
 sendgrid==6.9.7
+aiosendgrid==0.1.0
