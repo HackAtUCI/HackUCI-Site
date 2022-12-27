@@ -19,10 +19,10 @@ function Login() {
         const email = emailInput.trim();
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setError(false);
-            // router.push();
 
             if (email.slice(email.length - 8) === "@uci.edu"){
-                console.log("uci email");
+                const dash: string = `${window.location.origin}/dashboard`
+                router.push("https://login.uci.edu/ucinetid/webauth?return_url="+dash);
             } else {
                 console.log("non-uci email");
             }
