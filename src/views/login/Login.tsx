@@ -1,48 +1,62 @@
 import { useRouter } from 'next/router';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
+import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
+import styles from "./login.module.scss";
+
+type input = {
+    target: {
+        value: string;
+    }
+}
 
 function Login() {
     const [emailInput, setEmailInput] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
     const router = useRouter();
 
-    
-
-    // useEffect(() => {
-    //     // Update the document title using the browser API
-    //     console.log("test effect")
-    //   });
+    useEffect(() => {
+        // check if user is already authenticated
+      });
 
     const onSubmit = (): void => {
         const email = emailInput.trim();
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
             setError(false);
-
-            if (email.slice(email.length - 8) === "@uci.edu"){
-                const dash: string = `${window.location.origin}/dashboard`
-                router.push("https://login.uci.edu/ucinetid/webauth?return_url="+dash);
+            if (email.length >= 8 && email.slice(email.length - 8) === "@uci.edu"){
+                // uci users
+                router.push(`${window.location.origin}/api/saml/login`);
             } else {
-                console.log("non-uci email");
+                // non uci users
             }
         } else {
             setError(true);
-            console.log("invalid email");
         }
     }
 
 	return (
-        <Form>
-            <Form.Group>
-                <Form.Control placeholder="Enter email" isInvalid={error} onChange={(e: any) => {
-                  setEmailInput(e.target.value);
-                }}/>
-            </Form.Group>
-            <Button onClick={onSubmit}>
-                Submit
-            </Button>
-        </Form>
+        <Container className={styles.container}>
+            <Form>
+                <Form.Label>Email address</Form.Label>
+                <Form.Control 
+                    className="mb-3" 
+                    type="email" 
+                    placeholder="Enter email" 
+                    isInvalid={error} 
+                    as="input" 
+                    onChange={(e: input) => {
+                        setEmailInput(e.target.value);
+                    }}
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                    }}
+                />
+                <Button onClick={onSubmit}>
+                    Continue
+                </Button>
+            </Form>
+        </Container>
     )
 }
 
