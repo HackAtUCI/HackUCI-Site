@@ -5,3 +5,4 @@ python3-saml==1.14.0
 pymongo==4.3.3
 sendgrid==6.9.7
 aiosendgrid==0.1.0
+aiogoogle==5.0.0
