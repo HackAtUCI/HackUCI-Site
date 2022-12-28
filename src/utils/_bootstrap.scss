@@ -3,7 +3,10 @@
 @import "~bootstrap/scss/functions";
 
 /* variable overrides */
-// <put overrides here>
+$font-family-base: var(--next-font-open-sans);
+$font-size-base: 1.125rem;
+$h1-font-size: 6rem;
+$h2-font-size: 4rem;
 
 @import "~bootstrap/scss/variables";
 
