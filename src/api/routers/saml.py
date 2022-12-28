@@ -111,9 +111,8 @@ async def acs(req: Request) -> RedirectResponse:
         (display_name,) = auth.get_friendlyname_attribute("displayName")
         (ucinetid,) = auth.get_friendlyname_attribute("ucinetid")
         affiliations: list[str] = auth.get_friendlyname_attribute("uciaffiliation")
-
-    except Exception:
-        log.exception("Error decoding SAML Attributes or generating JWT Token.")
+    except (ValueError, TypeError) as e:
+        log.exception("Error decoding SAML Attributes: %s", e)
         raise HTTPException(500, "Error decoding user identity")
 
     identity = (ucinetid, display_name, email, affiliations)
