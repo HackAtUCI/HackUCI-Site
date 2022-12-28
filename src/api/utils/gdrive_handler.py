@@ -25,7 +25,7 @@ async def upload_file(
     folder_id: str, file_name: str, file_bytes: bytes, file_type: str
 ) -> str:
     """Use the aiogoogle library to upload the provided file to the folder with
-    the ID `RESUME_FOLDER_ID` and return a URL to the uploaded file."""
+    the given `folder_id` and return a URL to the uploaded file."""
     async with Aiogoogle(service_account_creds=CREDS) as aiogoogle:
         drive_v3 = await aiogoogle.discover("drive", "v3")
 
