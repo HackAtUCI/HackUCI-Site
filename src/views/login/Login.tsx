@@ -5,15 +5,9 @@ import Container from "react-bootstrap/Container";
 import Form from 'react-bootstrap/Form';
 import styles from "./login.module.scss";
 
-type input = {
-    target: {
-        value: string;
-    }
-}
-
 function Login() {
     const [emailInput, setEmailInput] = useState<string>("");
-    const [error, setError] = useState<boolean>(false);
+    const [isEmailValid, setIsEmailValid] = useState<boolean>(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -23,15 +17,15 @@ function Login() {
     const onSubmit = (): void => {
         const email = emailInput.trim();
         if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-            setError(false);
-            if (email.length >= 8 && email.slice(email.length - 8) === "@uci.edu"){
+            setIsEmailValid(true);
+            if (email.length >= 7 && email.slice(email.length - 7) === "uci.edu"){
                 // uci users
-                router.push(`${window.location.origin}/api/saml/login`);
+                router.push(`/api/saml/login`);
             } else {
                 // non uci users
             }
         } else {
-            setError(true);
+            setIsEmailValid(false);
         }
     }
 
@@ -43,16 +37,17 @@ function Login() {
                     className="mb-3" 
                     type="email" 
                     placeholder="Enter email" 
-                    isInvalid={error} 
+                    isInvalid={!isEmailValid} 
                     as="input" 
-                    onChange={(e: input) => {
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         setEmailInput(e.target.value);
+                        setIsEmailValid(true);
                     }}
-                    onSubmit={(e) => {
-                        e.preventDefault();
+                    onSubmit={(e: React.ChangeEvent<HTMLInputElement>) => {
+                        onSubmit();
                     }}
                 />
-                <Button onClick={onSubmit}>
+                <Button type="submit" onClick={onSubmit}>
                     Continue
                 </Button>
             </Form>
