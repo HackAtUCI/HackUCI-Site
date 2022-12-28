@@ -6,6 +6,7 @@ src_paths = "src/api"
 pythonpath = "src/api"
 addopts = "--verbose --cov src"
 testpaths = "tests"
+asyncio_mode = "auto"
 
 [tool.coverage.run]
 branch = true
