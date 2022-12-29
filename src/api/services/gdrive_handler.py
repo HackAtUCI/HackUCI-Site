@@ -1,19 +1,9 @@
 import json
 import os
 
-from aiogoogle import Aiogoogle
+import aiogoogle
 from aiogoogle.auth.creds import ServiceAccountCreds
 from aiogoogle.models import MediaUpload
-
-service_account_file = os.getenv("SERVICE_ACCOUNT_FILE")
-if service_account_file:
-    service_account_key = json.load(open(service_account_file))
-else:
-    raise Exception("Service account credentials not found")
-
-CREDS = ServiceAccountCreds(
-    scopes=["https://www.googleapis.com/auth/drive"], **service_account_key
-)
 
 GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/"
 UPLOAD_URL = (
@@ -21,13 +11,26 @@ UPLOAD_URL = (
 )
 
 
+def _get_credentials() -> ServiceAccountCreds:
+    service_account_file = os.getenv("SERVICE_ACCOUNT_FILE")
+    if service_account_file:
+        service_account_key = json.load(open(service_account_file))
+    else:
+        raise Exception("Service account credentials not found")
+
+    return ServiceAccountCreds(
+        scopes=["https://www.googleapis.com/auth/drive"], **service_account_key
+    )
+
+
 async def upload_file(
     folder_id: str, file_name: str, file_bytes: bytes, file_type: str
 ) -> str:
     """Use the aiogoogle library to upload the provided file to the folder with
     the given `folder_id` and return a URL to the uploaded file."""
-    async with Aiogoogle(service_account_creds=CREDS) as aiogoogle:
-        drive_v3 = await aiogoogle.discover("drive", "v3")
+    creds = _get_credentials()
+    async with aiogoogle.Aiogoogle(service_account_creds=creds) as ag:
+        drive_v3 = await ag.discover("drive", "v3")
 
         # Create request object:
         # Set the file name to be the name of the uploaded file and set its upload
@@ -52,7 +55,7 @@ async def upload_file(
         req.upload_file_content_type = file_type
 
         # Upload file
-        uploaded_file: dict[str, str] = await aiogoogle.as_service_account(req)
+        uploaded_file: dict[str, str] = await ag.as_service_account(req)
         file_id: str = uploaded_file["id"]
 
         return GOOGLE_DRIVE_URL + file_id
