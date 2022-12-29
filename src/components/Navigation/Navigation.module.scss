@@ -1,0 +1,51 @@
+.navbar {
+	background: brown; // to delete later
+	// opacity: 0;
+
+	.link {
+		color: white !important;
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 25px;
+		margin-right: 1.5rem;
+
+		@media screen and (max-width: 768px) {
+			margin: auto auto 0 0;
+		}
+	}
+
+	.linkSelected {
+		background-image: linear-gradient(white, white);
+		background-repeat: no-repeat;
+		background-position-y: 35px;
+		background-size: 100% 5px;
+	}
+
+	.linkNotSelected {
+		background-image: linear-gradient(white, white);
+		background-repeat: no-repeat;
+		background-position-y: 35px;
+		transition: background-size 0.25s ease-in-out;
+		background-size: 0% 5px;
+	}
+
+	.linkNotSelected:hover {
+		background-size: 100% 5px;
+	}
+
+	.linkBtn {
+		min-width: 5rem;
+		color: black !important;
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 25px;
+		text-align: center;
+		background-color: white !important;
+		border-radius: 5px;
+		margin-right: 1.5rem;
+
+		@media screen and (max-width: 768px) {
+			margin: auto auto 0 0;
+		}
+	}
+}
