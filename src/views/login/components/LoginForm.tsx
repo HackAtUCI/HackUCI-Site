@@ -40,10 +40,14 @@ function LoginForm() {
 					onChange={(e: ChangeEvent<HTMLInputElement>) => {
 						setEmailInput(e.target.value);
 					}}
+					aria-describedby="email-description"
 				/>
 				<Form.Control.Feedback type="invalid">
 					Sorry, that email address is invalid.
 				</Form.Control.Feedback>
+				<Form.Text id="email-description" muted>
+					UCI students will log in with UCI SSO.
+				</Form.Text>
 			</Form.Group>
 			<Button type="submit">Continue</Button>
 		</Form>
