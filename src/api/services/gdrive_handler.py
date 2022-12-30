@@ -3,7 +3,6 @@ import os
 
 import aiogoogle
 from aiogoogle.auth.creds import ServiceAccountCreds
-from aiogoogle.models import MediaUpload
 
 GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/"
 UPLOAD_URL = (
@@ -12,6 +11,7 @@ UPLOAD_URL = (
 
 
 def _get_credentials() -> ServiceAccountCreds:
+    """Get the credentials for the service account used to upload files."""
     service_account_file = os.getenv("SERVICE_ACCOUNT_FILE")
     if service_account_file:
         service_account_key = json.load(open(service_account_file))
@@ -34,20 +34,12 @@ async def upload_file(
 
         # Create request object:
         # Set the file name to be the name of the uploaded file and set its upload
-        # destination to be in the folder with ID `RESUME_FOLDER_ID`.
+        # destination to be in the folder with the provided file ID.
         req = drive_v3.files.create(
+            upload_file=file_bytes,
             fields="id",
             json={"name": file_name, "parents": [folder_id]},
-        )
-
-        # Bytes can be directly uploaded to Google Drive by creating a MediaUpload
-        # object, setting its upload path to be the endpoint of the appropriate
-        # Google Drive API, and attaching it to the above request object.
-        req.media_upload = MediaUpload(
-            file_bytes,
-            upload_path=UPLOAD_URL,
-            mime_range=["*/*"],
-            multipart=True,
+            supportsAllDrives=True,
         )
 
         # Manually set the content type to the type FastAPI provides, so that the
