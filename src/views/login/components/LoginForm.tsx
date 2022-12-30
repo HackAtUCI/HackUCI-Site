@@ -1,32 +1,18 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+
+import { ValidatingForm } from "components";
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const LOGIN_PATH = "/api/user/login";
 
 function LoginForm() {
 	const [emailInput, setEmailInput] = useState<string>("");
-	const [validated, setValidated] = useState<boolean>(false);
-
-	const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-		const form = event.currentTarget;
-		if (!form.checkValidity()) {
-			// prevent submission to display validation feedback
-			event.preventDefault();
-		}
-		setValidated(true);
-	};
 
 	return (
-		<Form
-			onSubmit={handleSubmit}
-			method="post"
-			action={LOGIN_PATH}
-			noValidate // use custom validation feedback
-			validated={validated}
-		>
+		<ValidatingForm method="post" action={LOGIN_PATH}>
 			<Form.Group controlId="email-input" className="mb-3">
 				<Form.Label>Email address</Form.Label>
 				<Form.Control
@@ -50,7 +36,7 @@ function LoginForm() {
 				</Form.Text>
 			</Form.Group>
 			<Button type="submit">Continue</Button>
-		</Form>
+		</ValidatingForm>
 	);
 }
 
