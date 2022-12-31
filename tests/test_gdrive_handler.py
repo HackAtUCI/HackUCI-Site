@@ -1,5 +1,3 @@
-import asyncio
-import platform
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from services import gdrive_handler
@@ -12,9 +10,6 @@ SAMPLE_OUTPUT_ID = "12345"
 UPLOAD_PATH = (
     "https://www.googleapis.com/upload/drive/v3/files?fields=id&supportsAllDrives=True"
 )
-
-if platform.system() == "Windows":
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
 @patch("services.gdrive_handler._get_credentials")
