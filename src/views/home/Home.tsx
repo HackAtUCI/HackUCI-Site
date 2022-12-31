@@ -1,4 +1,4 @@
-import Faq from "./sections/Faq";
+import Faq from "./sections/Faq/Faq";
 import Landing from "./sections/Landing";
 import Support from "./sections/Support";
 
