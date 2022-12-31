@@ -1,7 +1,7 @@
 import json
 import os
 
-import aiogoogle
+from aiogoogle import Aiogoogle
 from aiogoogle.auth.creds import ServiceAccountCreds
 
 GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/"
@@ -16,7 +16,7 @@ def _get_credentials() -> ServiceAccountCreds:
         raise Exception("Service account credentials not found")
 
     return ServiceAccountCreds(
-        scopes=["https://www.googleapis.com/auth/drive"], **service_account_key
+        scopes=["https://www.googleapis.com/auth/drive.file"], **service_account_key
     )
 
 
@@ -26,16 +26,18 @@ async def upload_file(
     """Use the aiogoogle library to upload the provided file to the folder with
     the given `folder_id` and return a URL to the uploaded file."""
     creds = _get_credentials()
-    async with aiogoogle.Aiogoogle(service_account_creds=creds) as ag:
-        drive_v3 = await ag.discover("drive", "v3")
+    async with Aiogoogle(service_account_creds=creds) as aiogoogle:
+        drive_v3 = await aiogoogle.discover("drive", "v3")
+
+        # Provide the given file name and set the upload destination by
+        # specifying the given folder ID as a parent
+        metadata = {"name": file_name, "parents": [folder_id]}
 
         # Create request object:
-        # Set the file name to be the name of the uploaded file and set its upload
-        # destination to be in the folder with the provided file ID.
         req = drive_v3.files.create(
             upload_file=file_bytes,
             fields="id",
-            json={"name": file_name, "parents": [folder_id]},
+            json=metadata,
             supportsAllDrives=True,
         )
 
@@ -44,7 +46,7 @@ async def upload_file(
         req.upload_file_content_type = file_type
 
         # Upload file
-        uploaded_file: dict[str, str] = await ag.as_service_account(req)
+        uploaded_file: dict[str, str] = await aiogoogle.as_service_account(req)
         file_id: str = uploaded_file["id"]
 
         return GOOGLE_DRIVE_URL + file_id
