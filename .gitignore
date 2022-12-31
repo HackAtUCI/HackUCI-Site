@@ -5,6 +5,7 @@
 
 # Python
 __pycache__
+.venv
 
 # dependencies
 /node_modules

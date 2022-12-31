@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 
-import routers.user
-from routers import saml
+from routers import saml, user
 
 app = FastAPI()
-app.include_router(routers.user.router)
 
+app.include_router(user.router, prefix="/user", tags=["user"])
 app.include_router(saml.router, prefix="/saml", tags=["saml"])
 
 
