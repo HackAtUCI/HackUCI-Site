@@ -1,0 +1,60 @@
+@import "styles/gallery-theme";
+
+.galleryBackground {
+	$n: 8;
+	--o: 0;
+	$tt: 20s;
+	$nk: 100;
+
+	@keyframes rotate {
+		@for $i from 0 through $nk {
+			#{$i / $nk * 100%} {
+				--o: #{-$n / 2 + $n * ($i / $nk)};
+			}
+		}
+	}
+
+	.paintings {
+		height: 100vh;
+		animation: $tt rotate infinite linear;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		$vd: 60rem;
+		perspective: $vd;
+		perspective-origin: center;
+
+		$r: 50rem;
+
+		.painting {
+			width: 20rem;
+			height: 20rem;
+			position: absolute;
+
+			background-image: linear-gradient(55.62deg, $wild-orange, $midnight-blue);
+
+			&:nth-child(2n + 1) {
+				width: 15rem;
+			}
+
+			@for $i from 1 through $n {
+				&:nth-child(#{$i}) {
+					$k: $i - $n / 2;
+					$h: calc((#{$k} - var(--o)) * #{360 / $n});
+					$alpha: calc(
+						#{$h} * 1deg - 360deg * Round(down, calc(#{$h} / 360), 1) + 180deg
+					);
+
+					$x: calc($r * sin($alpha));
+					$ry: calc(-1 * $alpha);
+					$dz: calc($r * (1 - cos($alpha)));
+					transform: translateZ($dz) translateX($x) rotateY($ry);
+				}
+			}
+
+			transition: $tt/$nk transform linear;
+		}
+	}
+}
