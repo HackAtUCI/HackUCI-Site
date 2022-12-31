@@ -5,9 +5,6 @@ import aiogoogle
 from aiogoogle.auth.creds import ServiceAccountCreds
 
 GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/"
-UPLOAD_URL = (
-    "https://www.googleapis.com/upload/drive/v3/files?fields=id&supportsAllDrives=True"
-)
 
 
 def _get_credentials() -> ServiceAccountCreds:

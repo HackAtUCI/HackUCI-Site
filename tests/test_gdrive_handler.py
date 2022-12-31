@@ -1,4 +1,5 @@
 import asyncio
+import platform
 from unittest.mock import AsyncMock, MagicMock, patch
 
 from services import gdrive_handler
@@ -8,6 +9,12 @@ SAMPLE_FOLDER_ID = "my-folder-id"
 SAMPLE_BYTES = b"my-bytes"
 SAMPLE_FILE_TYPE = "my-file-type"
 SAMPLE_OUTPUT_ID = "12345"
+UPLOAD_PATH = (
+    "https://www.googleapis.com/upload/drive/v3/files?fields=id&supportsAllDrives=True"
+)
+
+if platform.system() == "Windows":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
 @patch("services.gdrive_handler._get_credentials")
@@ -26,23 +33,13 @@ async def test_upload_single_file(
 
     mock_asServiceAccount.assert_called_once()
 
-    asServiceAccount_args = mock_asServiceAccount.call_args.args[0]
-    assert asServiceAccount_args.method == "POST"
-    assert (
-        asServiceAccount_args.url
-        == "https://www.googleapis.com/drive/v3/files?fields=id"
-    )
-    assert (
-        asServiceAccount_args.batch_url == "https://www.googleapis.com/batch/drive/v3"
-    )
-    assert asServiceAccount_args.json == {
+    request = mock_asServiceAccount.call_args.args[0]
+    assert request.method == "POST"
+    assert request.media_upload.upload_path == UPLOAD_PATH
+    assert request.json == {
         "name": SAMPLE_NAME,
         "parents": [SAMPLE_FOLDER_ID],
     }
-    assert asServiceAccount_args.media_upload.file_body == SAMPLE_BYTES
-    assert asServiceAccount_args.upload_file_content_type == SAMPLE_FILE_TYPE
+    assert request.upload_file_content_type == SAMPLE_FILE_TYPE
+    assert request.media_upload.multipart
     assert output == gdrive_handler.GOOGLE_DRIVE_URL + SAMPLE_OUTPUT_ID
-
-    # Add one second sleep time to avoid RuntimeError being thrown due to
-    # async event loop being closed.
-    await asyncio.sleep(1)
