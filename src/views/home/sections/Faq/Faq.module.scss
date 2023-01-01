@@ -1,3 +1,16 @@
+.accordion {
+    --bs-accordion-color: white;
+    --bs-accordion-btn-color: white;
+    --bs-accordion-bg: transparent;
+    
+    --bs-accordion-active-color: white;
+    --bs-accordion-active-bg: transparent;
+    --bs-accordion-btn-focus-box-shadow: 0;
+
+    --bs-accordion-btn-padding-x: 0;
+    --bs-accordion-body-padding-x: 0;
+}
+
 .accordion-border {
-    border-bottom: 3px solid black !important;
+    border-bottom: 3px solid white !important;
 }
