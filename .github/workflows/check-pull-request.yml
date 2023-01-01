@@ -1,0 +1,93 @@
+name: check-pull-request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-backend:
+    name: Check Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+          cache: "pip"
+
+      - name: Install xmlsec dependencies
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: libxml2-dev libxmlsec1-dev libxmlsec1-openssl
+          version: 1.0
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Format with Black
+        uses: reviewdog/action-black@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: warning
+          reporter: github-pr-review
+
+      - name: Lint with flake8
+        uses: reviewdog/action-flake8@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: warning
+          reporter: github-pr-review
+
+      - name: Lint with mypy
+        uses: tsuyoshicho/action-mypy@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: error
+          reporter: github-pr-review
+
+      - name: Run tests with pytest
+        run: pytest
+        # uses: reviewdog/action-pytest@v1 (WIP)
+        # with:
+        #   github_token: ${{ secrets.GITHUB_TOKEN }}
+        #   reporter: github-pr-review
+        #   level: error
+
+  check-frontend:
+    name: Check Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Format with Prettier
+        uses: EPMatt/reviewdog-action-prettier@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: warning
+          reporter: github-pr-review
+          prettier_flags: src
+
+      - name: Lint with ESLint
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          level: error
+          reporter: github-pr-review
+          eslint_flags: "src/"
+
+      - name: Check can build
+        run: npm run build
