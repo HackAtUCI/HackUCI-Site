@@ -6,7 +6,7 @@ function Faq() {
     return (
         <section className="container faq-block">
             <h2 className="text-center">FAQ</h2>
-            <Accordion defaultActiveKey="0" className={styles['accordion']}>
+            <Accordion className={styles['accordion']} alwaysOpen>
                 {questions.map((q, index) => (
                     <Accordion.Item key={index} className={styles['accordion-border']} eventKey={`${index}`}>
                         <Accordion.Header>{q["question"]}</Accordion.Header>
