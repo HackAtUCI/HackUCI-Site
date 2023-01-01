@@ -1,5 +1,7 @@
+@import "styles/gallery-theme";
+
 .navbar {
-	background: #50200b; // to delete later
+	background: $wild-orange;
 	// opacity: 0;
 
 	:global {
