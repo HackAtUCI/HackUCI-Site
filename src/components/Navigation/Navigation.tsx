@@ -1,10 +1,12 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
+import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 import HackLogo from "components/HackLogo/HackLogo";
+import { NavLink, PrivateNavLink } from "./NavigationHelpers";
+
 import styles from "./Navigation.module.scss";
 
 // Temporary variable to indicate login status
@@ -18,32 +20,8 @@ function Navigation() {
 	const logText = isLoggedIn ? "Logout" : "Login";
 	const logButtonPath = isLoggedIn ? "/" : "/login";
 
-	/** Creates a navigation link based on the user's currently selected route */
-	const NavLink = ({ style, to, text }: any) =>
-		currentRoute == to ? (
-			<Nav.Link
-				className={`${style} ${styles.linkSelected}`}
-				as={Link}
-				href={to}
-			>
-				{text}
-			</Nav.Link>
-		) : (
-			<Nav.Link
-				className={`${style} ${styles.linkNotSelected}`}
-				as={Link}
-				href={to}
-			>
-				{text}
-			</Nav.Link>
-		);
-
-	/** Creates a private NavLink (visible only by logging in) */
-	const PrivateNavLink = ({ style, to, text }: any) =>
-		isLoggedIn ? <NavLink style={style} to={to} text={text} /> : null;
-
 	return (
-		<Navbar className={styles.navbar} expand="md">
+		<Navbar className={styles.navbar} expand="md" variant="dark">
 			<Container fluid>
 				<Navbar.Brand href="/">
 					<HackLogo />
@@ -54,14 +32,29 @@ function Navigation() {
 					aria-expanded="true"
 				/>
 				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav className="ms-auto">
-						<NavLink style={styles.link} to="/" text="Home" />
+					<Nav
+						className="ms-auto"
+						activeKey={currentRoute}
+						defaultActiveKey="/"
+					>
+						<NavLink className={styles.link} href="/">
+							Home
+						</NavLink>
 						<PrivateNavLink
-							style={styles.link}
-							to="/dashboard"
-							text="Dashboard"
-						/>
-						<NavLink style={styles.linkBtn} to={logButtonPath} text={logText} />
+							authorized={isLoggedIn}
+							className={styles.link}
+							href="/dashboard"
+						>
+							Dashboard
+						</PrivateNavLink>
+						<Nav.Item
+							as={Button}
+							bsPrefix="btn-light"
+							className={styles.linkBtn}
+							href={logButtonPath}
+						>
+							{logText}
+						</Nav.Item>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
