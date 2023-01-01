@@ -1,0 +1,14 @@
+@use "utils/bootstrap";
+
+section.container {
+	// responsive padding
+	@include bootstrap.padding-top(10rem);
+	@include bootstrap.padding-bottom(10rem);
+}
+
+h1,
+.h1,
+h2,
+.h2 {
+	font-family: var(--next-font-merriweather);
+}

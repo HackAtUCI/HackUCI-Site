@@ -1,10 +1,17 @@
+import Faq from "./sections/Faq";
 import Landing from "./sections/Landing";
+import Support from "./sections/Support";
+
+import styles from "./Home.module.scss";
 
 function Home() {
 	return (
-		<div>
-			Home
+		<div className={styles.home}>
 			<Landing />
+			<Support />
+			<div className={styles.faqBackground}>
+				<Faq />
+			</div>
 		</div>
 	);
 }
