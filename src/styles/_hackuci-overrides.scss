@@ -5,3 +5,8 @@ $headings-font-weight: 700;
 $h1-font-size: 6rem;
 $h2-font-size: 4rem;
 $h3-font-size: 2rem;
+
+// Override accordion variables (inactive as "+" and active as "-")
+$accordion-border-width: 0;
+$accordion-button-icon: url("~/src/assets/icons/plus-lg.svg");
+$accordion-button-active-icon: url("~/src/assets/icons/dash-lg.svg");
