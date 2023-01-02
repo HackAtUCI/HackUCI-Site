@@ -18,3 +18,13 @@ show_missing = true
 mypy_path = "src/api"
 explicit_package_bases = true
 strict = true
+
+[[tool.mypy.overrides]]
+module = [
+   'onelogin.saml2.*',
+   'aiogoogle.*',
+   'aiosendgrid.*',
+   'sendgrid.*',
+   'motor.*',
+]
+ignore_missing_imports = true
