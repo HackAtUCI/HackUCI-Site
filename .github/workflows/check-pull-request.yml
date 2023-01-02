@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: "3.9"
           cache: "pip"
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
 
       - name: Install xmlsec dependencies
         uses: awalsh128/cache-apt-pkgs-action@latest
@@ -41,6 +44,12 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           level: warning
           reporter: github-pr-review
+
+      - name: Cache `.mypy_cache`
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/.mypy_cache
+          key: ${{ runner.os }}-python3.9-mypy-cache
 
       - name: Lint with mypy
         uses: tsuyoshicho/action-mypy@v3
@@ -70,7 +79,15 @@ jobs:
           node-version: 16
           cache: "npm"
 
+      - name: Cache node_modules
+        id: cache-node-modules
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+
       - name: Install frontend dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Format with Prettier
@@ -88,6 +105,15 @@ jobs:
           level: error
           reporter: github-pr-review
           eslint_flags: "src/"
+
+      - name: Cache Next.js build
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          # Generate a new cache whenever packages or source files change.
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          # If source files changed but packages didn't, rebuild from a prior cache.
+          restore-keys: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}
 
       - name: Check can build
         run: npm run build
