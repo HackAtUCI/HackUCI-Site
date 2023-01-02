@@ -1,6 +1,16 @@
-from fastapi import APIRouter, Form, HTTPException
+from fastapi import (
+    APIRouter,
+    Depends,
+    Form,
+    HTTPException,
+    Response,
+    UploadFile,
+    status,
+)
 from fastapi.responses import RedirectResponse
 from pydantic import EmailError, EmailStr
+
+from models.User import User
 
 router = APIRouter()
 
@@ -22,3 +32,8 @@ async def login(email: str = Form()) -> RedirectResponse:
         return RedirectResponse("/api/saml/login", status_code=303)
     # TODO: add authentication for non-UCI users
     raise HTTPException(501)
+
+
+@router.post("/apply", status_code=status.HTTP_201_CREATED)
+async def apply(response: Response, file: UploadFile, user: User = Depends()) -> None:
+    pass
