@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import Container from "react-bootstrap/Container";
@@ -14,24 +17,30 @@ const isLoggedIn = false;
 
 function Navigation() {
 	// TODO: CHECK LOGIN STATUS
+	const [expanded, setExpanded] = useState<boolean>(false);
 
 	const router = useRouter();
 	const currentRoute = router.asPath;
-	const logText = isLoggedIn ? "Logout" : "Login";
-	const logButtonPath = isLoggedIn ? "/" : "/login";
+	const logText = isLoggedIn ? "Log Out" : "Log In";
+	const logButtonPath = isLoggedIn ? "/logout" : "/login";
 
 	return (
-		<Navbar className={styles.navbar} expand="md" variant="dark">
+		<Navbar
+			className={styles.navbar}
+			expand="md"
+			variant="dark"
+			onToggle={setExpanded}
+		>
 			<Container fluid>
-				<Navbar.Brand href="/">
+				<Navbar.Brand as={Link} href="/">
 					<HackLogo />
 				</Navbar.Brand>
 				<Navbar.Toggle
 					className="ms-auto"
-					aria-controls="basic-navbar-nav"
-					aria-expanded="true"
+					aria-expanded={expanded}
+					aria-controls="main-navbar-nav"
 				/>
-				<Navbar.Collapse id="basic-navbar-nav">
+				<Navbar.Collapse id="main-navbar-nav">
 					<Nav as="ul" className="ms-auto" activeKey={currentRoute}>
 						<NavLinkItem href="/">Home</NavLinkItem>
 						<PrivateNavLinkItem authorized={isLoggedIn} href="/dashboard">
