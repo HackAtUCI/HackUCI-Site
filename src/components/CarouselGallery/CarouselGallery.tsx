@@ -2,13 +2,16 @@ import styles from "./CarouselGallery.module.scss";
 
 function CarouselGallery() {
 	return (
-		<div className={styles.galleryBackground}>
+		<div className={styles.carouselGallery}>
 			<div className={styles.paintings}>
-				{Array(8)
+				{Array(12)
 					.fill(0)
 					.map((_, i) => (
-						<div key={i} className={styles.painting}>
-							painting {i + 1}
+						<div
+							key={i}
+							className={[styles.painting, styles.paintingNumber].join(" ")}
+						>
+							{i + 1}
 						</div>
 					))}
 			</div>

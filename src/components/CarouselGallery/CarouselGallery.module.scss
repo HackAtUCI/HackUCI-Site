@@ -1,60 +1,59 @@
 @import "styles/gallery-theme";
 
-.galleryBackground {
-	$n: 8;
-	--o: 0;
-	$tt: 20s;
-	$nk: 100;
+.carouselGallery {
+	$n: 12;
+	$tt: 120s;
 
-	@keyframes rotate {
-		@for $i from 0 through $nk {
-			#{$i / $nk * 100%} {
-				--o: #{-$n / 2 + $n * ($i / $nk)};
-			}
+	@keyframes rotate-carousel {
+		from {
+			transform: rotateY(0deg);
+		}
+		to {
+			transform: rotateY(360deg);
 		}
 	}
 
+	$r: 90vh;
+	perspective: 1.3 * $r;
+
 	.paintings {
-		height: 100vh;
-		animation: $tt rotate infinite linear;
+		height: 80vh;
 
 		display: flex;
 		align-items: center;
 		justify-content: center;
 
-		$vd: 60rem;
-		perspective: $vd;
-		perspective-origin: center;
-
-		$r: 50rem;
+		transform-style: preserve-3d;
+		transform-origin: center center $r;
+		animation: $tt rotate-carousel infinite linear;
 
 		.painting {
-			width: 20rem;
-			height: 20rem;
+			height: 30vh;
+			aspect-ratio: 3/2;
 			position: absolute;
 
 			background-image: linear-gradient(55.62deg, $wild-orange, $midnight-blue);
 
 			&:nth-child(2n + 1) {
-				width: 15rem;
+				aspect-ratio: 4/5;
 			}
 
 			@for $i from 1 through $n {
 				&:nth-child(#{$i}) {
-					$k: $i - $n / 2;
-					$h: calc((#{$k} - var(--o)) * #{360 / $n});
-					$alpha: calc(
-						#{$h} * 1deg - 360deg * Round(down, calc(#{$h} / 360), 1) + 180deg
-					);
-
-					$x: calc($r * sin($alpha));
-					$ry: calc(-1 * $alpha);
-					$dz: calc($r * (1 - cos($alpha)));
-					transform: translateZ($dz) translateX($x) rotateY($ry);
+					$ry: -$i * 360deg / $n;
+					$dz: -$r;
+					transform: translateZ(-$dz) rotateY($ry) translateZ($dz);
 				}
 			}
+		}
 
-			transition: $tt/$nk transform linear;
+		.paintingNumber {
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			justify-content: center;
+			font-size: 8rem;
+			font-weight: 700;
 		}
 	}
 }
