@@ -35,5 +35,9 @@ async def login(email: str = Form()) -> RedirectResponse:
 
 
 @router.post("/apply", status_code=status.HTTP_201_CREATED)
-async def apply(response: Response, file: UploadFile, user: User = Depends()) -> None:
+async def apply(
+    response: Response,
+    file: UploadFile,
+    user: User = Depends(User),
+) -> None:
     pass
