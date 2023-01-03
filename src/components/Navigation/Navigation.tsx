@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import Button from "react-bootstrap/Button";
+
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 import HackLogo from "components/HackLogo/HackLogo";
-import { NavLink, PrivateNavLink } from "./NavigationHelpers";
+import { NavLinkItem, PrivateNavLinkItem } from "./NavigationHelpers";
 
 import styles from "./Navigation.module.scss";
 
@@ -32,29 +32,18 @@ function Navigation() {
 					aria-expanded="true"
 				/>
 				<Navbar.Collapse id="basic-navbar-nav">
-					<Nav
-						className="ms-auto"
-						activeKey={currentRoute}
-						defaultActiveKey="/"
-					>
-						<NavLink className={styles.link} href="/">
-							Home
-						</NavLink>
-						<PrivateNavLink
-							authorized={isLoggedIn}
-							className={styles.link}
-							href="/dashboard"
-						>
+					<Nav as="ul" className="ms-auto" activeKey={currentRoute}>
+						<NavLinkItem href="/">Home</NavLinkItem>
+						<PrivateNavLinkItem authorized={isLoggedIn} href="/dashboard">
 							Dashboard
-						</PrivateNavLink>
-						<Nav.Item
-							as={Button}
-							bsPrefix="btn-light"
-							className={styles.linkBtn}
+						</PrivateNavLinkItem>
+						<NavLinkItem
 							href={logButtonPath}
+							className="btn btn-light" // style underlying next/Link
+							bsPrefix=" " // override .nav-link class while still using eventKey
 						>
 							{logText}
-						</Nav.Item>
+						</NavLinkItem>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>

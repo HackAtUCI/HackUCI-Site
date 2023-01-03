@@ -6,14 +6,18 @@ interface PrivateNavLinkProps extends NavLinkProps {
 	authorized: boolean;
 }
 
-/** Creates a navigation link */
-function NavLink(props: NavLinkProps) {
-	return <Nav.Link as={Link} {...props} />;
+/** Creates a navigation link item */
+function NavLinkItem(props: NavLinkProps) {
+	return (
+		<Nav.Item as="li">
+			<Nav.Link as={Link} {...props} />
+		</Nav.Item>
+	);
 }
 
-/** Creates a private NavLink (visible only by logging in) */
-function PrivateNavLink(props: PrivateNavLinkProps) {
-	return props.authorized ? <NavLink {...props} /> : null;
+/** Creates a private NavLinkItem (visible only by logging in) */
+function PrivateNavLinkItem(props: PrivateNavLinkProps) {
+	return props.authorized ? <NavLinkItem {...props} /> : null;
 }
 
-export { NavLink, PrivateNavLink };
+export { NavLinkItem, PrivateNavLinkItem };
