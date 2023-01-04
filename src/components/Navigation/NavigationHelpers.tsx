@@ -16,8 +16,8 @@ function NavLinkItem(props: NavLinkProps) {
 }
 
 /** Creates a private NavLinkItem (visible only by logging in) */
-function PrivateNavLinkItem(props: PrivateNavLinkProps) {
-	return props.authorized ? <NavLinkItem {...props} /> : null;
+function PrivateNavLinkItem({ authorized, ...rest }: PrivateNavLinkProps) {
+	return authorized ? <NavLinkItem {...rest} /> : null;
 }
 
 export { NavLinkItem, PrivateNavLinkItem };
