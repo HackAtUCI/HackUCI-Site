@@ -6,9 +6,10 @@ from pydantic import EmailError, EmailStr
 
 from models.ApplicationData import ProcessedApplicationData, RawApplicationData
 from models.User import User
+from services import mongodb_handler
 from services.gdrive_handler import upload_file
+from services.mongodb_handler import Collection
 from services.sendgrid_handler import send_email
-from utils.mongodb_handler import insert_user, retrieve_users
 
 router = APIRouter()
 
@@ -38,14 +39,15 @@ async def apply(
     raw_application_data: RawApplicationData = Depends(RawApplicationData),
 ) -> None:
 
-    user_collection = os.getenv("USER_COLLECTION")
     google_drive_folder_id = os.getenv("GOOGLE_DRIVE_FOLDER_ID")
 
-    if not user_collection or not google_drive_folder_id:
+    if not google_drive_folder_id:
         raise HTTPException(500)
 
     # check if email is already in database
-    if await retrieve_users(user_collection, {"email": raw_application_data.email}):
+    if await mongodb_handler.retrieve(
+        Collection.USERS, {"email": raw_application_data.email}
+    ):
         print("Email already in use")
         raise HTTPException(400)
 
@@ -75,7 +77,7 @@ async def apply(
 
     # add user to database
     try:
-        await insert_user(user_collection, user.dict())
+        await mongodb_handler.insert(Collection.USERS, user.dict())
     except RuntimeError:
         print("User insert into database unsuccessful")
         raise HTTPException(500)
