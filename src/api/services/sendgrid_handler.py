@@ -1,18 +1,20 @@
 # using SendGrid's Python Library
 # https://github.com/sendgrid/sendgrid-python
 import os
+from typing import Iterable, Mapping, Union
 
 import aiosendgrid
-
 from sendgrid.helpers.mail import Email, Mail, Personalization
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+
+PersonalizationData = Mapping[str, object]
 
 
 async def send_email(
     template_id: str,
     sender_email: str,
-    receiver_data: dict or list,
+    receiver_data: Union[PersonalizationData, Iterable[PersonalizationData]],
     send_to_multiple: bool = False,
 ) -> None:
     """
@@ -24,7 +26,7 @@ async def send_email(
         if send_to_multiple:
             if type(receiver_data) != list:
                 raise TypeError(
-                    f"receiver_data expects {list}. Passed object has type {type(receiver_data)}"
+                    f"Expected {list} for receiver_data but got {type(receiver_data)}"
                 )
             else:
                 for r in receiver_data:
@@ -34,7 +36,7 @@ async def send_email(
         else:
             if type(receiver_data) != dict:
                 raise TypeError(
-                    f"receiver_data expects {dict}. Passed object has type {type(receiver_data)}"
+                    f"Expected {dict} for receiver_data but got {type(receiver_data)}"
                 )
             else:
                 p = Personalization()

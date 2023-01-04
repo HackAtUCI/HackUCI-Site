@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 
 import { ValidatingForm } from "components";
 
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 const LOGIN_PATH = "/api/user/login";
 
 function LoginForm() {
