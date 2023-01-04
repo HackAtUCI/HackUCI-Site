@@ -1,0 +1,44 @@
+@use "utils/bootstrap";
+@import "styles/gallery-theme";
+
+.navbar {
+	$underline-size: 4px;
+
+	background-color: $wild-orange;
+	font-weight: 700;
+
+	:global {
+		.nav-item {
+			@include bootstrap.media-breakpoint-down(md) {
+				padding: 0.5rem;
+				margin-bottom: 0.25rem;
+				margin-right: auto;
+				margin-left: 0.5rem;
+				&:last-child {
+					margin-bottom: 1rem;
+				}
+			}
+			margin-left: 2rem;
+		}
+
+		.nav-link {
+			// remove nav link padding for underline effect
+			--bs-navbar-nav-link-padding-x: 0;
+
+			background-image: linear-gradient(white, white);
+			background-repeat: no-repeat;
+			background-position-y: 35px;
+			background-size: 0% $underline-size;
+			transition: background-size 0.25s ease-in-out;
+
+			&:hover,
+			&.active {
+				background-size: 100% $underline-size;
+			}
+		}
+
+		.btn-light {
+			font-weight: 700;
+		}
+	}
+}
