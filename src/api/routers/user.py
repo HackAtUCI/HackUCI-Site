@@ -1,16 +1,11 @@
-from fastapi import (
-    APIRouter,
-    Depends,
-    Form,
-    HTTPException,
-    Response,
-    UploadFile,
-    status,
-)
+from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
 from pydantic import EmailError, EmailStr
 
 from models.User import User
+from services.gdrive_handler import upload_file
+from services.sendgrid_handler import send_email
+from utils.mongodb_handler import insert_user, retrieve_users
 
 router = APIRouter()
 
@@ -36,8 +31,27 @@ async def login(email: str = Form()) -> RedirectResponse:
 
 @router.post("/apply", status_code=status.HTTP_201_CREATED)
 async def apply(
-    response: Response,
-    file: UploadFile,
+    resume: UploadFile,
     user: User = Depends(User),
 ) -> None:
-    pass
+
+    # check if email is already in database
+    if await retrieve_users("USERS", {"email": user.email}):
+        raise HTTPException(400, "email already in use")
+
+    # upload file to google drive and add url to user dict
+    url: str = await upload_file(
+        "resumes", resume.filename, resume.file.read(), resume.content_type
+    )
+    user_dict = dict(user)
+    user_dict["url"] = url
+
+    # add user to database
+    await insert_user("USERS", user_dict)
+
+    # send confirmation email
+    await send_email(
+        "my-template-id",
+        "noreply@hackuci.com",
+        {"email": user.email, "name": user.first_name + " " + user.last_name},
+    )
