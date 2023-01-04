@@ -15,3 +15,7 @@ def form_body(cls: Type[BaseModel]) -> Type[BaseModel]:
     cls.__signature__ = cls.__signature__.replace(parameters=params)
 
     return cls
+
+
+# https://stackoverflow.com/questions/60127234/how-to-use-a-pydantic-model-with-form-data-in-fastapi
+# Commenter: stefanlsd

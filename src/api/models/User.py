@@ -1,27 +1,12 @@
-from typing import Optional
+from pydantic import BaseModel
 
-from pydantic import BaseModel, EmailStr, HttpUrl
-
-from .utils import form_body
+from .ApplicationData import ApplicationData
 
 
-@form_body
 class User(BaseModel):
-    first_name: str
-    last_name: str
-    email: EmailStr
-    gender: str
-    pronouns: str
-    ethnicity: str
-    is_18_older: bool
-    curr_education: str
-    school_name: str
-    major: str
-    is_first_hackathon: bool
-    portfolio_link: Optional[HttpUrl]
-    linkedin_link: Optional[HttpUrl]
-    stress_relief_question: str
-    company_specialize_question: str
+    application_data: ApplicationData
+    # TODO: enumerate status
+    status: str
 
     class Config:
         anystr_strip_whitespace = True
