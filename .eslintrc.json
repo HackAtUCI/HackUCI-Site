@@ -1,12 +1,13 @@
 {
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals"
   ],
   "rules": {
     "eqeqeq": "error",
     "no-unused-expressions": "warn",
-    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
     "react/button-has-type": "error",
     "react/no-danger": "warn",
     "react/no-unstable-nested-components": "error",
