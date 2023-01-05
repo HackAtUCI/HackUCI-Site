@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
 from pydantic import EmailError, EmailStr
 
-from models.ApplicationData import ApplicationData
+from models.ApplicationData import ProcessedApplicationData, RawApplicationData
 from models.User import User
 from services.gdrive_handler import upload_file
 from services.sendgrid_handler import send_email
@@ -35,7 +35,7 @@ async def login(email: str = Form()) -> RedirectResponse:
 @router.post("/apply", status_code=status.HTTP_201_CREATED)
 async def apply(
     resume: UploadFile,
-    application_data: ApplicationData = Depends(ApplicationData),
+    raw_application_data: RawApplicationData = Depends(RawApplicationData),
 ) -> None:
 
     user_collection = os.getenv("USER_COLLECTION")
@@ -45,29 +45,40 @@ async def apply(
         raise HTTPException(500)
 
     # check if email is already in database
-    if await retrieve_users(user_collection, {"email": application_data.email}):
-        raise HTTPException(400, "Email already in use")
+    if await retrieve_users(user_collection, {"email": raw_application_data.email}):
+        print("Email already in use")
+        raise HTTPException(400)
 
     # upload file to google drive and add url to user dict
+    raw_resume_file: bytes = await resume.read()
+    if len(raw_resume_file) > 500000:
+        print("Resume file exceeds 500KB")
+        raise HTTPException(400)
+
     try:
         resume_url = await upload_file(
             google_drive_folder_id,
             resume.filename,
-            await resume.read(),
+            raw_resume_file,
             resume.content_type,
         )
     except RuntimeError:
-        raise HTTPException(500, "Resume upload to google drive unsuccessful")
+        print("Resume upload to google drive unsuccessful")
+        raise HTTPException(500)
 
-    user: User = User(application_data=application_data, status="pending review")
-    user_dict = user.dict()
-    user_dict["application_data"]["resume_url"] = resume_url
+    processed_application_data: ProcessedApplicationData = ProcessedApplicationData(
+        **raw_application_data.dict(), resume_url=resume_url
+    )
+    user: User = User(
+        application_data=processed_application_data, status="pending review"
+    )
 
     # add user to database
     try:
-        await insert_user(user_collection, user_dict)
+        await insert_user(user_collection, user.dict())
     except RuntimeError:
-        raise HTTPException(500, "User insert into database unsuccessful")
+        print("User insert into database unsuccessful")
+        raise HTTPException(500)
 
     # send confirmation email
     try:
@@ -75,9 +86,12 @@ async def apply(
             "my-template-id",
             "noreply@hackuci.com",
             {
-                "email": application_data.email,
-                "name": application_data.first_name + " " + application_data.last_name,
+                "email": processed_application_data.email,
+                "name": processed_application_data.first_name
+                + " "
+                + processed_application_data.last_name,
             },
         )
     except RuntimeError:
-        raise HTTPException(500, "Sending confirmation email unsuccessful")
+        print("Sending confirmation email unsuccessful")
+        raise HTTPException(500)

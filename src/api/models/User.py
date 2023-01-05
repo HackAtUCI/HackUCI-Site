@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
-from .ApplicationData import ApplicationData
+from .ApplicationData import ProcessedApplicationData
 
 
 class User(BaseModel):
-    application_data: ApplicationData
+    application_data: ProcessedApplicationData
     # TODO: enumerate status
     status: str
 

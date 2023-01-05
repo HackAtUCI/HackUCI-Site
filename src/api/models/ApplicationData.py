@@ -6,7 +6,7 @@ from .utils import form_body
 
 
 @form_body
-class ApplicationData(BaseModel):
+class RawApplicationData(BaseModel):
     first_name: str
     last_name: str
     email: EmailStr
@@ -26,3 +26,7 @@ class ApplicationData(BaseModel):
     class Config:
         anystr_strip_whitespace = True
         max_anystr_length = 254
+
+
+class ProcessedApplicationData(RawApplicationData):
+    resume_url: str
