@@ -1,59 +1,38 @@
-import { Field, FormikErrors, FormikTouched } from "formik";
-import { Col, Form } from 'react-bootstrap';
-import styles from '../applicationForm.module.scss';
+import {
+	FormSectionProps,
+	QuestionPromptsTypes,
+} from "../ApplicationInterfaces";
+import { FieldInputGroup } from "./InputComponents";
 
-interface valueTypes {
-    stressReliefQuestion: string;
-    companySpecializeQuestion: string;
-}
-
-interface propTypes {
-    errors: FormikErrors<valueTypes>;
-    touched: FormikTouched<valueTypes>;
-}
-
-interface TextAreaProps {
-    name: string;
-    isValid?: boolean;
-    isInvalid?: boolean;
-}
-
-const FormikTextArea = (props: TextAreaProps) => {
-    return (
-        <Form.Control as="textarea" rows={3} {...props} />
-    )
-}
-
-function QuestionPrompts({ errors, touched }: propTypes) {
-    return (
-        <div>
-            <h3>Question Prompts</h3>
-            <Form.Group as={Col} className={styles.formGroup} controlId="formPrompt1">
-                <Form.Label>
-                    If you're running into trouble with a programming project,
-                    what would you do to relieve your stress? [Optional]
-                </Form.Label>
-                <Field
-                    name="stressReliefQuestion"
-                    as={FormikTextArea}
-                    isValid={touched.stressReliefQuestion}
-                />
-            </Form.Group>
-            <Form.Group as={Col} className={styles.formGroup} controlId="formPrompt2">
-                <Form.Label>
-                    Suppose you're starting a tech company. What would your company specialize in?
-                    (Try to come up with a unique product or service) [Recommended 150 words. No word limit]
-                </Form.Label>
-                <Field
-                    name="companySpecializeQuestion"
-                    as={FormikTextArea}
-                    isValid={touched.companySpecializeQuestion && !errors.companySpecializeQuestion}
-                    isInvalid={touched.companySpecializeQuestion && errors.companySpecializeQuestion}
-                />
-                <Form.Control.Feedback type="invalid">{errors.companySpecializeQuestion}</Form.Control.Feedback>
-            </Form.Group>
-        </div>
-    )
+function QuestionPrompts({
+	errors,
+	touched,
+}: Pick<FormSectionProps<QuestionPromptsTypes>, "errors" | "touched">) {
+	return (
+		<div>
+			<h3>Question Prompts</h3>
+			<FieldInputGroup
+				name="stressReliefQuestion"
+				label="If you're running into trouble with a programming project, what would you do to relieve your stress? [Optional]"
+				controlId="formPrompt1"
+				placeholder=""
+				isTouched={touched.stressReliefQuestion}
+				errorMsg={errors.stressReliefQuestion}
+				isTextArea={true}
+			/>
+			<FieldInputGroup
+				name="companySpecializeQuestion"
+				label="Suppose you're starting a tech company. What would your company
+				specialize in? (Try to come up with a unique product or service)
+				[Recommended 150 words. No word limit]"
+				controlId="formPrompt2"
+				placeholder=""
+				isTouched={touched.companySpecializeQuestion}
+				errorMsg={errors.companySpecializeQuestion}
+				isTextArea={true}
+			/>
+		</div>
+	);
 }
 
 export default QuestionPrompts;
