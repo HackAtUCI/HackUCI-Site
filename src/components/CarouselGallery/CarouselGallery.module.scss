@@ -13,6 +13,9 @@
 		}
 	}
 
+	position: absolute;
+	width: 100%;
+
 	$r: 90vh;
 	perspective: 1.3 * $r;
 
@@ -23,9 +26,11 @@
 		align-items: center;
 		justify-content: center;
 
-		transform-style: preserve-3d;
-		transform-origin: center center $r;
-		animation: $tt rotate-carousel infinite linear;
+		&.rotating {
+			transform-style: preserve-3d;
+			transform-origin: center center $r;
+			animation: $tt rotate-carousel infinite linear;
+		}
 
 		.painting {
 			height: 30vh;
