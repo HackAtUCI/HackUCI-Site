@@ -1,11 +1,32 @@
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import { Button, Form } from 'react-bootstrap';
 import * as yup from 'yup';
 import { BasicInformation, QuestionPrompts, SchoolInformation, SocialInformation } from "./ApplicationComponents";
 
 const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-const initialValues = {
+interface Values {
+    firstName: string;
+    lastName: string;
+    email: string;
+    gender: string;
+    pronouns: string[];
+    otherPronouns: string;
+    ethnicity: string;
+    otherEthnicity: string;
+    ageValid: string;
+    educationLevel: string;
+    schoolName: string;
+    major: string;
+    firstHack: string;
+    portfolioLink?: string;
+    linkedInLink?: string;
+    resume?: File;
+    stressReliefQuestion: string;
+    companySpecializeQuestion: string;
+}
+
+const initialValues: Values = {
     firstName: "",
     lastName: "",
     email: "",
@@ -19,9 +40,9 @@ const initialValues = {
     schoolName: "",
     major: "",
     firstHack: "",
-    portfolioLink: "",
-    linkedInLink: "",
-    resume: null,
+    portfolioLink: undefined,
+    linkedInLink: undefined,
+    resume: undefined,
     stressReliefQuestion: "",
     companySpecializeQuestion: ""
 }
@@ -53,13 +74,46 @@ const validationSchema = yup.object({
 
 
 function ApplicationForm() {
+
+    const handleSubmit = (values: Values, { setSubmitting }: FormikHelpers<Values>): void => {
+        setSubmitting(false);
+        // console.log(values)
+
+        const applicationQuery = {
+            first_name: values.firstName,
+            last_name: values.lastName,
+            email: values.email,
+            gender: values.gender,
+            pronouns: values.pronouns.includes("Other") ?
+                values.pronouns.filter(p => p !== "Other").concat([values.otherPronouns]) :
+                values.pronouns,
+            ethnicity: values.ethnicity === "Other" ? values.otherEthnicity : values.ethnicity,
+            is_18_older: values.ageValid === "yes",
+            curr_education: values.educationLevel,
+            school_name: values.schoolName,
+            major: values.major,
+            is_first_hackathon: values.firstHack === "yes",
+            portfolio_link: values.portfolioLink,
+            linkedin_link: values.linkedInLink,
+            stress_relief_question: values.stressReliefQuestion,
+            company_specialize_question: values.companySpecializeQuestion
+        }
+
+        const applyQuery = {
+            resume: values.resume,
+            application_data: applicationQuery
+        }
+
+        console.log(applyQuery)
+    };
+
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={console.log}
             validationSchema={validationSchema}
+            onSubmit={handleSubmit}
         >
-            {({ values, touched, errors, handleSubmit, setFieldValue }) => (
+            {({ values, touched, errors, setFieldValue, handleSubmit }) => (
                 <Form onSubmit={handleSubmit}>
                     <BasicInformation values={values} errors={errors} touched={touched} />
                     <SchoolInformation errors={errors} touched={touched} />
