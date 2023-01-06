@@ -53,7 +53,7 @@ async def apply(
     raw_resume_file: bytes = await resume.read()
     if len(raw_resume_file) > 500000:
         print("Resume file exceeds 500KB")
-        raise HTTPException(400)
+        raise HTTPException(500)
 
     try:
         resume_url = await upload_file(

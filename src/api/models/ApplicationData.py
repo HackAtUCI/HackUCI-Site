@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, HttpUrl
+from pydantic import BaseModel, EmailStr, Field, HttpUrl
 
 from .utils import form_body
 
@@ -20,8 +20,8 @@ class RawApplicationData(BaseModel):
     is_first_hackathon: bool
     portfolio_link: Optional[HttpUrl]
     linkedin_link: Optional[HttpUrl]
-    stress_relief_question: str
-    company_specialize_question: str
+    stress_relief_question: str = Field(max_length=2048)
+    company_specialize_question: str = Field(max_length=2048)
 
     class Config:
         anystr_strip_whitespace = True
