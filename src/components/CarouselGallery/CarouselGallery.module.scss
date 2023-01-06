@@ -1,3 +1,4 @@
+@use "layouts/MuseumRoom.module";
 @import "styles/gallery-theme";
 
 .carouselGallery {
@@ -13,14 +14,13 @@
 		}
 	}
 
-	position: absolute;
-	width: 100%;
-
-	$r: 90vh;
-	perspective: 1.3 * $r;
+	$r: MuseumRoom.$r;
+	$offset: MuseumRoom.$offset;
+	perspective: inherit;
+	perspective-origin: inherit;
 
 	.paintings {
-		height: 80vh;
+		height: 100%;
 
 		display: flex;
 		align-items: center;
@@ -28,7 +28,7 @@
 
 		&.rotating {
 			transform-style: preserve-3d;
-			transform-origin: center center $r;
+			transform-origin: center center $offset;
 			animation: $tt rotate-carousel infinite linear;
 		}
 
@@ -47,7 +47,7 @@
 				&:nth-child(#{$i}) {
 					$ry: -$i * 360deg / $n;
 					$dz: -$r;
-					transform: translateZ(-$dz) rotateY($ry) translateZ($dz);
+					transform: translateZ($offset) rotateY($ry) translateZ($dz);
 				}
 			}
 		}

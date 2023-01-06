@@ -1,0 +1,72 @@
+@import "styles/gallery-theme";
+
+$r: 90vh;
+// z-coordinate of center of carousel
+$offset: $r / 1.8;
+
+@mixin circle($radius) {
+	width: 2 * $radius;
+	height: 2 * $radius;
+	border-radius: $radius;
+}
+
+.museumRoom {
+	// start from top of page by excluding at least navbar height
+	margin-top: -66px;
+
+	width: 100%;
+	$room-height: 60vh;
+	height: $room-height * 1.6;
+	background-image: linear-gradient(#9e3b10, #50200b);
+
+	position: absolute;
+	perspective: 1.2 * $r;
+
+	> * {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+
+	.interstice {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		transform: translateZ($offset) rotateX(-90deg);
+		transform-style: preserve-3d;
+
+		> * {
+			transform: translateZ(-$room-height/2);
+			position: absolute;
+		}
+
+		$k: 70.71% 70.71%; // sqrt(2) / 2;
+
+		.ceilingHole {
+			@include circle(35vh);
+			background-image: radial-gradient($k, #391000, #542614 40%, #3e1b0d 100%);
+		}
+
+		.ceilingHoleTrim {
+			@include circle(45vh);
+			background-image: radial-gradient($k, #5e3412 55%, #7a4010 100%);
+		}
+
+		.ceilingMain {
+			@include circle(70vh);
+			background-image: radial-gradient($k, #9f4e04 65%, #c87427 100%);
+		}
+
+		.ceilingTrim {
+			@include circle(90vh);
+			background-image: radial-gradient($k, #d89141 90%, #f5ad5b 100%);
+		}
+
+		.floor {
+			@include circle(90vh);
+			transform: translateZ($room-height/2);
+			background-image: radial-gradient($k, $dark-brown 60%, #402101 100%);
+		}
+	}
+}
