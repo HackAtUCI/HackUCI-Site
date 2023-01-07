@@ -14,14 +14,14 @@ class RawApplicationData(BaseModel):
     pronouns: str
     ethnicity: str
     is_18_older: bool
-    curr_education: str
-    school_name: str
+    university: str
+    education_level: str
     major: str
     is_first_hackathon: bool
     portfolio_link: Optional[HttpUrl]
     linkedin_link: Optional[HttpUrl]
-    stress_relief_question: str = Field(max_length=2048)
-    company_specialize_question: str = Field(max_length=2048)
+    stress_relief_question: str = Field(max_length=4096)
+    company_specialize_question: str = Field(max_length=4096)
 
     class Config:
         anystr_strip_whitespace = True
@@ -29,4 +29,4 @@ class RawApplicationData(BaseModel):
 
 
 class ProcessedApplicationData(RawApplicationData):
-    resume_url: str
+    resume_url: HttpUrl

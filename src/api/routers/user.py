@@ -41,14 +41,18 @@ async def apply(
 ) -> None:
 
     # check if email is already in database
-    if await mongodb_handler.retrieve(
+    if await mongodb_handler.retrieve_one(
         Collection.USERS, {"email": raw_application_data.email}
     ):
-        print("Email already in use")
-        raise HTTPException(400)
+        log.error("User email is already in use")
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     try:
         resume_url = await resume_handler.upload_resume(resume)
+    except TypeError:
+        raise HTTPException(
+            status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "Invalid resume file type"
+        )
     except ValueError:
         raise HTTPException(
             status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Resume upload is too large"
@@ -57,19 +61,17 @@ async def apply(
         log.error("During user apply: %s", err)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    processed_application_data: ProcessedApplicationData = ProcessedApplicationData(
+    processed_application_data = ProcessedApplicationData(
         **raw_application_data.dict(), resume_url=resume_url
     )
-    user: User = User(
-        application_data=processed_application_data, status="pending review"
-    )
+    user = User(application_data=processed_application_data, status="PENDING_REVIEW")
 
     # add user to database
     try:
         await mongodb_handler.insert(Collection.USERS, user.dict())
     except RuntimeError:
-        print("User insert into database unsuccessful")
-        raise HTTPException(500)
+        log.error("Could not insert user to MongoDB")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
         await email_handler.send_application_confirmation_email(user)

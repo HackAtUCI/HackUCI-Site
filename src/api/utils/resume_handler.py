@@ -10,6 +10,7 @@ log = getLogger(__name__)
 
 RESUMES_FOLDER_ID = os.getenv("RESUMES_FOLDER_ID")
 SIZE_LIMIT = 500_000
+ACCEPTED_TYPES = ("application/pdf",)
 
 
 async def upload_resume(resume_upload: UploadFile) -> str:
@@ -17,6 +18,9 @@ async def upload_resume(resume_upload: UploadFile) -> str:
     Reject files larger than size limit"""
     if not RESUMES_FOLDER_ID:
         raise RuntimeError("RESUMES_FOLDER_ID is not defined")
+
+    if resume_upload.content_type not in ACCEPTED_TYPES:
+        raise TypeError("Invalid resume file type")
 
     # Check file size
     raw_resume_file: bytes = await resume_upload.read()
