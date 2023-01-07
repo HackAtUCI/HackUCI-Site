@@ -1,10 +1,13 @@
 # using SendGrid's Python Library
 # https://github.com/sendgrid/sendgrid-python
 import os
+from logging import getLogger
 
 import aiosendgrid
-
+from httpx import HTTPStatusError
 from sendgrid.helpers.mail import Email, Mail, Personalization
+
+log = getLogger(__name__)
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
 
@@ -53,5 +56,6 @@ async def send_email(
             response = await client.send_mail_v3(body=email_message.get())
             print(response.status_code)
             print(response.headers)
-    except Exception as e:
-        print(e)
+    except HTTPStatusError as e:
+        log.exception("During SendGrid processing: %s", e)
+        raise RuntimeError("Could not send email with SendGrid")

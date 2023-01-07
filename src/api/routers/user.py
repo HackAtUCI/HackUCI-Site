@@ -8,8 +8,7 @@ from models.ApplicationData import ProcessedApplicationData, RawApplicationData
 from models.User import User
 from services import mongodb_handler
 from services.mongodb_handler import Collection
-from services.sendgrid_handler import send_email
-from utils import resume_handler
+from utils import email_handler, resume_handler
 
 log = getLogger(__name__)
 
@@ -72,18 +71,10 @@ async def apply(
         print("User insert into database unsuccessful")
         raise HTTPException(500)
 
-    # send confirmation email
     try:
-        await send_email(
-            "my-template-id",
-            "noreply@hackuci.com",
-            {
-                "email": processed_application_data.email,
-                "name": processed_application_data.first_name
-                + " "
-                + processed_application_data.last_name,
-            },
-        )
+        await email_handler.send_application_confirmation_email(user)
     except RuntimeError:
-        print("Sending confirmation email unsuccessful")
-        raise HTTPException(500)
+        log.error("Could not send confirmation email with SendGrid")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    # TODO: handle inconsistent results if one service fails
