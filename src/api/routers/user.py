@@ -1,4 +1,4 @@
-import os
+from logging import getLogger
 
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
@@ -7,9 +7,11 @@ from pydantic import EmailError, EmailStr
 from models.ApplicationData import ProcessedApplicationData, RawApplicationData
 from models.User import User
 from services import mongodb_handler
-from services.gdrive_handler import upload_file
 from services.mongodb_handler import Collection
 from services.sendgrid_handler import send_email
+from utils import resume_handler
+
+log = getLogger(__name__)
 
 router = APIRouter()
 
@@ -39,11 +41,6 @@ async def apply(
     raw_application_data: RawApplicationData = Depends(RawApplicationData),
 ) -> None:
 
-    google_drive_folder_id = os.getenv("GOOGLE_DRIVE_FOLDER_ID")
-
-    if not google_drive_folder_id:
-        raise HTTPException(500)
-
     # check if email is already in database
     if await mongodb_handler.retrieve(
         Collection.USERS, {"email": raw_application_data.email}
@@ -51,22 +48,15 @@ async def apply(
         print("Email already in use")
         raise HTTPException(400)
 
-    # upload file to google drive and add url to user dict
-    raw_resume_file: bytes = await resume.read()
-    if len(raw_resume_file) > 500000:
-        print("Resume file exceeds 500KB")
-        raise HTTPException(500)
-
     try:
-        resume_url = await upload_file(
-            google_drive_folder_id,
-            resume.filename,
-            raw_resume_file,
-            resume.content_type,
+        resume_url = await resume_handler.upload_resume(resume)
+    except ValueError:
+        raise HTTPException(
+            status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Resume upload is too large"
         )
-    except RuntimeError:
-        print("Resume upload to google drive unsuccessful")
-        raise HTTPException(500)
+    except RuntimeError as err:
+        log.error("During user apply: %s", err)
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     processed_application_data: ProcessedApplicationData = ProcessedApplicationData(
         **raw_application_data.dict(), resume_url=resume_url
