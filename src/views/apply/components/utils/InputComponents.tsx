@@ -15,27 +15,31 @@ interface FieldInputGroupProps {
 	name: string;
 	label: string;
 	controlId: string;
-	className?: string;
 	placeholder?: string;
 	isTouched?: boolean;
 	errorMsg?: string | string[];
 	disabled?: boolean;
 	isTextArea?: boolean;
+	sm?: number;
+	md?: number;
+	lg?: number;
 }
 
 export const FieldInputGroup = ({
 	name,
 	label,
 	controlId,
-	className,
 	placeholder,
 	isTouched,
 	errorMsg,
 	disabled,
 	isTextArea,
+	sm,
+	md,
+	lg,
 }: FieldInputGroupProps) => {
 	return (
-		<Form.Group as={Col} className={className} controlId={controlId}>
+		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
 			<Form.Label>{label}</Form.Label>
 			<Field
 				name={name}
@@ -58,13 +62,15 @@ export const FieldSelectGroup = ({
 	name,
 	label,
 	controlId,
-	className,
 	isTouched,
 	errorMsg,
 	optionList,
+	sm,
+	md,
+	lg,
 }: FieldSelectGroupProps) => {
 	return (
-		<Form.Group as={Col} className={className} controlId={controlId}>
+		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
 			<Form.Label>{label}</Form.Label>
 			<Field
 				name={name}
@@ -92,13 +98,15 @@ export const FieldChecklistGroup = ({
 	name,
 	label,
 	controlId,
-	className,
 	isTouched,
 	errorMsg,
 	optionList,
+	sm,
+	md,
+	lg,
 }: FieldSelectGroupProps) => {
 	return (
-		<Form.Group as={Col} className={className} controlId={controlId}>
+		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
 			<Form.Label>{label}</Form.Label>
 			{optionList.map((option, index) => {
 				return (
@@ -123,12 +131,14 @@ export const FieldYesNoRadioGroup = ({
 	name,
 	label,
 	controlId,
-	className,
 	isTouched,
 	errorMsg,
+	sm,
+	md,
+	lg,
 }: FieldInputGroupProps) => {
 	return (
-		<Form.Group as={Col} className={className} controlId={controlId}>
+		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
 			<Form.Label>{label}</Form.Label>
 			<Field
 				as={Form.Check}
@@ -157,7 +167,7 @@ export const FieldYesNoRadioGroup = ({
 interface FieldFileUploadGroupProps extends FieldInputGroupProps {
 	setFieldValue: (
 		field: string,
-		value: any,
+		value?: File,
 		shouldValidate?: boolean | undefined
 	) => void;
 	accept: string;
@@ -168,13 +178,15 @@ export const FieldFileUploadGroup = ({
 	label,
 	controlId,
 	isTouched,
-	className,
 	errorMsg,
 	setFieldValue,
 	accept,
+	sm,
+	md,
+	lg,
 }: FieldFileUploadGroupProps) => {
 	return (
-		<Form.Group as={Col} className={className} controlId={controlId}>
+		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
 			<Form.Label>{label}</Form.Label>
 			<Form.Control
 				type="file"
@@ -182,7 +194,7 @@ export const FieldFileUploadGroup = ({
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 					setFieldValue(
 						name,
-						e.target.files instanceof FileList ? e.target.files[0] : null
+						e.target.files instanceof FileList ? e.target.files[0] : undefined
 					);
 				}}
 				isValid={isTouched && !errorMsg}

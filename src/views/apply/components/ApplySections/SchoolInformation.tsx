@@ -2,12 +2,12 @@ import { Row } from "react-bootstrap";
 import {
 	FormSectionProps,
 	SchoolInformationTypes,
-} from "../ApplicationInterfaces";
+} from "../utils/ApplicationInterfaces";
 import {
 	FieldInputGroup,
 	FieldSelectGroup,
 	FieldYesNoRadioGroup,
-} from "./InputComponents";
+} from "../utils/InputComponents";
 
 const educationLevelList = [
 	"First Year Undergraduate",
@@ -49,11 +49,7 @@ function SchoolInformation({
 					isTouched={touched.schoolName}
 					errorMsg={errors.schoolName}
 					optionList={schoolList}
-					className={
-						values.schoolName.includes("Other")
-							? "col-12 col-sm-12 col-lg-6"
-							: ""
-					}
+					lg={values.schoolName === "Other" ? 6 : 12}
 				/>
 				{values.schoolName === "Other" && (
 					<FieldInputGroup
@@ -63,7 +59,8 @@ function SchoolInformation({
 						controlId="formOtherUniversity"
 						isTouched={touched.otherSchoolName}
 						errorMsg={errors.otherSchoolName}
-						className="col-12 col-sm-12 col-lg-6"
+						sm={12}
+						lg={6}
 					/>
 				)}
 			</Row>
@@ -75,7 +72,8 @@ function SchoolInformation({
 					isTouched={touched.educationLevel}
 					errorMsg={errors.educationLevel}
 					optionList={educationLevelList}
-					className="col-12 col-md-6 col-lg-4"
+					md={6}
+					lg={4}
 				/>
 				<FieldInputGroup
 					name="major"
@@ -83,7 +81,8 @@ function SchoolInformation({
 					controlId="formMajor"
 					isTouched={touched.major}
 					errorMsg={errors.major}
-					className="col-12 col-md-6 col-lg-4"
+					md={6}
+					lg={4}
 				/>
 				<FieldYesNoRadioGroup
 					name="firstHack"
@@ -91,7 +90,8 @@ function SchoolInformation({
 					controlId="formFirstHack"
 					isTouched={touched.firstHack}
 					errorMsg={errors.firstHack}
-					className="col-12 col-md-12 col-lg-4"
+					md={12}
+					lg={4}
 				/>
 			</Row>
 		</div>

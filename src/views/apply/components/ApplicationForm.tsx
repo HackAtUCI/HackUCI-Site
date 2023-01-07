@@ -6,10 +6,10 @@ import {
 	QuestionPrompts,
 	SchoolInformation,
 	SocialInformation,
-} from "./ApplicationComponents";
-import { FormValuesType } from "./ApplicationInterfaces";
+} from "./ApplySections";
+import { FormValuesType } from "./utils/ApplicationInterfaces";
 
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
 const initialValues: FormValuesType = {
 	firstName: "",

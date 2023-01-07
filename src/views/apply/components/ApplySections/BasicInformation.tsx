@@ -2,13 +2,13 @@ import { Row } from "react-bootstrap";
 import {
 	BasicInformationTypes,
 	FormSectionProps,
-} from "../ApplicationInterfaces";
+} from "../utils/ApplicationInterfaces";
 import {
 	FieldChecklistGroup,
 	FieldInputGroup,
 	FieldSelectGroup,
 	FieldYesNoRadioGroup,
-} from "./InputComponents";
+} from "../utils/InputComponents";
 
 const genderList = [
 	"Male",
@@ -53,7 +53,8 @@ function BasicInformation({
 					controlId="formFirstName"
 					isTouched={touched.firstName}
 					errorMsg={errors.firstName}
-					className="col-12 col-sm-12 col-md-6"
+					sm={12}
+					md={6}
 				/>
 				<FieldInputGroup
 					name="lastName"
@@ -61,7 +62,8 @@ function BasicInformation({
 					controlId="formLastName"
 					isTouched={touched.lastName}
 					errorMsg={errors.lastName}
-					className="col-12 col-sm-12 col-md-6"
+					sm={12}
+					md={6}
 				/>
 			</Row>
 			<Row>
@@ -81,11 +83,8 @@ function BasicInformation({
 					isTouched={touched.gender}
 					errorMsg={errors.gender}
 					optionList={genderList}
-					className={
-						values.pronouns.includes("Other")
-							? "col-12 col-sm-12 col-md-4"
-							: "col-12 col-sm-12 col-md-6"
-					}
+					sm={12}
+					md={values.pronouns.includes("Other") ? 4 : 6}
 				/>
 				<FieldChecklistGroup
 					name="pronouns"
@@ -94,11 +93,8 @@ function BasicInformation({
 					isTouched={touched.pronouns}
 					errorMsg={errors.pronouns}
 					optionList={pronounList}
-					className={
-						values.pronouns.includes("Other")
-							? "col-12 col-sm-6 col-md-4"
-							: "col-12 col-sm-12 col-md-6"
-					}
+					sm={values.pronouns.includes("Other") ? 6 : 12}
+					md={values.pronouns.includes("Other") ? 4 : 6}
 				/>
 				{values.pronouns.includes("Other") && (
 					<FieldInputGroup
@@ -108,7 +104,8 @@ function BasicInformation({
 						controlId="formOtherPronouns"
 						isTouched={touched.otherPronouns}
 						errorMsg={errors.otherPronouns}
-						className="col-12 col-sm-6 col-md-4"
+						sm={6}
+						md={4}
 					/>
 				)}
 			</Row>
@@ -120,11 +117,8 @@ function BasicInformation({
 					isTouched={touched.ethnicity}
 					errorMsg={errors.ethnicity}
 					optionList={ethnicityList}
-					className={
-						values.ethnicity === "Other"
-							? "col-12 col-sm-6 col-md-4"
-							: "col-12 col-sm-12 col-md-6"
-					}
+					sm={values.ethnicity === "Other" ? 6 : 12}
+					md={values.ethnicity === "Other" ? 4 : 6}
 				/>
 				{values.ethnicity === "Other" && (
 					<FieldInputGroup
@@ -134,7 +128,8 @@ function BasicInformation({
 						controlId="formOtherEthnicity"
 						isTouched={touched.otherEthnicity}
 						errorMsg={errors.otherEthnicity}
-						className="col-12 col-sm-6 col-md-4"
+						sm={6}
+						md={4}
 					/>
 				)}
 				<FieldYesNoRadioGroup
@@ -143,11 +138,8 @@ function BasicInformation({
 					controlId="formAge"
 					isTouched={touched.ageValid}
 					errorMsg={errors.ageValid}
-					className={
-						values.ethnicity === "Other"
-							? "col-12 col-sm-12 col-md-4"
-							: "col-12 col-sm-12 col-md-6"
-					}
+					sm={12}
+					md={values.ethnicity === "Other" ? 4 : 6}
 				/>
 			</Row>
 		</div>

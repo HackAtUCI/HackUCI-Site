@@ -5,7 +5,7 @@ export interface FormSectionProps<ValueTypes> {
 	touched: FormikTouched<ValueTypes>;
 	setFieldValue: (
 		field: string,
-		value: any,
+		value?: File,
 		shouldValidate?: boolean | undefined
 	) => void;
 }

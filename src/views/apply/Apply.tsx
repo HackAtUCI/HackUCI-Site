@@ -1,11 +1,14 @@
-import { ApplicationForm } from "components";
 import { Container } from "react-bootstrap";
+import styles from "./Apply.module.scss";
+import ApplicationForm from "./components/ApplicationForm";
 
 function Apply() {
 	return (
-		<Container>
-			<ApplicationForm />
-		</Container>
+		<div className={styles.main}>
+			<Container className={styles.apply}>
+				<ApplicationForm />
+			</Container>
+		</div>
 	);
 }
 

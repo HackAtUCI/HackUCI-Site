@@ -1,8 +1,8 @@
 import {
 	FormSectionProps,
 	QuestionPromptsTypes,
-} from "../ApplicationInterfaces";
-import { FieldInputGroup } from "./InputComponents";
+} from "../utils/ApplicationInterfaces";
+import { FieldInputGroup } from "../utils/InputComponents";
 
 function QuestionPrompts({
 	errors,

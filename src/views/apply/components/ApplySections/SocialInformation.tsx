@@ -2,8 +2,11 @@ import { Row } from "react-bootstrap";
 import {
 	FormSectionProps,
 	SocialInformationTypes,
-} from "../ApplicationInterfaces";
-import { FieldFileUploadGroup, FieldInputGroup } from "./InputComponents";
+} from "../utils/ApplicationInterfaces";
+import {
+	FieldFileUploadGroup,
+	FieldInputGroup,
+} from "../utils/InputComponents";
 
 function SocialInformation({
 	values,
@@ -24,15 +27,17 @@ function SocialInformation({
 					controlId="formPortfolio"
 					isTouched={touched.portfolioLink}
 					errorMsg={errors.portfolioLink}
-					className="col-12 col-sm-6 col-lg-4"
+					sm={6}
+					lg={4}
 				/>
 				<FieldInputGroup
 					name="linkedInLink"
 					label="LinkedIn Link"
-					controlId="formPortfolio"
+					controlId="formLinkedIn"
 					isTouched={touched.linkedInLink}
 					errorMsg={errors.linkedInLink}
-					className="col-12 col-sm-6 col-lg-4"
+					sm={6}
+					lg={4}
 				/>
 				<FieldFileUploadGroup
 					name="resume"
@@ -42,7 +47,8 @@ function SocialInformation({
 					errorMsg={errors.resume}
 					setFieldValue={setFieldValue}
 					accept=".pdf"
-					className="col-12 col-sm-12 col-lg-4"
+					sm={12}
+					lg={4}
 				/>
 			</Row>
 		</div>
