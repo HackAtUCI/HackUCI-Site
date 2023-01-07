@@ -19,6 +19,9 @@
 	perspective: inherit;
 	perspective-origin: inherit;
 
+	/* for certain versions of Safari, perspective origin is shifted incorrectly */
+	transform-origin: center center (-$offset/2.5);
+
 	.paintings {
 		height: 100%;
 
@@ -26,9 +29,9 @@
 		align-items: center;
 		justify-content: center;
 
+		transform-style: preserve-3d; /* needed even when not rotating for Chrome */
+		transform-origin: 50% 50% $offset; /* needed even when not rotating for Safari */
 		&.rotating {
-			transform-style: preserve-3d;
-			transform-origin: center center $offset;
 			animation: $tt rotate-carousel infinite linear;
 		}
 
