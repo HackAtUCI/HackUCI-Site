@@ -1,5 +1,6 @@
 import { Field } from "formik";
 import { Col, Form } from "react-bootstrap";
+import styles from "../../Apply.module.scss";
 
 interface TextAreaProps {
 	name: string;
@@ -122,7 +123,9 @@ export const FieldChecklistGroup = ({
 					/>
 				);
 			})}
-			<Form.Control.Feedback type="invalid">{errorMsg}</Form.Control.Feedback>
+			{isTouched && errorMsg && (
+				<p className={styles.invalidFeedback}>{errorMsg}</p>
+			)}
 		</Form.Group>
 	);
 };
@@ -142,8 +145,8 @@ export const FieldYesNoRadioGroup = ({
 			<Form.Label>{label}</Form.Label>
 			<Field
 				as={Form.Check}
-				name={name}
 				type="radio"
+				name={name}
 				label="Yes"
 				value="yes"
 				id={`${name}-yes`}
@@ -152,14 +155,17 @@ export const FieldYesNoRadioGroup = ({
 			/>
 			<Field
 				as={Form.Check}
-				name={name}
 				type="radio"
+				name={name}
 				label="No"
 				value="no"
 				id={`${name}-no`}
 				isValid={isTouched && !errorMsg}
 				isInvalid={isTouched && errorMsg}
 			/>
+			{isTouched && errorMsg && (
+				<p className={styles.invalidFeedback}>{errorMsg}</p>
+			)}
 		</Form.Group>
 	);
 };
