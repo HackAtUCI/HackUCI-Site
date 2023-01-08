@@ -27,8 +27,7 @@ async def login(email: EmailStr = Form()) -> RedirectResponse:
     if user_identity.uci_email(email):
         # redirect user to UCI SSO login endpoint, changing to GET method
         return RedirectResponse("/api/saml/login", status_code=303)
-    # TODO: add authentication for non-UCI users
-    raise HTTPException(501)
+    return RedirectResponse("/api/guest/login", status_code=307)
 
 
 @router.post("/apply", status_code=status.HTTP_201_CREATED)

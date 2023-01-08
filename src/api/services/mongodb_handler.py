@@ -1,10 +1,11 @@
 import os
 from enum import Enum
 from logging import getLogger
-from typing import Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union
 
 from motor.core import AgnosticCollection, AgnosticDatabase
 from motor.motor_asyncio import AsyncIOMotorClient
+from pydantic import BaseModel, Field
 from pymongo.results import InsertOneResult, UpdateResult
 
 log = getLogger(__name__)
@@ -12,6 +13,16 @@ log = getLogger(__name__)
 MONGODB_URI = os.getenv("MONGODB_URI")
 MONGO_CLIENT = AsyncIOMotorClient(MONGODB_URI)
 DB: AgnosticDatabase = MONGO_CLIENT["hackuci"]
+
+
+class BaseRecord(BaseModel):
+    uid: str = Field(alias="_id")
+
+    def dict(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
+        return BaseModel.dict(self, by_alias=True, *args, **kwargs)
+
+    class Config:
+        allow_population_by_field_name = True
 
 
 class Collection(str, Enum):
