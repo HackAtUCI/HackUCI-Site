@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
 from pydantic import EmailStr
 
+from auth import user_identity
 from models.ApplicationData import ProcessedApplicationData, RawApplicationData
 from models.User import User
 from services import mongodb_handler
@@ -16,11 +17,6 @@ log = getLogger(__name__)
 router = APIRouter()
 
 
-def _uci_email(email: str) -> bool:
-    """Checks whether or not an email address is part of UCI or a subdomain thereof"""
-    return email.endswith("@uci.edu") or email.endswith(".uci.edu")
-
-
 @router.post("/login")
 async def login(email: EmailStr = Form()) -> RedirectResponse:
     if not email.endswith(".edu"):
@@ -28,7 +24,7 @@ async def login(email: EmailStr = Form()) -> RedirectResponse:
             status.HTTP_403_FORBIDDEN, "Only .edu emails are allowed to login"
         )
 
-    if _uci_email(email):
+    if user_identity.uci_email(email):
         # redirect user to UCI SSO login endpoint, changing to GET method
         return RedirectResponse("/api/saml/login", status_code=303)
     # TODO: add authentication for non-UCI users
