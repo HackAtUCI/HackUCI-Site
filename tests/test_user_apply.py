@@ -33,10 +33,13 @@ LARGE_RESUME = ("large-resume.pdf", b"resume" * 100_000, "application/pdf")
 
 SAMPLE_RESUME_URL = "https://drive.google.com/file/d/..."
 
+EXPECTED_APPLICATION_DATA = ProcessedApplicationData(
+    **SAMPLE_APPLICATION,
+    resume_url=SAMPLE_RESUME_URL,
+)
+
 EXPECTED_USER = User(
-    application_data=ProcessedApplicationData(
-        **SAMPLE_APPLICATION, resume_url=SAMPLE_RESUME_URL
-    ),
+    application_data=EXPECTED_APPLICATION_DATA,
     status="PENDING_REVIEW",
 )
 
@@ -69,7 +72,9 @@ def test_apply_successfully(
     mock_mongodb_handler_insert.assert_awaited_once_with(
         Collection.USERS, EXPECTED_USER.dict()
     )
-    mock_send_application_confirmation_email.assert_awaited_once_with(EXPECTED_USER)
+    mock_send_application_confirmation_email.assert_awaited_once_with(
+        EXPECTED_APPLICATION_DATA
+    )
     assert res.status_code == 201
 
 
@@ -177,5 +182,7 @@ def test_apply_with_confirmation_email_issue_causes_500(
     res = client.post("/apply", data=SAMPLE_APPLICATION, files=SAMPLE_FILES)
 
     mock_mongodb_handler_insert.assert_awaited_once()
-    mock_send_application_confirmation_email.assert_awaited_once_with(EXPECTED_USER)
+    mock_send_application_confirmation_email.assert_awaited_once_with(
+        EXPECTED_APPLICATION_DATA
+    )
     assert res.status_code == 500

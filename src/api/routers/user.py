@@ -74,7 +74,7 @@ async def apply(
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
-        await email_handler.send_application_confirmation_email(user)
+        await email_handler.send_application_confirmation_email(user.application_data)
     except RuntimeError:
         log.error("Could not send confirmation email with SendGrid")
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
