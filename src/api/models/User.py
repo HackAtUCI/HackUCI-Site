@@ -1,19 +1,13 @@
 from pydantic import BaseModel
 
+from .ApplicationData import ProcessedApplicationData
+
 
 class User(BaseModel):
-    first_name: str = ""
-    last_name: str = ""
-    email: str = ""
-    gender: str = ""
-    pronouns: str = ""
-    ethnicity: str = ""
-    is_18_older: bool = True
-    curr_education: str = ""
-    school_name: str = ""
-    major: str = ""
-    is_first_hackathon: bool = True
-    portfolio_link: str = ""
-    linkedin_link: str = ""
-    stress_relief_question: str = ""
-    company_specialize_question: str = ""
+    application_data: ProcessedApplicationData
+    # TODO: enumerate status
+    status: str
+
+    class Config:
+        anystr_strip_whitespace = True
+        max_anystr_length = 254
