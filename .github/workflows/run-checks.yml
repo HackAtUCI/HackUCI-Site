@@ -1,6 +1,9 @@
-name: check-pull-request
+name: Run Checks
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
