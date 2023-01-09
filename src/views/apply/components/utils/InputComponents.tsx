@@ -1,6 +1,5 @@
 import { Field } from "formik";
 import { Col, Form } from "react-bootstrap";
-import styles from "../../Apply.module.scss";
 
 interface TextAreaProps {
 	name: string;
@@ -82,13 +81,11 @@ export const FieldSelectGroup = ({
 				<option value="" hidden>
 					- Select -
 				</option>
-				{optionList.map((option, index) => {
-					return (
-						<option key={index} id={`${name}-${option}`} value={option}>
-							{option}
-						</option>
-					);
-				})}
+				{optionList.map((option) => (
+					<option key={option} id={`${name}-${option}`} value={option}>
+						{option}
+					</option>
+				))}
 			</Field>
 			<Form.Control.Feedback type="invalid">{errorMsg}</Form.Control.Feedback>
 		</Form.Group>
@@ -108,24 +105,22 @@ export const FieldChecklistGroup = ({
 }: FieldSelectGroupProps) => {
 	return (
 		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
-			<Form.Label>{label}</Form.Label>
-			{optionList.map((option, index) => {
-				return (
-					<Field
-						name={name}
-						as={Form.Check}
-						label={option}
-						key={index}
-						id={`${name}-${option}`}
-						value={option}
-						isValid={isTouched && !errorMsg}
-						isInvalid={isTouched && errorMsg}
-					/>
-				);
-			})}
-			{isTouched && errorMsg && (
-				<p className={styles.invalidFeedback}>{errorMsg}</p>
-			)}
+			<Form.Label className={(isTouched && errorMsg && "is-invalid") || ""}>
+				{label}
+			</Form.Label>
+			{optionList.map((option) => (
+				<Field
+					name={name}
+					as={Form.Check}
+					label={option}
+					key={option}
+					id={`${name}-${option}`}
+					value={option}
+					isValid={isTouched && !errorMsg}
+					isInvalid={isTouched && errorMsg}
+				/>
+			))}
+			<Form.Control.Feedback type="invalid">{errorMsg}</Form.Control.Feedback>
 		</Form.Group>
 	);
 };
@@ -142,13 +137,15 @@ export const FieldYesNoRadioGroup = ({
 }: FieldInputGroupProps) => {
 	return (
 		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
-			<Form.Label>{label}</Form.Label>
+			<Form.Label className={(isTouched && errorMsg && "is-invalid") || ""}>
+				{label}
+			</Form.Label>
 			<Field
 				as={Form.Check}
 				type="radio"
 				name={name}
 				label="Yes"
-				value="yes"
+				value="true"
 				id={`${name}-yes`}
 				isValid={isTouched && !errorMsg}
 				isInvalid={isTouched && errorMsg}
@@ -158,14 +155,12 @@ export const FieldYesNoRadioGroup = ({
 				type="radio"
 				name={name}
 				label="No"
-				value="no"
+				value="false"
 				id={`${name}-no`}
 				isValid={isTouched && !errorMsg}
 				isInvalid={isTouched && errorMsg}
 			/>
-			{isTouched && errorMsg && (
-				<p className={styles.invalidFeedback}>{errorMsg}</p>
-			)}
+			<Form.Control.Feedback type="invalid">{errorMsg}</Form.Control.Feedback>
 		</Form.Group>
 	);
 };

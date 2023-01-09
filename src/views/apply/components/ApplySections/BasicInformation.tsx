@@ -48,20 +48,20 @@ function BasicInformation({
 			<h3>Basic Information</h3>
 			<Row>
 				<FieldInputGroup
-					name="firstName"
+					name="first_name"
 					label="First Name"
 					controlId="formFirstName"
-					isTouched={touched.firstName}
-					errorMsg={errors.firstName}
+					isTouched={touched.first_name}
+					errorMsg={errors.first_name}
 					sm={12}
 					md={6}
 				/>
 				<FieldInputGroup
-					name="lastName"
+					name="last_name"
 					label="Last Name"
 					controlId="formLastName"
-					isTouched={touched.lastName}
-					errorMsg={errors.lastName}
+					isTouched={touched.last_name}
+					errorMsg={errors.last_name}
 					sm={12}
 					md={6}
 				/>
@@ -98,12 +98,12 @@ function BasicInformation({
 				/>
 				{values.pronouns.includes("Other") && (
 					<FieldInputGroup
-						name="otherPronouns"
+						name="other_pronouns"
 						label="If Other was selected, what are your pronouns?"
 						placeholder="Pronouns"
 						controlId="formOtherPronouns"
-						isTouched={touched.otherPronouns}
-						errorMsg={errors.otherPronouns}
+						isTouched={touched.other_pronouns}
+						errorMsg={errors.other_pronouns}
 						sm={6}
 						md={4}
 					/>
@@ -122,22 +122,22 @@ function BasicInformation({
 				/>
 				{values.ethnicity === "Other" && (
 					<FieldInputGroup
-						name="otherEthnicity"
+						name="other_ethnicity"
 						label="If Other was selected, what is your ethnicity?"
 						placeholder="Ethnicity"
 						controlId="formOtherEthnicity"
-						isTouched={touched.otherEthnicity}
-						errorMsg={errors.otherEthnicity}
+						isTouched={touched.other_ethnicity}
+						errorMsg={errors.other_ethnicity}
 						sm={6}
 						md={4}
 					/>
 				)}
 				<FieldYesNoRadioGroup
-					name="ageValid"
+					name="is_18_older"
 					label="Will you be 18 years or older by February 3rd, 2023?"
 					controlId="formAge"
-					isTouched={touched.ageValid}
-					errorMsg={errors.ageValid}
+					isTouched={touched.is_18_older}
+					errorMsg={errors.is_18_older}
 					sm={12}
 					md={values.ethnicity === "Other" ? 4 : 6}
 				/>

@@ -43,22 +43,22 @@ function SchoolInformation({
 			<h3>School Information</h3>
 			<Row>
 				<FieldSelectGroup
-					name="schoolName"
+					name="university"
 					label="University"
 					controlId="formUniversity"
-					isTouched={touched.schoolName}
-					errorMsg={errors.schoolName}
+					isTouched={touched.university}
+					errorMsg={errors.university}
 					optionList={schoolList}
-					lg={values.schoolName === "Other" ? 6 : 12}
+					lg={values.university === "Other" ? 6 : 12}
 				/>
-				{values.schoolName === "Other" && (
+				{values.university === "Other" && (
 					<FieldInputGroup
-						name="otherSchoolName"
+						name="other_school_name"
 						label="If Other was selected, which university did you go to?"
 						placeholder="University"
 						controlId="formOtherUniversity"
-						isTouched={touched.otherSchoolName}
-						errorMsg={errors.otherSchoolName}
+						isTouched={touched.other_school_name}
+						errorMsg={errors.other_school_name}
 						sm={12}
 						lg={6}
 					/>
@@ -66,11 +66,11 @@ function SchoolInformation({
 			</Row>
 			<Row>
 				<FieldSelectGroup
-					name="educationLevel"
+					name="education_level"
 					label="Current Education Level"
 					controlId="formEducation"
-					isTouched={touched.educationLevel}
-					errorMsg={errors.educationLevel}
+					isTouched={touched.education_level}
+					errorMsg={errors.education_level}
 					optionList={educationLevelList}
 					md={6}
 					lg={4}
@@ -85,11 +85,11 @@ function SchoolInformation({
 					lg={4}
 				/>
 				<FieldYesNoRadioGroup
-					name="firstHack"
+					name="is_first_hackathon"
 					label="Is this your first hackathon?"
 					controlId="formFirstHack"
-					isTouched={touched.firstHack}
-					errorMsg={errors.firstHack}
+					isTouched={touched.is_first_hackathon}
+					errorMsg={errors.is_first_hackathon}
 					md={12}
 					lg={4}
 				/>

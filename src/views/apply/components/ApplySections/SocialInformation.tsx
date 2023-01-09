@@ -22,20 +22,20 @@ function SocialInformation({
 			<h3>Social Information (Optional)</h3>
 			<Row className="mb-3">
 				<FieldInputGroup
-					name="portfolioLink"
+					name="portfolio_link"
 					label="Github/Portfolio Link"
 					controlId="formPortfolio"
-					isTouched={touched.portfolioLink}
-					errorMsg={errors.portfolioLink}
+					isTouched={touched.portfolio_link}
+					errorMsg={errors.portfolio_link}
 					sm={6}
 					lg={4}
 				/>
 				<FieldInputGroup
-					name="linkedInLink"
+					name="linkedin_link"
 					label="LinkedIn Link"
 					controlId="formLinkedIn"
-					isTouched={touched.linkedInLink}
-					errorMsg={errors.linkedInLink}
+					isTouched={touched.linkedin_link}
+					errorMsg={errors.linkedin_link}
 					sm={6}
 					lg={4}
 				/>

@@ -11,35 +11,35 @@ export interface FormSectionProps<ValueTypes> {
 }
 
 export interface BasicInformationTypes {
-	firstName: string;
-	lastName: string;
+	first_name: string;
+	last_name: string;
 	email: string;
 	gender: string;
 	pronouns: string[];
-	otherPronouns: string;
+	other_pronouns: string;
 	ethnicity: string;
-	otherEthnicity: string;
-	ageValid: string;
+	other_ethnicity: string;
+	is_18_older: string;
 }
 
 export interface SchoolInformationTypes {
-	ageValid: string;
-	educationLevel: string;
-	schoolName: string;
-	otherSchoolName: string;
+	is_18_older: string;
+	education_level: string;
+	university: string;
+	other_school_name: string;
 	major: string;
-	firstHack: string;
+	is_first_hackathon: string;
 }
 
 export interface SocialInformationTypes {
-	portfolioLink?: string;
-	linkedInLink?: string;
+	portfolio_link?: string;
+	linkedin_link?: string;
 	resume?: File;
 }
 
 export interface QuestionPromptsTypes {
-	stressReliefQuestion: string;
-	companySpecializeQuestion: string;
+	stress_relief_question: string;
+	company_specialize_question: string;
 }
 export interface FormValuesType
 	extends BasicInformationTypes,
