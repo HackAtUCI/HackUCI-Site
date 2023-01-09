@@ -1,0 +1,17 @@
+@import "styles/gallery-theme";
+
+.statueContainer {
+	text-align: center;
+}
+
+.statueTitle {
+	margin: 2rem;
+}
+
+.statueDescription {
+	background: linear-gradient(to bottom right, $wild-orange, $dark-wild-orange);
+	border-radius: 10px;
+	min-height: 20rem;
+	text-align: left;
+	padding: 2rem;
+}
