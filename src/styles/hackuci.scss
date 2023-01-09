@@ -1,4 +1,5 @@
 @use "utils/bootstrap";
+@import "styles/gallery-theme";
 
 section.container {
 	// responsive padding
@@ -11,4 +12,11 @@ h1,
 h2,
 .h2 {
 	font-family: var(--next-font-merriweather);
+}
+
+.btn-museum {
+	@include bootstrap.button-variant($navy-blue, $orange);
+	border-radius: 0%;
+	border-width: 5px;
+	font-weight: 700;
 }
