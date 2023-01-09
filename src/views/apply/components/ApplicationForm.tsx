@@ -113,7 +113,7 @@ function ApplicationForm() {
 			const pronounsChosen = values.pronouns
 				.filter((p) => p !== "Other")
 				.concat([values.other_pronouns]);
-			for (let pronoun of pronounsChosen) {
+			for (const pronoun of pronounsChosen) {
 				formData.append("pronouns", pronoun);
 			}
 		}
