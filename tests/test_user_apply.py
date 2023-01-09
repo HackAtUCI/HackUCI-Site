@@ -32,6 +32,7 @@ SAMPLE_FILES = {"resume": SAMPLE_RESUME}
 BAD_RESUME = ("bad-resume.doc", b"resume", "application/msword")
 LARGE_RESUME = ("large-resume.pdf", b"resume" * 100_000, "application/pdf")
 
+EXPECTED_RESUME_UPLOAD = ("pk-fire-69f2afc2.pdf", b"resume", "application/pdf")
 SAMPLE_RESUME_URL = "https://drive.google.com/file/d/..."
 SAMPLE_SUBMISSION_TIME = datetime(2023, 1, 12, 8, 1, 21)
 
@@ -73,7 +74,7 @@ def test_apply_successfully(
     res = client.post("/apply", data=SAMPLE_APPLICATION, files=SAMPLE_FILES)
 
     mock_gdrive_handler_upload_file.assert_awaited_once_with(
-        resume_handler.RESUMES_FOLDER_ID, *SAMPLE_FILES["resume"]
+        resume_handler.RESUMES_FOLDER_ID, *EXPECTED_RESUME_UPLOAD
     )
     mock_mongodb_handler_insert.assert_awaited_once_with(
         Collection.USERS, EXPECTED_USER.dict()

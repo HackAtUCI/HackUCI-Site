@@ -49,7 +49,7 @@ async def apply(
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     try:
-        resume_url = await resume_handler.upload_resume(resume)
+        resume_url = await resume_handler.upload_resume(raw_application_data, resume)
     except TypeError:
         raise HTTPException(
             status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "Invalid resume file type"

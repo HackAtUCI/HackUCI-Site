@@ -1,5 +1,7 @@
+import hashlib
 import os
 from logging import getLogger
+from typing import Protocol
 
 from aiogoogle import HTTPError
 from fastapi import UploadFile
@@ -13,7 +15,12 @@ SIZE_LIMIT = 500_000
 ACCEPTED_TYPES = ("application/pdf",)
 
 
-async def upload_resume(resume_upload: UploadFile) -> str:
+class Person(Protocol):
+    first_name: str
+    last_name: str
+
+
+async def upload_resume(person: Person, resume_upload: UploadFile) -> str:
     """Upload resume file to Google Drive and provide url to uploaded file.
     Reject files larger than size limit"""
     if not RESUMES_FOLDER_ID:
@@ -27,10 +34,14 @@ async def upload_resume(resume_upload: UploadFile) -> str:
     if len(raw_resume_file) > SIZE_LIMIT:
         raise ValueError("Resume file is larger than allowed")
 
+    # Rename with applicant's name and file digest
+    digest = hashlib.md5(raw_resume_file).hexdigest()
+    filename = f"{person.first_name}-{person.last_name}-{digest[:8]}.pdf"
+
     try:
         resume_url = await gdrive_handler.upload_file(
             RESUMES_FOLDER_ID,
-            resume_upload.filename,
+            filename,
             raw_resume_file,
             resume_upload.content_type,
         )
