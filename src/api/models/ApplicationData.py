@@ -11,7 +11,7 @@ class RawApplicationData(BaseModel):
     last_name: str
     email: EmailStr
     gender: str
-    pronouns: str
+    pronouns: list[str]
     ethnicity: str
     is_18_older: bool
     university: str

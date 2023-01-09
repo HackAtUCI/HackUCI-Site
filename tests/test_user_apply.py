@@ -15,7 +15,7 @@ SAMPLE_APPLICATION = {
     "last_name": "fire",
     "email": "pkfire@uci.edu",
     "gender": "Other",
-    "pronouns": "pk",
+    "pronouns": ["pk"],
     "ethnicity": "fire",
     "is_18_older": "true",
     "university": "UC Irvine",
@@ -78,7 +78,8 @@ def test_apply_with_invalid_data_causes_422(
     mock_mongodb_handler_retrieve_one: AsyncMock,
 ) -> None:
     """Test that applying with invalid data is unprocessable."""
-    bad_application = {**SAMPLE_APPLICATION, "email": "not-an-email"}
+    bad_application = SAMPLE_APPLICATION.copy()
+    bad_application["email"] = "not-an-email"
     res = client.post("/apply", data=bad_application, files=SAMPLE_FILES)
 
     mock_mongodb_handler_retrieve_one.assert_not_called()
