@@ -15,7 +15,12 @@ h2,
 }
 
 .btn-museum {
-	@include bootstrap.button-variant($navy-blue, $orange);
+	@include bootstrap.button-variant(
+		$navy-blue,
+		$orange,
+		$hover-background: bootstrap.tint-color($navy-blue, 5),
+		$hover-border: bootstrap.tint-color($orange, 15)
+	);
 	border-radius: 0%;
 	border-width: 5px;
 	font-weight: 700;
