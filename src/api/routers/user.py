@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from logging import getLogger
 
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
@@ -61,8 +62,11 @@ async def apply(
         log.error("During user apply: %s", err)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+    now = datetime.now(timezone.utc)
     processed_application_data = ProcessedApplicationData(
-        **raw_application_data.dict(), resume_url=resume_url
+        **raw_application_data.dict(),
+        resume_url=resume_url,
+        submission_time=now,
     )
     user = User(application_data=processed_application_data, status="PENDING_REVIEW")
 

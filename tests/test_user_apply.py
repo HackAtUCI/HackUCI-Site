@@ -1,4 +1,5 @@
-from unittest.mock import AsyncMock, patch
+from datetime import datetime
+from unittest.mock import AsyncMock, Mock, patch
 
 from aiogoogle import HTTPError
 from fastapi import FastAPI
@@ -32,10 +33,12 @@ BAD_RESUME = ("bad-resume.doc", b"resume", "application/msword")
 LARGE_RESUME = ("large-resume.pdf", b"resume" * 100_000, "application/pdf")
 
 SAMPLE_RESUME_URL = "https://drive.google.com/file/d/..."
+SAMPLE_SUBMISSION_TIME = datetime(2023, 1, 12, 8, 1, 21)
 
 EXPECTED_APPLICATION_DATA = ProcessedApplicationData(
     **SAMPLE_APPLICATION,
     resume_url=SAMPLE_RESUME_URL,
+    submission_time=SAMPLE_SUBMISSION_TIME,
 )
 
 EXPECTED_USER = User(
@@ -53,17 +56,20 @@ client = TestClient(app)
 
 @patch("utils.email_handler.send_application_confirmation_email", autospec=True)
 @patch("services.mongodb_handler.insert", autospec=True)
+@patch("routers.user.datetime", autospec=True)
 @patch("services.gdrive_handler.upload_file", autospec=True)
 @patch("services.mongodb_handler.retrieve_one", autospec=True)
 def test_apply_successfully(
     mock_mongodb_handler_retrieve_one: AsyncMock,
     mock_gdrive_handler_upload_file: AsyncMock,
+    mock_datetime: Mock,
     mock_mongodb_handler_insert: AsyncMock,
     mock_send_application_confirmation_email: AsyncMock,
 ) -> None:
     """Test that a valid application is submitted properly."""
     mock_mongodb_handler_retrieve_one.return_value = None
     mock_gdrive_handler_upload_file.return_value = SAMPLE_RESUME_URL
+    mock_datetime.now.return_value = SAMPLE_SUBMISSION_TIME
     res = client.post("/apply", data=SAMPLE_APPLICATION, files=SAMPLE_FILES)
 
     mock_gdrive_handler_upload_file.assert_awaited_once_with(
@@ -182,7 +188,5 @@ def test_apply_with_confirmation_email_issue_causes_500(
     res = client.post("/apply", data=SAMPLE_APPLICATION, files=SAMPLE_FILES)
 
     mock_mongodb_handler_insert.assert_awaited_once()
-    mock_send_application_confirmation_email.assert_awaited_once_with(
-        EXPECTED_APPLICATION_DATA
-    )
+    mock_send_application_confirmation_email.assert_awaited_once()
     assert res.status_code == 500

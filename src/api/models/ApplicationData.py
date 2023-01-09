@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field, HttpUrl
@@ -30,3 +31,4 @@ class RawApplicationData(BaseModel):
 
 class ProcessedApplicationData(RawApplicationData):
     resume_url: HttpUrl
+    submission_time: datetime
