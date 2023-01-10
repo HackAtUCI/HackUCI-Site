@@ -3,8 +3,9 @@
 
 .navbar {
 	$underline-size: 4px;
+	z-index: 10;
 
-	background-color: $wild-orange;
+	background-color: transparent;
 	font-weight: 700;
 
 	:global {
