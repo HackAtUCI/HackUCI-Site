@@ -17,6 +17,18 @@ SAMPLE_LOGIN_DATA = {"email": SAMPLE_EMAIL}
 SAMPLE_PASSPHRASE = "correct-horse-battery-staple"
 
 
+def test_non_edu_email_forbidden() -> None:
+    """Test that a guest with a non-edu email is forbidden from logging in."""
+    res = client.post("/login", data={"email": "elon@twitter.com"})
+    assert res.status_code == 403
+
+
+def test_uci_email_forbidden_as_guest() -> None:
+    """Test that a UCI email cannot be used with guest authentication."""
+    res = client.post("/login", data={"email": "hack@uci.edu"})
+    assert res.status_code == 403
+
+
 @patch("utils.email_handler.send_guest_login_email", autospec=True)
 @patch("auth.guest_auth._save_guest_key", autospec=True)
 @patch("auth.guest_auth.datetime", autospec=True)

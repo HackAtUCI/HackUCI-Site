@@ -19,15 +19,10 @@ router = APIRouter()
 
 @router.post("/login")
 async def login(email: EmailStr = Form()) -> RedirectResponse:
-    if not email.endswith(".edu"):
-        raise HTTPException(
-            status.HTTP_403_FORBIDDEN, "Only .edu emails are allowed to login"
-        )
-
     if user_identity.uci_email(email):
         # redirect user to UCI SSO login endpoint, changing to GET method
-        return RedirectResponse("/api/saml/login", status_code=303)
-    return RedirectResponse("/api/guest/login", status_code=307)
+        return RedirectResponse("/api/saml/login", status.HTTP_303_SEE_OTHER)
+    return RedirectResponse("/api/guest/login", status.HTTP_307_TEMPORARY_REDIRECT)
 
 
 @router.post("/apply", status_code=status.HTTP_201_CREATED)

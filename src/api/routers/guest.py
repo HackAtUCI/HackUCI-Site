@@ -1,6 +1,6 @@
 from urllib.parse import urlencode
 
-from fastapi import APIRouter, Cookie, Form, HTTPException, status
+from fastapi import APIRouter, Cookie, Depends, Form, HTTPException, status
 from fastapi.responses import RedirectResponse
 from pydantic import EmailStr
 
@@ -9,8 +9,24 @@ from auth import guest_auth, user_identity
 router = APIRouter()
 
 
+def guest_email(email: EmailStr = Form()) -> str:
+    """Require a university guest (non-UCI) email as a form field."""
+    if user_identity.uci_email(email):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "UCI affiliates must log in with SSO."
+        )
+    if email.endswith("@hackuci.com"):
+        # TODO: sponsor authentication
+        raise HTTPException(status.HTTP_501_NOT_IMPLEMENTED)
+    if not email.endswith(".edu"):
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, "Only .edu emails are allowed to log in."
+        )
+    return email
+
+
 @router.post("/login")
-async def guest_login(email: EmailStr = Form()) -> RedirectResponse:
+async def guest_login(email: EmailStr = Depends(guest_email)) -> RedirectResponse:
     """Generate login token and set cookie with login key"""
     try:
         confirmation = await guest_auth.initiate_guest_login(email)
@@ -31,8 +47,8 @@ async def guest_login(email: EmailStr = Form()) -> RedirectResponse:
 
 
 @router.post("/verify")
-async def verify_guest_token(
-    email: EmailStr = Form(),
+async def verify_guest(
+    email: EmailStr = Depends(guest_email),
     passphrase: str = Form(),
     guest_confirmation: str = Cookie(),
 ) -> RedirectResponse:
