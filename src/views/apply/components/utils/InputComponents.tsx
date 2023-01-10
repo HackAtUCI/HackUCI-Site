@@ -39,7 +39,15 @@ export const FieldInputGroup = ({
 	lg,
 }: FieldInputGroupProps) => {
 	return (
-		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
+		<Form.Group
+			as={Col}
+			xs={12}
+			sm={sm}
+			md={md}
+			lg={lg}
+			controlId={controlId}
+			style={{ marginBottom: "1.25%" }}
+		>
 			<Form.Label>{label}</Form.Label>
 			<Field
 				name={name}
@@ -70,7 +78,15 @@ export const FieldSelectGroup = ({
 	lg,
 }: FieldSelectGroupProps) => {
 	return (
-		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
+		<Form.Group
+			as={Col}
+			xs={12}
+			sm={sm}
+			md={md}
+			lg={lg}
+			controlId={controlId}
+			style={{ marginBottom: "1.25%" }}
+		>
 			<Form.Label>{label}</Form.Label>
 			<Field
 				name={name}
@@ -104,7 +120,15 @@ export const FieldChecklistGroup = ({
 	lg,
 }: FieldSelectGroupProps) => {
 	return (
-		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
+		<Form.Group
+			as={Col}
+			xs={12}
+			sm={sm}
+			md={md}
+			lg={lg}
+			controlId={controlId}
+			style={{ marginBottom: "1.25%" }}
+		>
 			<Form.Label className={(isTouched && errorMsg && "is-invalid") || ""}>
 				{label}
 			</Form.Label>
@@ -136,7 +160,15 @@ export const FieldYesNoRadioGroup = ({
 	lg,
 }: FieldInputGroupProps) => {
 	return (
-		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
+		<Form.Group
+			as={Col}
+			xs={12}
+			sm={sm}
+			md={md}
+			lg={lg}
+			controlId={controlId}
+			style={{ marginBottom: "1.25%" }}
+		>
 			<Form.Label className={(isTouched && errorMsg && "is-invalid") || ""}>
 				{label}
 			</Form.Label>
@@ -187,7 +219,15 @@ export const FieldFileUploadGroup = ({
 	lg,
 }: FieldFileUploadGroupProps) => {
 	return (
-		<Form.Group as={Col} xs={12} sm={sm} md={md} lg={lg} controlId={controlId}>
+		<Form.Group
+			as={Col}
+			xs={12}
+			sm={sm}
+			md={md}
+			lg={lg}
+			controlId={controlId}
+			style={{ marginBottom: "1.25%" }}
+		>
 			<Form.Label>{label}</Form.Label>
 			<Form.Control
 				type="file"

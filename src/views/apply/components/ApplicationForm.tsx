@@ -1,6 +1,9 @@
 import axios from "axios";
 import { Formik, FormikHelpers } from "formik";
+import { useRef } from "react";
 import { Button, Form } from "react-bootstrap";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import * as yup from "yup";
 import {
 	BasicInformation,
@@ -28,8 +31,8 @@ const initialValues: FormValuesType = {
 	other_school_name: "",
 	major: "",
 	is_first_hackathon: "",
-	portfolio_link: undefined,
-	linkedin_link: undefined,
+	portfolio_link: "",
+	linkedin_link: "",
 	resume: undefined,
 	stress_relief_question: "",
 	company_specialize_question: "",
@@ -100,13 +103,16 @@ const validationSchema = yup.object({
 });
 
 function ApplicationForm() {
+	const formRef = useRef<HTMLFormElement>(null);
+
 	const handleSubmit = (
 		values: FormValuesType,
 		{ setSubmitting }: FormikHelpers<FormValuesType>
 	): void => {
-		setSubmitting(false);
-		const form = document.getElementById("applicationForm") as HTMLFormElement;
+		formRef.current?.focus();
+		const form = formRef.current !== null ? formRef.current : undefined;
 		const formData = new FormData(form);
+
 		if (values.pronouns.includes("Other")) {
 			formData.delete("pronouns");
 			formData.delete("other_pronouns");
@@ -128,26 +134,17 @@ function ApplicationForm() {
 
 		axios
 			.postForm(APPLY_PATH, formData)
-			.then((res) => console.log(res))
-			.catch(function (error) {
-				if (error.response) {
-					// The request was made and the server responded with a status code
-					// that falls out of the range of 2xx
-					console.log(error.response.data);
-					console.log(error.response.status);
-					console.log(error.response.headers);
-				} else if (error.request) {
-					// The request was made but no response was received
-					// `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-					// http.ClientRequest in node.js
-					console.log(error.request);
-				} else {
-					// Something happened in setting up the request that triggered an Error
-					console.log("Error", error.message);
+			.then((res) => {
+				if (res.status === 201) {
+					console.log("Switched to new view");
 				}
-				console.log(error.config);
+			})
+			.catch(() => {
+				toast.error("Application failed to submit. Please try again.", {
+					position: toast.POSITION.BOTTOM_RIGHT,
+				});
+				setSubmitting(false);
 			});
-		setSubmitting(true);
 	};
 
 	return (
@@ -156,8 +153,21 @@ function ApplicationForm() {
 			validationSchema={validationSchema}
 			onSubmit={handleSubmit}
 		>
-			{({ values, touched, errors, setFieldValue, handleSubmit }) => (
-				<Form id="applicationForm" onSubmit={handleSubmit}>
+			{({
+				values,
+				touched,
+				errors,
+				setFieldValue,
+				handleSubmit,
+				isSubmitting,
+				submitCount,
+			}) => (
+				<Form id="applicationForm" onSubmit={handleSubmit} ref={formRef}>
+					<h2
+						className={(Object.keys(errors).length !== 0 && "is-invalid") || ""}
+					>
+						HackUCI 2023 Application
+					</h2>
 					<BasicInformation values={values} errors={errors} touched={touched} />
 					<SchoolInformation
 						values={values}
@@ -171,9 +181,18 @@ function ApplicationForm() {
 						setFieldValue={setFieldValue}
 					/>
 					<QuestionPrompts errors={errors} touched={touched} />
-					<Button variant="primary" type="submit" className="button">
+					<Button
+						variant="primary"
+						type="submit"
+						className="button"
+						disabled={isSubmitting}
+					>
 						Submit
 					</Button>
+					<Form.Control.Feedback type="invalid" hidden={submitCount === 0}>
+						Please fill in the required fields.
+					</Form.Control.Feedback>
+					<ToastContainer />
 				</Form>
 			)}
 		</Formik>
