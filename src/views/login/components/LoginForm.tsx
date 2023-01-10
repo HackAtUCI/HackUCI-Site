@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import { ValidatingForm } from "components";
 
 const EMAIL_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+const EDU_REGEX = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.edu)+$/;
 const LOGIN_PATH = "/api/user/login";
 
 function LoginForm() {
@@ -18,7 +19,7 @@ function LoginForm() {
 				<Form.Control
 					as="input"
 					type="email"
-					pattern={EMAIL_REGEX.source}
+					pattern={EDU_REGEX.source}
 					required
 					name="email"
 					placeholder="Enter email"
@@ -29,7 +30,9 @@ function LoginForm() {
 					aria-describedby="email-description"
 				/>
 				<Form.Control.Feedback type="invalid">
-					Sorry, that email address is invalid.
+					{EMAIL_REGEX.exec(emailInput) !== null
+						? 'Sorry, only emails that end in ".edu" are allowed to log in.'
+						: "Sorry, that email address is invalid."}
 				</Form.Control.Feedback>
 				<Form.Text id="email-description" muted>
 					UCI students will log in with UCI SSO.

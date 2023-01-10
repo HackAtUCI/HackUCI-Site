@@ -24,6 +24,8 @@ def _uci_email(email: str) -> bool:
 @router.post("/login")
 async def login(email: str = Form()) -> RedirectResponse:
     try:
+        if not email.endswith(".edu"):
+            raise EmailError()
         EmailStr.validate(email)
     except EmailError:
         raise HTTPException(400, "Invalid email address")
