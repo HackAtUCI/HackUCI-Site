@@ -5,9 +5,9 @@ function WallPanel() {
     return (
         <Container as="section">
             <div className={styles["intro-section"]}>
-                <h3>36 Hours</h3>
-                <h3>500+ Hackers</h3>
-                <h3>$10,000 in Prizes</h3>
+                <h3><span className={styles["number"]}>36</span> Hours</h3>
+                <h3><span className={styles["number"]}>500+</span> Hackers</h3>
+                <h3><span className={styles["number"]}>$10,000</span> in Prizes</h3>
                 <h4>Create + Connect + Inspire</h4>
                 <p>
                     HackUCI is the largest collegiate hackathon in Orange County and we continue expanding and improving our event every year. Our focus? - Enhance the community around us by giving students the platform to unleash their creativity in an environment of forward thinking individuals.
