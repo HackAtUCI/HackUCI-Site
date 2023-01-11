@@ -1,11 +1,14 @@
+import Container from "react-bootstrap/Container";
+import styles from "./WallPanel.module.scss";
+
 function WallPanel() {
     return (
-        <div>
-            <div className="intro-section">
-                <h2>36 Hours</h2>
-                <h2>500+ Hackers</h2>
-                <h2>$10,000 in Prizes</h2>
-                <h3>Create + Connect + Inspire</h3>
+        <Container as="section">
+            <div className={styles["intro-section"]}>
+                <h3>36 Hours</h3>
+                <h3>500+ Hackers</h3>
+                <h3>$10,000 in Prizes</h3>
+                <h4>Create + Connect + Inspire</h4>
                 <p>
                     HackUCI is the largest collegiate hackathon in Orange County and we continue expanding and improving our event every year. Our focus? - Enhance the community around us by giving students the platform to unleash their creativity in an environment of forward thinking individuals.
                 </p>
@@ -14,7 +17,7 @@ function WallPanel() {
                 </p>
             </div>
             <div className="artwork"></div>
-        </div>
+        </Container>
     );
 }
 
