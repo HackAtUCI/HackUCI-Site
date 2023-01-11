@@ -3,7 +3,7 @@ import styles from "./WallPanel.module.scss";
 
 function WallPanel() {
     return (
-        <Container as="section">
+        <Container className={styles["container"]} as="section">
             <div className={styles["intro-section"]}>
                 <h3><span className={styles["number"]}>36</span> Hours</h3>
                 <h3><span className={styles["number"]}>500+</span> Hackers</h3>
@@ -16,7 +16,6 @@ function WallPanel() {
                     This year, HackUCI will take place the weekend of February 3rd to 5th. The event will be 100% in-person during the day (not overnight). Free workshops, socials, food, and swag will be provided!
                 </p>
             </div>
-            <div className="artwork"></div>
         </Container>
     );
 }

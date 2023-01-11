@@ -1,8 +1,14 @@
 @import "styles/gallery-theme";
 
+.container {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .intro-section {
-    background-color: $navy-blue;
-    padding: 20px;
+    background-color: $light-blue;
+    padding: 50px;
+    width: 50vw;
 }
 
 .number {
