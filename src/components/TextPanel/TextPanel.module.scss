@@ -1,0 +1,20 @@
+@import 'bootstrap/scss/_functions';
+@import 'bootstrap/scss/_variables';
+@import 'bootstrap/scss/mixins/_breakpoints';
+
+.homeBenchImage {
+    background-size: 400px;
+    width: 400px;
+    height: 350px;
+
+    @include media-breakpoint-up(md) {
+        background-size: 750px;
+        width: 750px;
+        height: 600px;
+    }
+    @include media-breakpoint-up(lg) {
+        background-size: 860px;
+        width: 860px;
+        height: 700px;
+    }
+}
