@@ -28,6 +28,7 @@ class BaseRecord(BaseModel):
 class Collection(str, Enum):
     USERS = "users"
     TESTING = "testing"
+    SETTINGS = "settings"
 
 
 async def insert(
@@ -45,7 +46,7 @@ async def insert(
 
 async def retrieve_one(
     collection: Collection, query: Mapping[str, object], fields: list[str] = []
-) -> Optional[dict[str, object]]:
+) -> Optional[dict[str, Any]]:
     """Search for and retrieve the specified fields of all documents (if any exist)
     that satisfy the provided query."""
     COLLECTION = DB[collection.value]

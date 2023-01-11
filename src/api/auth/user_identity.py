@@ -21,12 +21,7 @@ class NativeUser(User):
     affiliations: list[str]
 
     def __init__(
-        self,
-        *,
-        ucinetid: str,
-        display_name: str,
-        email: EmailStr,
-        affiliations: list[str],
+        self, *, ucinetid: str, display_name: str, email: str, affiliations: list[str]
     ):
         uid = f"edu.uci.{ucinetid}"
         super().__init__(
@@ -39,8 +34,8 @@ class NativeUser(User):
 
 
 class GuestUser(User):
-    def __init__(self, *, email: EmailStr):
-        uid = scoped_uid(email)
+    def __init__(self, *, email: str):
+        uid = scoped_uid(EmailStr(email))
         super().__init__(uid=uid, email=email)
 
 

@@ -1,6 +1,9 @@
+import hashlib
+import hmac
+import os
+import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Optional
-from uuid import uuid4
 
 from pydantic import BaseModel, EmailStr
 
@@ -9,6 +12,10 @@ from auth.user_identity import GuestUser
 from services import mongodb_handler
 from services.mongodb_handler import BaseRecord, Collection
 from utils import email_handler
+
+AUTH_KEY_SALT = os.getenv("AUTH_KEY_SALT", "not-a-good-idea")[:16].encode()
+PASSPHRASE_LENGTH = 4
+WORD_LIST: list[str] = []
 
 
 class GuestAuth(BaseModel):
@@ -29,7 +36,7 @@ async def initiate_guest_login(email: EmailStr) -> Optional[str]:
         return None
 
     confirmation = _generate_confirmation_token()
-    passphrase = _generate_passphrase()
+    passphrase = await _generate_passphrase(PASSPHRASE_LENGTH)
     auth_key = _generate_key(confirmation, passphrase)
 
     uid = user_identity.scoped_uid(email)
@@ -86,20 +93,35 @@ async def _save_guest_key(guest: GuestRecord) -> None:
 
 def _generate_confirmation_token() -> str:
     """Generate a confirmation token to use for guest authentication."""
-    return uuid4().hex
+    return secrets.token_urlsafe()
 
 
-def _generate_passphrase() -> str:
+async def _generate_passphrase(length: int) -> str:
     """Generate a secret passphrase to use for guest authentication."""
-    # TODO: add proper passphrase generation
-    return "correct-horse-battery-staple"
+    words = await _get_word_list()
+    return "-".join(secrets.choice(words) for _ in range(length))
 
 
 def _generate_key(confirmation: str, passphrase: str) -> str:
     """Generate a key from a passphrase and confirmation token."""
-    return confirmation + passphrase
+    content = confirmation + passphrase
+    return hashlib.blake2b(content.encode(), salt=AUTH_KEY_SALT).hexdigest()
 
 
 def _validate(key: str, passphrase: str, confirmation: str) -> bool:
     """Validate a passphrase, confirmation token, and authentication key."""
-    return confirmation + passphrase == key
+    digest = _generate_key(confirmation, passphrase)
+    return hmac.compare_digest(key, digest)
+
+
+async def _get_word_list() -> list[str]:
+    """Fetch list of words to use for passphrase generation from MongoDB."""
+    global WORD_LIST
+    if not WORD_LIST:
+        record: Optional[dict[str, list[str]]] = await mongodb_handler.retrieve_one(
+            Collection.SETTINGS, {"_id": "word_list"}
+        )
+        if not record:
+            raise RuntimeError("Guest authentication word list is not available")
+        WORD_LIST = record["words"]
+    return WORD_LIST

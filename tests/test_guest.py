@@ -4,6 +4,7 @@ from unittest.mock import AsyncMock, Mock, patch
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
+from auth import guest_auth
 from auth.guest_auth import GuestAuth, GuestRecord
 from routers import guest
 
@@ -58,7 +59,7 @@ def test_guest_login_initiation(
             guest_auth=GuestAuth(
                 iat=datetime(2023, 2, 4),
                 exp=datetime(2023, 2, 4, 0, 10, 0),
-                key="abcdef" + SAMPLE_PASSPHRASE,
+                key=guest_auth._generate_key("abcdef", SAMPLE_PASSPHRASE),
             ),
         )
     )
@@ -88,7 +89,9 @@ def test_successful_guest_verification_provides_identity(
     mock_get_existing_key: AsyncMock,
 ) -> None:
     """Test a guest successfully verifying guest credentials."""
-    mock_get_existing_key.return_value = "some-confirmation" + SAMPLE_PASSPHRASE
+    mock_get_existing_key.return_value = guest_auth._generate_key(
+        "some-confirmation", SAMPLE_PASSPHRASE
+    )
 
     res = client.post(
         "/verify",
