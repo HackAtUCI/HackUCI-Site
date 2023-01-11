@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from unittest.mock import AsyncMock, patch
 
 from pydantic import EmailStr
@@ -41,7 +41,8 @@ def test_can_validate_key() -> None:
 async def test_get_existing_unexpired_key(mock_mongodb_retrieve_one: AsyncMock) -> None:
     """Test that existing, unexpired guest authorization key can be retrieved."""
     iat = datetime(2023, 1, 11)
-    exp = datetime(2023, 12, 31)
+    exp = datetime(2023, 12, 31, tzinfo=timezone.utc)
+    # this test will fail next year :P
     mock_mongodb_retrieve_one.return_value = {
         "guest_auth": {"iat": iat, "exp": exp, "key": "some-key"}
     }
@@ -57,6 +58,23 @@ async def test_get_nonexisting_key(mock_mongodb_retrieve_one: AsyncMock) -> None
 
     key = await guest_auth._get_existing_key(SAMPLE_EMAIL)
     assert key is None
+
+
+@patch("services.mongodb_handler.update_one", autospec=True)
+@patch("services.mongodb_handler.retrieve_one", autospec=True)
+async def test_expired_key_is_removed(
+    mock_mongodb_retrieve_one: AsyncMock, mock_mongodb_update_one: AsyncMock
+) -> None:
+    """Test that existing, unexpired guest authorization key can be retrieved."""
+    iat = datetime(2023, 1, 2)
+    exp = datetime(2023, 1, 3, tzinfo=timezone.utc)
+    mock_mongodb_retrieve_one.return_value = {
+        "guest_auth": {"iat": iat, "exp": exp, "key": "some-key"}
+    }
+
+    key = await guest_auth._get_existing_key(SAMPLE_EMAIL)
+    assert key is None
+    mock_mongodb_update_one.assert_awaited_once()
 
 
 @patch("services.mongodb_handler.retrieve_one", autospec=True)

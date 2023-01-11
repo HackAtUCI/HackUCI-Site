@@ -32,7 +32,7 @@ def test_uci_email_forbidden_as_guest() -> None:
 
 @patch("utils.email_handler.send_guest_login_email", autospec=True)
 @patch("auth.guest_auth._save_guest_key", autospec=True)
-@patch("auth.guest_auth.datetime", autospec=True)
+@patch("auth.guest_auth.utc_now", autospec=True)
 @patch("auth.guest_auth._generate_passphrase", autospec=True)
 @patch("auth.guest_auth._generate_confirmation_token", autospec=True)
 @patch("auth.guest_auth._get_existing_key", autospec=True)
@@ -40,7 +40,7 @@ def test_guest_login_initiation(
     mock_get_existing_key: AsyncMock,
     mock_generate_confirmation_token: Mock,
     mock_generate_passphrase: Mock,
-    mock_datetime: Mock,
+    mock_utc_now: Mock,
     mock_save_guest_key: AsyncMock,
     mock_send_guest_login_email: AsyncMock,
 ) -> None:
@@ -49,7 +49,7 @@ def test_guest_login_initiation(
     mock_get_existing_key.return_value = None
     mock_generate_confirmation_token.return_value = "abcdef"
     mock_generate_passphrase.return_value = SAMPLE_PASSPHRASE
-    mock_datetime.now.return_value = datetime(2023, 2, 4)
+    mock_utc_now.return_value = datetime(2023, 2, 4)
 
     res = client.post("/login", data=SAMPLE_LOGIN_DATA, follow_redirects=False)
 

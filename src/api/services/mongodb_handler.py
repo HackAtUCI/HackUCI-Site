@@ -3,6 +3,7 @@ from enum import Enum
 from logging import getLogger
 from typing import Any, Mapping, Optional, Union
 
+from bson import CodecOptions
 from motor.core import AgnosticCollection, AgnosticDatabase
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field
@@ -12,7 +13,9 @@ log = getLogger(__name__)
 
 MONGODB_URI = os.getenv("MONGODB_URI")
 MONGO_CLIENT = AsyncIOMotorClient(MONGODB_URI)
-DB: AgnosticDatabase = MONGO_CLIENT["hackuci"]
+DB: AgnosticDatabase = MONGO_CLIENT["hackuci"].with_options(
+    codec_options=CodecOptions(tz_aware=True)
+)
 
 
 class BaseRecord(BaseModel):
@@ -68,11 +71,17 @@ async def retrieve(
 
 
 async def update_one(
-    collection: Collection, query: Mapping[str, object], new_data: Mapping[str, object]
+    collection: Collection,
+    query: Mapping[str, object],
+    new_data: Mapping[str, object],
+    *,
+    upsert: bool = False,
 ) -> bool:
     """Search for and update a document (if it exists) using the provided query data."""
     COLLECTION = DB[collection.value]
-    result: UpdateResult = await COLLECTION.update_one(query, {"$set": new_data})
+    result: UpdateResult = await COLLECTION.update_one(
+        query, {"$set": new_data}, upsert=upsert
+    )
     if not result.acknowledged:
         log.error("MongoDB document update was not acknowledged")
         raise RuntimeError("Could not update documents in MongoDB collection")

@@ -2,13 +2,13 @@ import hashlib
 import hmac
 import os
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
 from auth import user_identity
-from auth.user_identity import GuestUser
+from auth.user_identity import GuestUser, utc_now
 from services import mongodb_handler
 from services.mongodb_handler import BaseRecord, Collection
 from utils import email_handler
@@ -40,7 +40,7 @@ async def initiate_guest_login(email: EmailStr) -> Optional[str]:
     auth_key = _generate_key(confirmation, passphrase)
 
     uid = user_identity.scoped_uid(email)
-    now = datetime.now(timezone.utc)
+    now = utc_now()
     exp = now + timedelta(minutes=10)
 
     guest = GuestRecord(
@@ -78,17 +78,33 @@ async def _get_existing_key(email: EmailStr) -> Optional[str]:
         Collection.USERS, {"_id": uid}, ["guest_auth"]
     )
 
-    if not record or "guest_auth" not in record:
+    if not record or not record["guest_auth"]:
         return None
 
     auth = GuestAuth.parse_obj(record["guest_auth"])
-    # TODO: check expiration
+
+    # Reject expired key
+    now = utc_now()
+    if now > auth.exp:
+        await _remove_guest_key(uid)
+        return None
+
     return auth.key
 
 
 async def _save_guest_key(guest: GuestRecord) -> None:
     """Save guest authentication key to user record."""
-    await mongodb_handler.update(Collection.USERS, {"_id": guest.uid}, guest.dict())
+    await mongodb_handler.update_one(
+        Collection.USERS, {"_id": guest.uid}, guest.dict(), upsert=True
+    )
+
+
+async def _remove_guest_key(uid: str) -> None:
+    await mongodb_handler.update_one(
+        Collection.USERS,
+        {"_id": uid},
+        {"guest_auth": None, "last_login": utc_now()},
+    )
 
 
 def _generate_confirmation_token() -> str:

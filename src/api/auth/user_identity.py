@@ -60,6 +60,11 @@ def uci_email(email: EmailStr) -> bool:
     return email.endswith("@uci.edu") or email.endswith(".uci.edu")
 
 
+def utc_now() -> datetime:
+    """Return current datetime with proper UTC timezone."""
+    return datetime.now(timezone.utc)
+
+
 def issue_user_identity(user: User, response: Response) -> Response:
     """Issue a user identity as a JWT cookie added to the given response."""
     jwt_token = _generate_jwt_token(user)
@@ -102,7 +107,7 @@ def _decode_user_identity(user_token: Optional[str]) -> Optional[User]:
 
 def _generate_jwt_token(user: User) -> str:
     """Generate a JWT with claims for the given user."""
-    now = datetime.now(timezone.utc)
+    now = utc_now()
 
     claims = JWTClaims(
         iat=now,
