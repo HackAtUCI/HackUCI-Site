@@ -7,7 +7,7 @@ from fastapi.responses import RedirectResponse
 from pydantic import BaseModel, EmailStr
 
 from auth import user_identity
-from auth.user_identity import User, require_user_identity
+from auth.user_identity import User, require_user_identity, use_user_identity
 from models.ApplicationData import ProcessedApplicationData, RawApplicationData
 from models.User import Applicant
 from services import mongodb_handler
@@ -20,6 +20,7 @@ router = APIRouter()
 
 
 class IdentityResponse(BaseModel):
+    uid: str
     status: Optional[str]
     role: Optional[str]
 
@@ -33,8 +34,16 @@ async def login(email: EmailStr = Form()) -> RedirectResponse:
 
 
 @router.get("/me", response_model=IdentityResponse)
-async def me(user: User = Depends(require_user_identity)) -> Any:
-    return await mongodb_handler.retrieve_one(Collection.USERS, {"_id": user.uid})
+async def me(user: User = Depends(use_user_identity)) -> Any:
+    log.info(user)
+    if not user:
+        return dict()
+    user_record = await mongodb_handler.retrieve_one(
+        Collection.USERS, {"_id": user.uid}
+    )
+    if not user_record:
+        return {"uid": user.uid}
+    return {**user_record, "uid": user.uid}
 
 
 @router.post("/apply", status_code=status.HTTP_201_CREATED)
