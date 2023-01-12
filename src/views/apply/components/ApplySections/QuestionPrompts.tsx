@@ -10,7 +10,7 @@ function QuestionPrompts({
 }: Pick<FormSectionProps<QuestionPromptsTypes>, "errors" | "touched">) {
 	return (
 		<div>
-			<h3>Question Prompts</h3>
+			<h3>Short Answer Questions</h3>
 			<FieldInputGroup
 				name="stress_relief_question"
 				label="If you're running into trouble with a programming project, what would you do to relieve your stress? [Optional]"

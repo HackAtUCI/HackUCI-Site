@@ -10,21 +10,21 @@ import {
 	FieldYesNoRadioGroup,
 } from "../utils/InputComponents";
 
-const genderList = [
+const genderOptions = [
 	"Male",
 	"Female",
 	"Non-Binary",
 	"Prefer not to answer",
 	"Other",
 ];
-const pronounList = [
+const pronounOptions = [
 	"He/him/his",
 	"She/her/hers",
 	"They/them/theirs",
 	"Ze/zir/zirs",
 	"Other",
 ];
-const ethnicityList = [
+const ethnicityOptions = [
 	"American Indian or Alaskan",
 	"Asian or Pacific Islander",
 	"Black or African American",
@@ -82,7 +82,7 @@ function BasicInformation({
 					controlId="formGender"
 					isTouched={touched.gender}
 					errorMsg={errors.gender}
-					optionList={genderList}
+					optionList={genderOptions}
 					sm={12}
 					md={values.pronouns.includes("Other") ? 4 : 6}
 				/>
@@ -92,7 +92,7 @@ function BasicInformation({
 					controlId="formPronouns"
 					isTouched={touched.pronouns}
 					errorMsg={errors.pronouns}
-					optionList={pronounList}
+					optionList={pronounOptions}
 					sm={values.pronouns.includes("Other") ? 6 : 12}
 					md={values.pronouns.includes("Other") ? 4 : 6}
 				/>
@@ -116,7 +116,7 @@ function BasicInformation({
 					controlId="formEthnicity"
 					isTouched={touched.ethnicity}
 					errorMsg={errors.ethnicity}
-					optionList={ethnicityList}
+					optionList={ethnicityOptions}
 					sm={values.ethnicity === "Other" ? 6 : 12}
 					md={values.ethnicity === "Other" ? 4 : 6}
 				/>
