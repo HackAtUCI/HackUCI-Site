@@ -13,3 +13,16 @@ $navbar-dark-hover-color: white;
 $accordion-border-width: 0;
 $accordion-button-icon: url("~/src/assets/icons/plus-lg.svg");
 $accordion-button-active-icon: url("~/src/assets/icons/dash-lg.svg");
+
+$grid-breakpoints: (
+	xs: 0,
+	sm: 400px,
+	md: 750px,
+	lg: 860px,
+);
+$container-max-widths: (
+	xs: 0,
+	sm: 400px,
+	md: 750px,
+	lg: 860px,
+);

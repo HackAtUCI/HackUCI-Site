@@ -7,20 +7,19 @@ import styles from './Landing.module.scss';
 
 
 function Landing() {
+	const panelContent = <div>
+		<div className={styles.homeDate}>Feburary 3 - 5, 2023</div>
+		<div className={styles.homeHeading}>HackUCI</div>
+
+		<div className={styles.homeButtons}>
+			<Button className={styles.homeButton} href="#">Apply as a Hacker</Button>
+			<Button className={styles.homeButton} href="#">Apply as a Mentor</Button>
+		</div>
+	</div>;
+
 	return (
 		<section className={styles.homeLanding}>
-			<div className={styles.homeTextPanel}>
-				<TextPanel />
-				<div className={styles.homePanelContent}>
-					<div className={styles.homeDate}>Feburary 3 - 5, 2023</div>
-					<div className={styles.homeHeading}>HackUCI</div>
-
-					<div className={styles.homeButtons}>
-						<Button className={styles.homeButton} href="#">Apply as a Hacker</Button>
-						<Button className={styles.homeButton} href="#">Apply as a Mentor</Button>
-					</div>
-				</div>
-			</div>
+			<TextPanel props={panelContent} />
 			<div className={styles.homeBenches}>
 				<Image src={benchImage} alt="Landing Benches" className={styles.homeBenchImage} />
 			</div>
