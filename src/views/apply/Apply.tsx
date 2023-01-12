@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import UserContext from "utils/userContext";
@@ -26,6 +27,9 @@ function Apply() {
 
 	return (
 		<div className={styles.main}>
+			<Head>
+				<title>Apply | HackUCI 2023</title>
+			</Head>
 			<Container className={styles.apply}>
 				{!acceptedPreface ? (
 					<ApplicationPreface
