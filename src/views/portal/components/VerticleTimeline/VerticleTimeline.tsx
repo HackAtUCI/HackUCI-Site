@@ -36,7 +36,7 @@ function VerticleTimeline(props: TimelineProps) {
 		<div className={styles.verticle_timeline}>
 			<h5>Status</h5>
 			<Card className={styles.card}>
-				<Card.Title>Application Submitted: {props.date_submitted}</Card.Title>
+				<Card.Title>Application Submitted</Card.Title>
 				<Card.Text>Your application is under review</Card.Text>
 			</Card>
 			{/* {middle_card} */}
