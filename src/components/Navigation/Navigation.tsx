@@ -44,8 +44,8 @@ function Navigation() {
 					<Nav as="ul" className="ms-auto" activeKey={currentRoute}>
 						<NavLinkItem href="/">Home</NavLinkItem>
 						<NavLinkItem href="/apply">Apply</NavLinkItem>
-						<PrivateNavLinkItem authorized={isLoggedIn} href="/dashboard">
-							Dashboard
+						<PrivateNavLinkItem authorized={isLoggedIn} href="/portal">
+							Portal
 						</PrivateNavLinkItem>
 						<NavLinkItem
 							href={logButtonPath}
