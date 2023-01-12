@@ -1,0 +1,11 @@
+{
+	"buildCommand": "./vercel-lib.sh && npm run build",
+	"routes": [{ "src": "/api/(.*)", "dest": "api/index.py" }],
+	"functions": {
+		"api/index.py": {
+			"memory": 512,
+			"maxDuration": 10,
+			"excludeFiles": "{@(.next|node_modules|public|tests)/**,src/{*,!(api)/**},*.json}"
+		}
+	}
+}
