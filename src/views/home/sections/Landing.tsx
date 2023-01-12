@@ -7,7 +7,7 @@ import styles from "./Landing.module.scss";
 function Landing() {
 	const panelContent = (
 		<div>
-			<div className={styles.homeDate}>Feburary 3 - 5, 2023</div>
+			<div className={styles.homeDate}>February 3 - 5, 2023</div>
 			<div className={styles.homeHeading}>HackUCI</div>
 
 			<div className={styles.homeButtons}>
