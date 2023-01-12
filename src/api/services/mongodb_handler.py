@@ -12,10 +12,14 @@ from pymongo.results import InsertOneResult, UpdateResult
 
 log = getLogger(__name__)
 
+STAGING_ENV = os.getenv("DEPLOYMENT") == "STAGING"
+
 MONGODB_URI = os.getenv("MONGODB_URI")
 MONGODB_CLIENT = AsyncIOMotorClient(MONGODB_URI)
 MONGODB_CLIENT.get_io_loop = asyncio.get_event_loop
-DB: AgnosticDatabase = MONGODB_CLIENT["hackuci"].with_options(
+
+DATABASE_NAME = "hackuci" if STAGING_ENV else "hackuci-prod"
+DB: AgnosticDatabase = MONGODB_CLIENT[DATABASE_NAME].with_options(
     codec_options=CodecOptions(tz_aware=True)
 )
 
