@@ -5,19 +5,24 @@ from aiogoogle import Aiogoogle
 from aiogoogle.auth.creds import ServiceAccountCreds
 
 GOOGLE_DRIVE_URL = "https://drive.google.com/file/d/"
+SCOPES = ["https://www.googleapis.com/auth/drive.file"]
 
 
 def _get_credentials() -> ServiceAccountCreds:
     """Get the credentials for the service account used to upload files."""
     service_account_file = os.getenv("SERVICE_ACCOUNT_FILE")
-    if service_account_file:
-        service_account_key = json.load(open(service_account_file))
-    else:
-        raise Exception("Service account credentials not found")
+    service_account_credentials = os.getenv("GOOGLE_SERVICE_ACCOUNT_CREDENTIALS")
 
-    return ServiceAccountCreds(
-        scopes=["https://www.googleapis.com/auth/drive.file"], **service_account_key
-    )
+    if service_account_file:
+        with open(service_account_file) as f:
+            service_account_key = json.load(f)
+    elif service_account_credentials:
+        service_account_credentials = service_account_credentials.replace("\n", "\\n")
+        service_account_key = json.loads(service_account_credentials)
+    else:
+        raise RuntimeError("Service account credentials not found")
+
+    return ServiceAccountCreds(scopes=SCOPES, **service_account_key)
 
 
 async def upload_file(

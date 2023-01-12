@@ -1,3 +1,5 @@
+@use "styles/gallery-theme";
+
 /* Overrides to apply to default values of Bootstrap variables */
 $font-family-base: var(--next-font-open-sans);
 $font-size-base: 1.125rem;
@@ -8,6 +10,9 @@ $h3-font-size: 2rem;
 
 $navbar-dark-color: white;
 $navbar-dark-hover-color: white;
+
+$body-bg: gallery-theme.$dark-brown;
+$input-bg: white;
 
 // Override accordion variables (inactive as "+" and active as "-")
 $accordion-border-width: 0;

@@ -9,7 +9,7 @@ import {
 	BasicInformation,
 	QuestionPrompts,
 	SchoolInformation,
-	SocialInformation,
+	SocialInformation
 } from "./ApplySections";
 import { FormValuesType } from "./utils/ApplicationInterfaces";
 
@@ -102,7 +102,11 @@ const validationSchema = yup.object({
 		.required("Please answer this prompt."),
 });
 
-function ApplicationForm() {
+interface ApplicationFormProps {
+	setSubmittedApplication: (b: boolean) => void;
+}
+
+function ApplicationForm(props: ApplicationFormProps) {
 	const formRef = useRef<HTMLFormElement>(null);
 
 	const handleSubmit = (
@@ -136,7 +140,7 @@ function ApplicationForm() {
 			.postForm(APPLY_PATH, formData)
 			.then((res) => {
 				if (res.status === 201) {
-					console.log("Switched to new view");
+					props.setSubmittedApplication(true);
 				}
 			})
 			.catch(() => {

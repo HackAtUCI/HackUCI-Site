@@ -2,12 +2,14 @@
 
 .main {
 	padding: 5% 3.5%;
-	background-color: $dark-orange;
+	background-color: $dark-orange;	
+	min-height: 90vh;
 	overflow: auto;
 }
 
 .apply {
 	padding: 2.5% 2.5%;
 	border-radius: 10px;
-	// padding-top: 20px;
+	padding-top: 20px;
+	background-color: white;
 }

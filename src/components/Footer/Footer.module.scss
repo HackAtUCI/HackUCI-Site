@@ -1,0 +1,49 @@
+@import "styles/gallery-theme";
+
+.footer {
+	position: relative;
+	text-align: center;
+	padding: 50px;
+}
+
+.footer p {
+	color: white;
+	font-size: 18px;
+
+	a {
+		color: $light-orange;
+		text-decoration: none;
+	}
+}
+
+.footer-socials {
+	display: flex;
+	justify-content: center;
+}
+
+.footer-socials {
+	& a {
+		margin: 10px 25px;
+	}
+	& img {
+		height: 35px;
+		width: 30px;
+		filter: brightness(100);
+	}
+}
+@media screen and (max-width: 440px) {
+	.footer {
+		padding-bottom: 30px;
+		margin-bottom: 0 !important;
+	}
+
+	.footer-socials {
+		& a {
+			margin: 0 10px;
+		}
+	}
+
+	.footer p {
+		font-size: 14px;
+	}
+}
