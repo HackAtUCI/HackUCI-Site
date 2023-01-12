@@ -1,9 +1,10 @@
 @import "styles/gallery-theme";
 
-.dashboard {
+.portal {
 	color: $white;
 	background-color: $dark-brown;
 	min-height: 80vh;
+	padding: 1rem;
 
 	display: flex;
 	flex-direction: column;
@@ -12,5 +13,21 @@
 
 .content {
 	display: flex;
+	flex-direction: center;
+	flex-wrap: wrap;
+	justify-content: center;
 	width: 100%;
+	padding: 2rem;
+}
+
+.display_message {
+	width: 50%;
+	min-width: 28rem;
+	display: flex;
+	justify-content: center;
+}
+
+.card {
+	width: 24rem;
+	background-color: $dark-orange;
 }
