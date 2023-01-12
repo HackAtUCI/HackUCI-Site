@@ -48,6 +48,6 @@ jobs:
         run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }} > domain.txt
 
       - name: Apply staging domain.txt
-        run: vercel alias set `cat domain.txt` staging.hackuci.com
+        run: vercel alias set `cat domain.txt` staging.hackuci.com --token=${{ secrets.VERCEL_TOKEN }}
 
       # TODO: promotion
