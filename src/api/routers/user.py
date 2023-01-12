@@ -93,7 +93,7 @@ async def apply(
         await mongodb_handler.update_one(
             Collection.USERS,
             {"_id": user.uid},
-            applicant.dict(exclude={"_id"}),
+            applicant.dict(),
             upsert=True,
         )
     except RuntimeError:
