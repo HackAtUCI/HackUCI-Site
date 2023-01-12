@@ -1,13 +1,15 @@
 from datetime import datetime, timezone
 from logging import getLogger
+from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
-from pydantic import EmailStr
+from pydantic import BaseModel, EmailStr
 
 from auth import user_identity
+from auth.user_identity import User, require_user_identity, use_user_identity
 from models.ApplicationData import ProcessedApplicationData, RawApplicationData
-from models.User import User
+from models.User import Applicant
 from services import mongodb_handler
 from services.mongodb_handler import Collection
 from utils import email_handler, resume_handler
@@ -15,6 +17,12 @@ from utils import email_handler, resume_handler
 log = getLogger(__name__)
 
 router = APIRouter()
+
+
+class IdentityResponse(BaseModel):
+    uid: Optional[str]
+    status: Optional[str]
+    role: Optional[str]
 
 
 @router.post("/login")
@@ -25,16 +33,32 @@ async def login(email: EmailStr = Form()) -> RedirectResponse:
     return RedirectResponse("/api/guest/login", status.HTTP_307_TEMPORARY_REDIRECT)
 
 
+@router.get("/me", response_model=IdentityResponse)
+async def me(user: User = Depends(use_user_identity)) -> Any:
+    log.info(user)
+    if not user:
+        return dict()
+    user_record = await mongodb_handler.retrieve_one(
+        Collection.USERS, {"_id": user.uid}
+    )
+    if not user_record:
+        return {"uid": user.uid}
+    return {**user_record, "uid": user.uid}
+
+
 @router.post("/apply", status_code=status.HTTP_201_CREATED)
 async def apply(
     resume: UploadFile,
+    user: User = Depends(require_user_identity),
     raw_application_data: RawApplicationData = Depends(RawApplicationData),
 ) -> None:
 
     # check if email is already in database
-    if await mongodb_handler.retrieve_one(
-        Collection.USERS, {"email": raw_application_data.email}
-    ):
+    EXISTING_RECORD = await mongodb_handler.retrieve_one(
+        Collection.USERS, {"_id": user.uid}
+    )
+
+    if EXISTING_RECORD and "status" in EXISTING_RECORD:
         log.error("User email is already in use")
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
@@ -58,19 +82,32 @@ async def apply(
         resume_url=resume_url,
         submission_time=now,
     )
-    user = User(application_data=processed_application_data, status="PENDING_REVIEW")
+    applicant = Applicant(
+        _id=user.uid,
+        application_data=processed_application_data,
+        status="PENDING_REVIEW",
+    )
 
-    # add user to database
+    # add applicant to database
     try:
-        await mongodb_handler.insert(Collection.USERS, user.dict())
+        await mongodb_handler.update_one(
+            Collection.USERS,
+            {"_id": user.uid},
+            applicant.dict(exclude={"_id"}),
+            upsert=True,
+        )
     except RuntimeError:
-        log.error("Could not insert user to MongoDB")
+        log.error("Could not insert applicant to MongoDB")
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
-        await email_handler.send_application_confirmation_email(user.application_data)
+        await email_handler.send_application_confirmation_email(
+            applicant.application_data
+        )
     except RuntimeError:
         log.error("Could not send confirmation email with SendGrid")
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # TODO: handle inconsistent results if one service fails
+
+    log.info("%s submitted an application", user.uid)

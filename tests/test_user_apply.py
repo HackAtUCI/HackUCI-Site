@@ -5,8 +5,10 @@ from aiogoogle import HTTPError
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
+from auth import user_identity
+from auth.user_identity import NativeUser
 from models.ApplicationData import ProcessedApplicationData
-from models.User import User
+from models.User import Applicant
 from routers import user
 from services.mongodb_handler import Collection
 from utils import resume_handler
@@ -42,9 +44,10 @@ EXPECTED_APPLICATION_DATA = ProcessedApplicationData(
     submission_time=SAMPLE_SUBMISSION_TIME,
 )
 
-EXPECTED_USER = User(
-    application_data=EXPECTED_APPLICATION_DATA,
+EXPECTED_USER = Applicant(
+    _id="edu.uci.pkfire",
     status="PENDING_REVIEW",
+    application_data=EXPECTED_APPLICATION_DATA,
 )
 
 resume_handler.RESUMES_FOLDER_ID = "RESUMES_FOLDER_ID"
@@ -52,11 +55,23 @@ resume_handler.RESUMES_FOLDER_ID = "RESUMES_FOLDER_ID"
 app = FastAPI()
 app.include_router(user.router)
 
-client = TestClient(app)
+client = TestClient(
+    app,
+    cookies={
+        "hackuci_auth": user_identity._generate_jwt_token(
+            NativeUser(
+                ucinetid="pkfire",
+                display_name="pkfire",
+                email="pkfire@uci.edu",
+                affiliations=["pkfire"],
+            )
+        )
+    },
+)
 
 
 @patch("utils.email_handler.send_application_confirmation_email", autospec=True)
-@patch("services.mongodb_handler.insert", autospec=True)
+@patch("services.mongodb_handler.update_one", autospec=True)
 @patch("routers.user.datetime", autospec=True)
 @patch("services.gdrive_handler.upload_file", autospec=True)
 @patch("services.mongodb_handler.retrieve_one", autospec=True)
@@ -64,7 +79,7 @@ def test_apply_successfully(
     mock_mongodb_handler_retrieve_one: AsyncMock,
     mock_gdrive_handler_upload_file: AsyncMock,
     mock_datetime: Mock,
-    mock_mongodb_handler_insert: AsyncMock,
+    mock_mongodb_handler_update_one: AsyncMock,
     mock_send_application_confirmation_email: AsyncMock,
 ) -> None:
     """Test that a valid application is submitted properly."""
@@ -76,8 +91,8 @@ def test_apply_successfully(
     mock_gdrive_handler_upload_file.assert_awaited_once_with(
         resume_handler.RESUMES_FOLDER_ID, *EXPECTED_RESUME_UPLOAD
     )
-    mock_mongodb_handler_insert.assert_awaited_once_with(
-        Collection.USERS, EXPECTED_USER.dict()
+    mock_mongodb_handler_update_one.assert_awaited_once_with(
+        Collection.USERS, {"_id": EXPECTED_USER.uid}, EXPECTED_USER.dict(), upsert=True
     )
     mock_send_application_confirmation_email.assert_awaited_once_with(
         EXPECTED_APPLICATION_DATA
@@ -105,7 +120,10 @@ def test_apply_when_user_exists_causes_400(
     mock_gdrive_handler_upload_file: AsyncMock,
 ) -> None:
     """Test that applying when a user already exists causes status 400."""
-    mock_mongodb_handler_retrieve_one.return_value = {"_id": "existing"}
+    mock_mongodb_handler_retrieve_one.return_value = {
+        "_id": "edu.uci.pkfire",
+        "status": "pending review",
+    }
     res = client.post("/apply", data=SAMPLE_APPLICATION, files=SAMPLE_FILES)
 
     mock_gdrive_handler_upload_file.assert_not_called()
@@ -152,34 +170,34 @@ def test_apply_with_resume_upload_issue_causes_500(
 
 
 @patch("utils.email_handler.send_application_confirmation_email", autospec=True)
-@patch("services.mongodb_handler.insert", autospec=True)
+@patch("services.mongodb_handler.update_one", autospec=True)
 @patch("services.gdrive_handler.upload_file", autospec=True)
 @patch("services.mongodb_handler.retrieve_one", autospec=True)
 def test_apply_with_user_insert_issue_causes_500(
     mock_mongodb_handler_retrieve_one: AsyncMock,
     mock_gdrive_handler_upload_file: AsyncMock,
-    mock_mongodb_handler_insert: AsyncMock,
+    mock_mongodb_handler_update_one: AsyncMock,
     mock_send_application_confirmation_email: AsyncMock,
 ) -> None:
     """Test that an issue with inserting a user into MongoDB causes status 500."""
     mock_mongodb_handler_retrieve_one.return_value = None
     mock_gdrive_handler_upload_file.return_value = SAMPLE_RESUME_URL
-    mock_mongodb_handler_insert.side_effect = RuntimeError
+    mock_mongodb_handler_update_one.side_effect = RuntimeError
     res = client.post("/apply", data=SAMPLE_APPLICATION, files=SAMPLE_FILES)
 
-    mock_mongodb_handler_insert.assert_awaited_once()
+    mock_mongodb_handler_update_one.assert_awaited_once()
     mock_send_application_confirmation_email.assert_not_called()
     assert res.status_code == 500
 
 
 @patch("utils.email_handler.send_application_confirmation_email", autospec=True)
-@patch("services.mongodb_handler.insert", autospec=True)
+@patch("services.mongodb_handler.update_one", autospec=True)
 @patch("services.gdrive_handler.upload_file", autospec=True)
 @patch("services.mongodb_handler.retrieve_one", autospec=True)
 def test_apply_with_confirmation_email_issue_causes_500(
     mock_mongodb_handler_retrieve_one: AsyncMock,
     mock_gdrive_handler_upload_file: AsyncMock,
-    mock_mongodb_handler_insert: AsyncMock,
+    mock_mongodb_handler_update_one: AsyncMock,
     mock_send_application_confirmation_email: AsyncMock,
 ) -> None:
     """Test that an issue with sending the confirmation email causes status 500."""
@@ -188,6 +206,6 @@ def test_apply_with_confirmation_email_issue_causes_500(
     mock_send_application_confirmation_email.side_effect = RuntimeError
     res = client.post("/apply", data=SAMPLE_APPLICATION, files=SAMPLE_FILES)
 
-    mock_mongodb_handler_insert.assert_awaited_once()
+    mock_mongodb_handler_update_one.assert_awaited_once()
     mock_send_application_confirmation_email.assert_awaited_once()
     assert res.status_code == 500

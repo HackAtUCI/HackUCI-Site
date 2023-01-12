@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -8,18 +8,18 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 
 import HackLogo from "components/HackLogo/HackLogo";
-import { NavLinkItem, PrivateNavLinkItem } from "./NavigationHelpers";
+import UserContext from "utils/userContext";
 
 import styles from "./Navigation.module.scss";
-
-// Temporary variable to indicate login status
-const isLoggedIn = false;
+import { NavLinkItem, PrivateNavLinkItem } from "./NavigationHelpers";
 
 function Navigation() {
-	// TODO: CHECK LOGIN STATUS
 	const [expanded, setExpanded] = useState<boolean>(false);
 
+	const { uid } = useContext(UserContext);
+
 	const router = useRouter();
+	const isLoggedIn = uid !== null;
 	const currentRoute = router.asPath;
 	const logText = isLoggedIn ? "Log Out" : "Log In";
 	const logButtonPath = isLoggedIn ? "/logout" : "/login";
@@ -43,6 +43,7 @@ function Navigation() {
 				<Navbar.Collapse id="main-navbar-nav">
 					<Nav as="ul" className="ms-auto" activeKey={currentRoute}>
 						<NavLinkItem href="/">Home</NavLinkItem>
+						<NavLinkItem href="/apply">Apply</NavLinkItem>
 						<PrivateNavLinkItem authorized={isLoggedIn} href="/dashboard">
 							Dashboard
 						</PrivateNavLinkItem>
