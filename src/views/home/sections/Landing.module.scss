@@ -8,14 +8,11 @@
     color: $white;
     font-size: 10px;
     margin-right: auto;
-    margin-left: 20px;
     @include media-breakpoint-up(md) {
         font-size: 20px;
-        margin-left: 0px;
     }
     @include media-breakpoint-up(lg) {
         font-size: 24px;
-        margin-left: 0px;
     }
 }
 .homeHeading {
@@ -37,20 +34,10 @@
     align-items: center;
     justify-content: center;
     @include media-breakpoint-up(md) {
-        margin-top: 25px;
+        margin-top: 20px;
     }
     @include media-breakpoint-up(lg) {
         margin-top: 50px;
-    }
-
-    .homeButton {
-        margin: 0px 10px;
-        @include media-breakpoint-up(md) {
-            margin: 0px 15px;
-        }
-        @include media-breakpoint-up(lg) {
-            margin: 0px 30px;
-        }
     }
 }
 
@@ -62,12 +49,12 @@
     
     .homeBenches {
         position: absolute;
-        top: 300px;
+        top: 230px;
         @include media-breakpoint-up(md) {
-            top: 530px;
+            top: 480px;
         }
         @include media-breakpoint-up(lg) {
-            top: 630px;
+            top: 580px;
         }
 
         .homeBenchImage {

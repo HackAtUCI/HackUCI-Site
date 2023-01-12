@@ -3,8 +3,9 @@ from logging import getLogger
 
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
-from pydantic import EmailError, EmailStr
+from pydantic import EmailStr
 
+from auth import user_identity
 from models.ApplicationData import ProcessedApplicationData, RawApplicationData
 from models.User import User
 from services import mongodb_handler
@@ -16,23 +17,12 @@ log = getLogger(__name__)
 router = APIRouter()
 
 
-def _uci_email(email: str) -> bool:
-    """Checks whether or not an email address is part of UCI or a subdomain thereof"""
-    return email.endswith("@uci.edu") or email.endswith(".uci.edu")
-
-
 @router.post("/login")
-async def login(email: str = Form()) -> RedirectResponse:
-    try:
-        EmailStr.validate(email)
-    except EmailError:
-        raise HTTPException(400, "Invalid email address")
-
-    if _uci_email(email):
+async def login(email: EmailStr = Form()) -> RedirectResponse:
+    if user_identity.uci_email(email):
         # redirect user to UCI SSO login endpoint, changing to GET method
-        return RedirectResponse("/api/saml/login", status_code=303)
-    # TODO: add authentication for non-UCI users
-    raise HTTPException(501)
+        return RedirectResponse("/api/saml/login", status.HTTP_303_SEE_OTHER)
+    return RedirectResponse("/api/guest/login", status.HTTP_307_TEMPORARY_REDIRECT)
 
 
 @router.post("/apply", status_code=status.HTTP_201_CREATED)

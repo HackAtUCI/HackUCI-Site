@@ -21,7 +21,7 @@ class RawApplicationData(BaseModel):
     is_first_hackathon: bool
     portfolio_link: Optional[HttpUrl]
     linkedin_link: Optional[HttpUrl]
-    stress_relief_question: str = Field(max_length=4096)
+    stress_relief_question: Optional[str] = Field(max_length=4096)
     company_specialize_question: str = Field(max_length=4096)
 
     class Config:

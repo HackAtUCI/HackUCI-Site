@@ -87,7 +87,33 @@ async def test_update_existing_document(mock_DB: MagicMock) -> None:
     query = {"_id": "my-id"}
     update = {"name": "hack"}
     result = await mongodb_handler.update_one(Collection.TESTING, query, update)
-    mock_collection.update_one.assert_awaited_once_with(query, {"$set": update})
+    mock_collection.update_one.assert_awaited_once_with(
+        query, {"$set": update}, upsert=False
+    )
+    assert result is True
+
+
+@patch("services.mongodb_handler.DB")
+async def test_upsert_existing_document(mock_DB: MagicMock) -> None:
+    """Test that single existing document can be upserted"""
+    mock_collection = AsyncMock()
+    mock_collection.update_one.return_value = UpdateResult(
+        {
+            "n": 1,
+            "nModified": 1,
+        },
+        True,
+    )
+    mock_DB.__getitem__.return_value = mock_collection
+
+    query = {"_id": "my-id"}
+    update = {"status": "accepted"}
+    result = await mongodb_handler.update_one(
+        Collection.TESTING, query, update, upsert=True
+    )
+    mock_collection.update_one.assert_awaited_once_with(
+        query, {"$set": update}, upsert=True
+    )
     assert result is True
 
 

@@ -1,0 +1,67 @@
+@use "layouts/MuseumRoom.module";
+@import "styles/gallery-theme";
+
+.carouselGallery {
+	$n: 12;
+	$tt: 120s;
+
+	@keyframes rotate-carousel {
+		from {
+			transform: rotateY(0deg);
+		}
+		to {
+			transform: rotateY(360deg);
+		}
+	}
+
+	$r: MuseumRoom.$r;
+	$offset: MuseumRoom.$offset;
+	perspective: inherit;
+	perspective-origin: inherit;
+
+	/* for certain versions of Safari, perspective origin is shifted incorrectly */
+	transform-origin: center center (-$offset/2.5);
+
+	.paintings {
+		height: 100%;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		transform-style: preserve-3d; /* needed even when not rotating for Chrome */
+		transform-origin: 50% 50% $offset; /* needed even when not rotating for Safari */
+		&.rotating {
+			animation: $tt rotate-carousel infinite linear;
+		}
+
+		.painting {
+			height: 30vh;
+			aspect-ratio: 3/2;
+			position: absolute;
+
+			background-image: linear-gradient(55.62deg, $wild-orange, $midnight-blue);
+
+			&:nth-child(2n + 1) {
+				aspect-ratio: 4/5;
+			}
+
+			@for $i from 1 through $n {
+				&:nth-child(#{$i}) {
+					$ry: -$i * 360deg / $n;
+					$dz: -$r;
+					transform: translateZ($offset) rotateY($ry) translateZ($dz);
+				}
+			}
+		}
+
+		.paintingNumber {
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+			justify-content: center;
+			font-size: 8rem;
+			font-weight: 700;
+		}
+	}
+}

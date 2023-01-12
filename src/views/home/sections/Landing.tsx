@@ -12,8 +12,8 @@ function Landing() {
 		<div className={styles.homeHeading}>HackUCI</div>
 
 		<div className={styles.homeButtons}>
-			<Button className={styles.homeButton} href="#">Apply as a Hacker</Button>
-			<Button className={styles.homeButton} href="#">Apply as a Mentor</Button>
+			<Button className="btn-museum btn-landing" href="#">Apply as a Hacker</Button>
+			<Button className="btn-museum btn-landing" href="#">Apply as a Mentor</Button>
 		</div>
 	</div>;
 
