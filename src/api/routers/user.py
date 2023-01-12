@@ -50,7 +50,7 @@ async def me(user: User = Depends(use_user_identity)) -> Any:
 async def apply(
     user: User = Depends(require_user_identity),
     raw_application_data: RawApplicationData = Depends(RawApplicationData),
-    resume: Optional[UploadFile] = None
+    resume: Optional[UploadFile] = None,
 ) -> None:
     # check if email is already in database
     EXISTING_RECORD = await mongodb_handler.retrieve_one(
@@ -64,8 +64,7 @@ async def apply(
     if resume is not None:
         try:
             resume_url = await resume_handler.upload_resume(
-                raw_application_data,
-                resume
+                raw_application_data, resume
             )
         except TypeError:
             raise HTTPException(

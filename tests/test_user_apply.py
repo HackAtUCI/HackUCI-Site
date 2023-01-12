@@ -45,9 +45,7 @@ EXPECTED_APPLICATION_DATA = ProcessedApplicationData(
 )
 
 EXPECTED_APPLICATION_DATA_WITHOUT_RESUME = ProcessedApplicationData(
-    **SAMPLE_APPLICATION,
-    resume_url=None,
-    submission_time=SAMPLE_SUBMISSION_TIME
+    **SAMPLE_APPLICATION, resume_url=None, submission_time=SAMPLE_SUBMISSION_TIME
 )
 
 EXPECTED_USER = Applicant(
@@ -242,7 +240,10 @@ def test_apply_successfully_without_resume(
 
     mock_gdrive_handler_upload_file.assert_not_called()
     mock_mongodb_handler_update_one.assert_awaited_once_with(
-        Collection.USERS, EXPECTED_USER_WITHOUT_RESUME.dict()
+        Collection.USERS,
+        {"_id": EXPECTED_USER.uid},
+        EXPECTED_USER_WITHOUT_RESUME.dict(),
+        upsert=True,
     )
     mock_send_application_confirmation_email.assert_awaited_once_with(
         EXPECTED_APPLICATION_DATA_WITHOUT_RESUME
