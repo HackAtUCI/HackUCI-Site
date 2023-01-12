@@ -20,7 +20,7 @@ router = APIRouter()
 
 
 class IdentityResponse(BaseModel):
-    uid: str
+    uid: Optional[str]
     status: Optional[str]
     role: Optional[str]
 

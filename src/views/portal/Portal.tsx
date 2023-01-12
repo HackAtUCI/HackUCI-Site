@@ -1,12 +1,22 @@
-import { useEffect } from "react";
+import Router from "next/router";
+import { useContext, useEffect } from "react";
+import UserContext from "utils/userContext";
 
 import VerticleTimeline from "./components/VerticleTimeline/VerticleTimeline";
 import styles from "./Portal.module.scss";
 
 function Portal() {
+	const { status } = useContext(UserContext);
+
 	useEffect(() => {
-		// TODO: Get user information
+		if (status === null) {
+			Router.push("/apply");
+		}
 	});
+
+	if (status === null) {
+		return null;
+	}
 
 	return (
 		<div className={styles.portal}>
