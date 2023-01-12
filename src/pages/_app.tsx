@@ -13,7 +13,7 @@ import "styles/hackuci.scss";
 const BASE_PATH =
 	process.env.NODE_ENV === "development"
 		? "http://localhost:3000"
-		: process.env.DEPLOYMENT === "STAGING"
+		: process.env.NEXT_PUBLIC_DEPLOYMENT === "STAGING"
 		? "https://staging.hackuci.com"
 		: "https://hackuci.com";
 
