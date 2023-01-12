@@ -1,4 +1,8 @@
 @use "utils/bootstrap";
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+@import "/src/styles/hackuci-overrides.scss";
 @import "styles/gallery-theme";
 
 section.container {
@@ -26,7 +30,63 @@ h2,
 	font-weight: 700;
 	box-shadow: 0px 4px 13px rgba(0, 0, 0, 0.25);
 
+	&.btn-landing {
+		&:first-child {
+			background: radial-gradient(
+				90.79% 187.79% at 11.95% 10.18%,
+				#175079 0%,
+				#417eaa 47.92%,
+				#0c4671 100%
+			);
+		}
+
+		&:last-child {
+			background: radial-gradient(
+				94.77% 139.77% at 69.77% -3.97%,
+				#175079 0%,
+				#417eaa 47.92%,
+				#0c4671 100%
+			);
+		}
+	}
+
 	&:hover {
 		box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.37);
+
+		&.btn-landing {
+			&:first-child {
+				background: radial-gradient(
+					108.45% 108.45% at 21.57% 8.22%,
+					$deep-blue 0%,
+					$light-navy-blue 47.92%,
+					$deep-blue 100%
+				);
+			}
+
+			&:last-child {
+				background: radial-gradient(
+					106.64% 106.64% at 67.13% 4.42%,
+					$deep-blue 0%,
+					$light-navy-blue 47.92%,
+					$deep-blue 100%
+				);
+			}
+		}
+	}
+}
+
+.btn-landing {
+	padding: 15px 3px;
+	margin: 0px 8px;
+	font-size: 8px;
+	@include media-breakpoint-up(md) {
+		padding: 30px 17px;
+		margin: 0px 10px;
+		font-size: 14px;
+	}
+	@include media-breakpoint-up(lg) {
+		padding: 40px 18px;
+		margin: 0px 10px;
+		font-size: 16px;
 	}
 }

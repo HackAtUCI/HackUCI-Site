@@ -16,9 +16,7 @@ function CarouselGallery({ rotating }: CarouselGalleryProps) {
 						<div
 							key={i}
 							className={[styles.painting, styles.paintingNumber].join(" ")}
-						>
-							{i + 1}
-						</div>
+						/>
 					))}
 			</div>
 		</div>
