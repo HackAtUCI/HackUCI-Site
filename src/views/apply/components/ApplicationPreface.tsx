@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap";
 
 interface ApplicationPrefaceProps {
 	isLoggedIn: boolean;
-	setAcceptedPreface: Function;
+	setAcceptedPreface: () => void;
 }
 
 function ApplicationPreface(props: ApplicationPrefaceProps) {
