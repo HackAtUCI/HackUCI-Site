@@ -8,6 +8,8 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import RedirectResponse, Response
 from onelogin.saml2.auth import OneLogin_Saml2_Auth, OneLogin_Saml2_Settings
 
+from auth import user_identity
+
 log = getLogger(__name__)
 
 router = APIRouter()
@@ -115,20 +117,15 @@ async def acs(req: Request) -> RedirectResponse:
         log.exception("Error decoding SAML Attributes: %s", e)
         raise HTTPException(500, "Error decoding user identity")
 
-    identity = (ucinetid, display_name, email, affiliations)
-    # TODO: provide user with JWT token
-    # user_identity = AccountUser(
-    #     ucinetid=ucinetid,
-    #     display_name=display_name,
-    #     email=email,
-    #     affiliations=affiliations,
-    # )
-
-    # jwt_token = generate_jwt_token(user_identity)
-    jwt_token = str(identity)
+    user = user_identity.NativeUser(
+        ucinetid=ucinetid,
+        display_name=display_name,
+        email=email,
+        affiliations=affiliations,
+    )
 
     res = RedirectResponse("/", status_code=303)
-    res.set_cookie("hackuci_auth", jwt_token, max_age=4000, secure=True, httponly=True)
+    user_identity.issue_user_identity(user, res)
     return res
 
 
