@@ -7,6 +7,7 @@ import Head from "next/head";
 
 import { Footer, Navigation } from "components";
 import FontProvider from "utils/FontProvider";
+import Loading from "utils/Loading";
 import UserContext, { Identity } from "utils/userContext";
 
 import "styles/bootstrap.scss";
@@ -46,6 +47,7 @@ AppProps) {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
 			<FontProvider />
+			{!identity && <Loading />}
 			{identity && (
 				<UserContext.Provider value={identity}>
 					<Navigation />
