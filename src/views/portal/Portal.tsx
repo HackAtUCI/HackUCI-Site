@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-import DisplayMessage from "./components/DisplayMessage";
 import VerticleTimeline from "./components/VerticleTimeline/VerticleTimeline";
 import styles from "./Portal.module.scss";
 
@@ -13,10 +12,7 @@ function Portal() {
 		<div className={styles.portal}>
 			<h2>Application Portal</h2>
 			<div className={styles.content}>
-				<VerticleTimeline />
-				<div className={styles.display_message}>
-					<DisplayMessage status="attending" />
-				</div>
+				<VerticleTimeline status="submitted" date_submitted="1/11/23" />
 			</div>
 		</div>
 	);
