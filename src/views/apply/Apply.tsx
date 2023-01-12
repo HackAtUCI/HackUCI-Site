@@ -9,7 +9,7 @@ import ApplicationPreface from "./components/ApplicationPreface";
 function Apply() {
 	const { uid, status } = useContext(UserContext);
 	const isLoggedIn = uid !== null;
-	const submittedApplication = status !== null;
+	const [submittedApplication, setSubmittedApplication] = useState(status !== null);
 
 	const [acceptedPreface, setAcceptedPreface] = useState(false);
 
@@ -30,7 +30,7 @@ function Apply() {
 						setAcceptedPreface={setAcceptedPreface}
 					/>
 				) : (
-					<ApplicationForm />
+						<ApplicationForm setSubmittedApplication={setSubmittedApplication} />
 				)}
 			</Container>
 		</div>
