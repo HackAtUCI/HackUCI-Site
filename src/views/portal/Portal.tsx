@@ -12,7 +12,7 @@ function Portal() {
 		if (status === null) {
 			Router.push("/apply");
 		}
-	});
+	}, [status]);
 
 	if (status === null) {
 		return null;

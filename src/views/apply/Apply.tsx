@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import UserContext from "utils/userContext";
@@ -15,13 +14,15 @@ function Apply() {
 
 	const [acceptedPreface, setAcceptedPreface] = useState(false);
 
-	const router = useRouter();
-
 	useEffect(() => {
-		if (submittedApplication) {
-			router.push("/portal");
+		if (submittedApplication || status !== null) {
+			window.location.href = "/portal";
 		}
-	});
+	}, [status, submittedApplication]);
+
+	if (status !== null) {
+		return null;
+	}
 
 	return (
 		<div className={styles.main}>
