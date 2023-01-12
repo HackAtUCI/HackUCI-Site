@@ -33,6 +33,14 @@ async def login(email: EmailStr = Form()) -> RedirectResponse:
     return RedirectResponse("/api/guest/login", status.HTTP_307_TEMPORARY_REDIRECT)
 
 
+@router.get("/logout")
+async def log_out() -> RedirectResponse:
+    """Clear user identity cookie."""
+    response = RedirectResponse("/", status.HTTP_303_SEE_OTHER)
+    user_identity.remove_user_identity(response)
+    return response
+
+
 @router.get("/me", response_model=IdentityResponse)
 async def me(user: User = Depends(use_user_identity)) -> Any:
     log.info(user)
