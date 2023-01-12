@@ -5,7 +5,7 @@ from pydantic import EmailStr
 
 from services import sendgrid_handler
 
-HACKUCI_SENDER = "noreply@hackuci.com"
+HACKUCI_SENDER = ("apply@hackuci.com", "HackUCI 2023 Applications")
 
 
 class ContactInfo(Protocol):
@@ -16,15 +16,15 @@ class ContactInfo(Protocol):
 
 class Template(str, Enum):
     # TODO: provide actual template IDs
-    confirmation = "confirmation-template-id"
-    GUEST_TOKEN = "guest-template"
+    CONFIRMATION_EMAIL = "d-2026cde7bebd45ad85723443808c5817"
+    GUEST_TOKEN = "d-b19f08e584cb4c0f97b55f567ee10afc"
 
 
 async def send_application_confirmation_email(user: ContactInfo) -> None:
     """Send a confirmation email after a user submits an application.
     Will propagate exceptions from SendGrid."""
     await sendgrid_handler.send_email(
-        Template.confirmation,
+        Template.CONFIRMATION_EMAIL,
         HACKUCI_SENDER,
         {
             "email": user.email,

@@ -2,7 +2,7 @@
 # https://github.com/sendgrid/sendgrid-python
 import os
 from logging import getLogger
-from typing import Iterable, Mapping, Union
+from typing import Iterable, Mapping, Tuple, Union
 
 import aiosendgrid
 from httpx import HTTPStatusError
@@ -17,7 +17,7 @@ PersonalizationData = Mapping[str, object]
 
 async def send_email(
     template_id: str,
-    sender_email: str,
+    sender_email: Tuple[str, str],
     receiver_data: Union[PersonalizationData, Iterable[PersonalizationData]],
     send_to_multiple: bool = False,
 ) -> None:
