@@ -9,7 +9,7 @@ import {
 	FieldYesNoRadioGroup,
 } from "../utils/InputComponents";
 
-const educationLevelList = [
+const educationLevels = [
 	"First Year Undergraduate",
 	"Second Year Undergraduate",
 	"Third Year Undergraduate",
@@ -17,7 +17,7 @@ const educationLevelList = [
 	"Fifth+ Year Undergraduate",
 	"Graduate",
 ];
-const schoolList = [
+const universityOptions = [
 	"UC Irvine",
 	"UC San Diego",
 	"UCLA",
@@ -48,7 +48,7 @@ function SchoolInformation({
 					controlId="formUniversity"
 					isTouched={touched.university}
 					errorMsg={errors.university}
-					optionList={schoolList}
+					optionList={universityOptions}
 					lg={values.university === "Other" ? 6 : 12}
 				/>
 				{values.university === "Other" && (
@@ -71,7 +71,7 @@ function SchoolInformation({
 					controlId="formEducation"
 					isTouched={touched.education_level}
 					errorMsg={errors.education_level}
-					optionList={educationLevelList}
+					optionList={educationLevels}
 					md={6}
 					lg={4}
 				/>
