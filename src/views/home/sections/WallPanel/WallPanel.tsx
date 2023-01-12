@@ -9,10 +9,10 @@ function WallPanel() {
 					<span className={styles["number"]}>36</span> Hours
 				</h3>
 				<h3>
-					<span className={styles["number"]}>500+</span> Hackers
+					<span className={styles["number"]}>400+</span> Attendees
 				</h3>
 				<h3>
-					<span className={styles["number"]}>$10,000</span> in Prizes
+					<span className={styles["number"]}>$5,000</span> in Prizes
 				</h3>
 				<h4>Create + Connect + Inspire</h4>
 				<p>
