@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from logging import getLogger
-from typing import Any
+from typing import Any, Optional
 
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
@@ -20,8 +20,8 @@ router = APIRouter()
 
 
 class IdentityResponse(BaseModel):
-    status: str
-    role: str
+    status: Optional[str]
+    role: Optional[str]
 
 
 @router.post("/login")
@@ -79,11 +79,16 @@ async def apply(
         status="PENDING_REVIEW",
     )
 
-    # add user to database
+    # add applicant to database
     try:
-        await mongodb_handler.insert(Collection.USERS, applicant.dict())
+        await mongodb_handler.update_one(
+            Collection.USERS,
+            {"_id": user.uid},
+            applicant.dict(exclude={"_id"}),
+            upsert=True,
+        )
     except RuntimeError:
-        log.error("Could not insert user to MongoDB")
+        log.error("Could not insert applicant to MongoDB")
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
@@ -95,3 +100,5 @@ async def apply(
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # TODO: handle inconsistent results if one service fails
+
+    log.info("%s submitted an application", user.uid)
