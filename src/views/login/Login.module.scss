@@ -1,5 +1,12 @@
 @import "styles/gallery-theme";
 
+.login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 80vh;
+}
+
 .container {
 	width: 60%;
 	min-width: 400px;

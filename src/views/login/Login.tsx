@@ -12,10 +12,12 @@ function Login() {
 
 	return (
 		<MuseumRoom>
-			<Container className={styles.container}>
-				<h1>Log In</h1>
-				<LoginForm />
-			</Container>
+			<section className={styles.login}>
+				<Container className={styles.container}>
+					<h1>Log In</h1>
+					<LoginForm />
+				</Container>
+			</section>
 		</MuseumRoom>
 	);
 }
