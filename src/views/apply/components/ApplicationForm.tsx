@@ -131,6 +131,9 @@ function ApplicationForm() {
 			formData.set("university", values.other_school_name);
 			formData.delete("other_school_name");
 		}
+		if (values.resume === undefined) {
+			formData.delete("resume");
+		}
 
 		axios
 			.postForm(APPLY_PATH, formData)

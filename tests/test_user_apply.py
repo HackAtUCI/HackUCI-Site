@@ -44,10 +44,22 @@ EXPECTED_APPLICATION_DATA = ProcessedApplicationData(
     submission_time=SAMPLE_SUBMISSION_TIME,
 )
 
+EXPECTED_APPLICATION_DATA_WITHOUT_RESUME = ProcessedApplicationData(
+    **SAMPLE_APPLICATION,
+    resume_url=None,
+    submission_time=SAMPLE_SUBMISSION_TIME
+)
+
 EXPECTED_USER = Applicant(
     _id="edu.uci.pkfire",
     status="PENDING_REVIEW",
     application_data=EXPECTED_APPLICATION_DATA,
+)
+
+EXPECTED_USER_WITHOUT_RESUME = Applicant(
+    _id="edu.uci.pkfire",
+    application_data=EXPECTED_APPLICATION_DATA_WITHOUT_RESUME,
+    status="PENDING_REVIEW",
 )
 
 resume_handler.RESUMES_FOLDER_ID = "RESUMES_FOLDER_ID"
@@ -209,3 +221,30 @@ def test_apply_with_confirmation_email_issue_causes_500(
     mock_mongodb_handler_update_one.assert_awaited_once()
     mock_send_application_confirmation_email.assert_awaited_once()
     assert res.status_code == 500
+
+
+@patch("utils.email_handler.send_application_confirmation_email", autospec=True)
+@patch("services.mongodb_handler.update_one", autospec=True)
+@patch("routers.user.datetime", autospec=True)
+@patch("services.gdrive_handler.upload_file", autospec=True)
+@patch("services.mongodb_handler.retrieve_one", autospec=True)
+def test_apply_successfully_without_resume(
+    mock_mongodb_handler_retrieve_one: AsyncMock,
+    mock_gdrive_handler_upload_file: AsyncMock,
+    mock_datetime: Mock,
+    mock_mongodb_handler_update_one: AsyncMock,
+    mock_send_application_confirmation_email: AsyncMock,
+) -> None:
+    """Test that a valid application is submitted properly without a resume."""
+    mock_mongodb_handler_retrieve_one.return_value = None
+    mock_datetime.now.return_value = SAMPLE_SUBMISSION_TIME
+    res = client.post("/apply", data=SAMPLE_APPLICATION, files=None)
+
+    mock_gdrive_handler_upload_file.assert_not_called()
+    mock_mongodb_handler_update_one.assert_awaited_once_with(
+        Collection.USERS, EXPECTED_USER_WITHOUT_RESUME.dict()
+    )
+    mock_send_application_confirmation_email.assert_awaited_once_with(
+        EXPECTED_APPLICATION_DATA_WITHOUT_RESUME
+    )
+    assert res.status_code == 201
