@@ -19,6 +19,9 @@ function ApplicationPreface(props: ApplicationPrefaceProps) {
 				US accredited college or university who will be over the age of 18 by
 				February 3rd, 2023.
 			</p>
+			<p>
+				<strong>Applications are due on January 25, 2023 at 11:59 PM.</strong>
+			</p>
 			{props.isLoggedIn ? (
 				<Button
 					variant="primary"
@@ -31,9 +34,14 @@ function ApplicationPreface(props: ApplicationPrefaceProps) {
 				</Button>
 			) : (
 				<Button variant="primary" className="button" href="/login">
-					Log In
+					Log In To Apply
 				</Button>
 			)}
+			<p style={{ marginTop: "1vh" }}>
+				Interested in helping out instead? Consider applying to be a{" "}
+				<a href="https://forms.gle/tcnikpj5gHnGPNvx7">mentor</a> or a{" "}
+				<a href="https://forms.gle/bLw9nHffqoz4kAGR7">volunteer</a>.
+			</p>
 		</div>
 	);
 }
