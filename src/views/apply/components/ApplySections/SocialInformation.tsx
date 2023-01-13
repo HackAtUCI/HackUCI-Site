@@ -19,11 +19,22 @@ function SocialInformation({
 >) {
 	return (
 		<div>
-			<h3>Social Information (Optional)</h3>
+			<h3>Social Information</h3>
 			<Row className="mb-3">
+				<FieldFileUploadGroup
+					name="resume"
+					label="Resume (*.pdf)"
+					controlId="formResume"
+					isTouched={touched.resume}
+					errorMsg={errors.resume}
+					setFieldValue={setFieldValue}
+					accept=".pdf"
+					sm={12}
+					lg={4}
+				/>
 				<FieldInputGroup
 					name="portfolio_link"
-					label="Github/Portfolio Link"
+					label="Github/Portfolio Link (Optional)"
 					controlId="formPortfolio"
 					isTouched={touched.portfolio_link}
 					errorMsg={errors.portfolio_link}
@@ -32,22 +43,11 @@ function SocialInformation({
 				/>
 				<FieldInputGroup
 					name="linkedin_link"
-					label="LinkedIn Link"
+					label="LinkedIn Link (Optional)"
 					controlId="formLinkedIn"
 					isTouched={touched.linkedin_link}
 					errorMsg={errors.linkedin_link}
 					sm={6}
-					lg={4}
-				/>
-				<FieldFileUploadGroup
-					name="resume"
-					label="Resume (*.pdf)"
-					controlId="formResume"
-					isTouched={values.resume !== undefined}
-					errorMsg={errors.resume}
-					setFieldValue={setFieldValue}
-					accept=".pdf"
-					sm={12}
 					lg={4}
 				/>
 			</Row>
