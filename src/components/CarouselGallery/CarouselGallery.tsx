@@ -39,7 +39,15 @@ function CarouselGallery({ rotating }: CarouselGalleryProps) {
 			>
 				{PAINTINGS_CYCLE.map(({ image }, i) => (
 					<div key={i} className={styles.painting}>
-						<Image src={image} alt="" fill priority placeholder="blur" />
+						<Image
+							src={image}
+							alt=""
+							fill
+							priority
+							placeholder="blur"
+							sizes={i % 2 ? "45vh" : "24vh"}
+							style={{ objectFit: "cover" }}
+						/>
 					</div>
 				))}
 			</div>
