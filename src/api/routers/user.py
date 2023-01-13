@@ -48,11 +48,10 @@ async def me(user: User = Depends(use_user_identity)) -> Any:
 
 @router.post("/apply", status_code=status.HTTP_201_CREATED)
 async def apply(
-    resume: UploadFile,
     user: User = Depends(require_user_identity),
     raw_application_data: RawApplicationData = Depends(RawApplicationData),
+    resume: Optional[UploadFile] = None,
 ) -> None:
-
     # check if email is already in database
     EXISTING_RECORD = await mongodb_handler.retrieve_one(
         Collection.USERS, {"_id": user.uid}
@@ -62,19 +61,24 @@ async def apply(
         log.error("User email is already in use")
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
-    try:
-        resume_url = await resume_handler.upload_resume(raw_application_data, resume)
-    except TypeError:
-        raise HTTPException(
-            status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "Invalid resume file type"
-        )
-    except ValueError:
-        raise HTTPException(
-            status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Resume upload is too large"
-        )
-    except RuntimeError as err:
-        log.error("During user %s apply: %s", user.uid, err)
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
+    if resume is not None:
+        try:
+            resume_url = await resume_handler.upload_resume(
+                raw_application_data, resume
+            )
+        except TypeError:
+            raise HTTPException(
+                status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "Invalid resume file type"
+            )
+        except ValueError:
+            raise HTTPException(
+                status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Resume upload is too large"
+            )
+        except RuntimeError as err:
+            log.error("During user %s apply, resume upload: %s", user.uid, err)
+            raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
+    else:
+        resume_url = None
 
     now = datetime.now(timezone.utc)
     processed_application_data = ProcessedApplicationData(
