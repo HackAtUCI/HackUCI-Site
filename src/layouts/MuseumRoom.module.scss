@@ -4,6 +4,9 @@ $r: 90vh;
 // z-coordinate of center of carousel
 $offset: $r / 1.8;
 
+$navbar-height: 66px;
+$navbar-expanded-height: 266px;
+
 @mixin circle($radius) {
 	width: 2 * $radius;
 	height: 2 * $radius;
@@ -11,14 +14,17 @@ $offset: $r / 1.8;
 }
 
 .museumRoom {
-	// start from top of page by excluding at least navbar height
-	margin-top: -66px;
-	overflow-x: hidden;
-	overflow-y: hidden;
+	$room-height: 60vh;
+
+	overflow: hidden;
+
+	// Start from beyond top of page by excluding at least navbar height
+	// This will allow the ceiling to extend down when expanding a collapsed navbar
+	margin-top: -2 * $navbar-expanded-height;
+	transform: translateY($navbar-expanded-height - $navbar-height);
 
 	width: 100%;
-	$room-height: 60vh;
-	height: $room-height * 1.6;
+	height: calc($room-height * 1.6 + 2 * $navbar-expanded-height);
 	background-image: linear-gradient(#9e3b10, #50200b);
 
 	position: absolute;
