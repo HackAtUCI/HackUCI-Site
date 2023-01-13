@@ -1,36 +1,44 @@
-import benchImage from "assets/images/bench_and_viewers.svg";
-import TextPanel from "components/TextPanel/TextPanel";
 import Image from "next/image";
+
 import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+
+import benchImage from "assets/images/bench_and_viewers.svg";
+import { TitleBanner } from "components";
+
 import styles from "./Landing.module.scss";
 
 function Landing() {
-	const panelContent = (
-		<div>
-			<div className={styles.homeDate}>February 3 - 5, 2023</div>
-			<div className={styles.homeHeading}>HackUCI</div>
-
-			<div className={styles.homeButtons}>
-				<Button className="btn-museum btn-landing" href="/apply">
-					Apply as a Hacker
-				</Button>
-				<Button className="btn-museum btn-landing" href="/mentor">
-					Apply as a Mentor
-				</Button>
-			</div>
-		</div>
+	const hackerApplyButton = (
+		<Button variant="museum" className={styles.btnLanding} href="/apply">
+			Apply as a Hacker
+		</Button>
+	);
+	const mentorApplyButton = (
+		<Button variant="museum" className={styles.btnLanding} href="/mentor">
+			Apply as a Mentor
+		</Button>
 	);
 
 	return (
 		<section className={styles.homeLanding}>
-			<TextPanel props={panelContent} />
-			<div className={styles.homeBenches}>
-				<Image
-					src={benchImage}
-					alt="Landing Benches"
-					className={styles.homeBenchImage}
-				/>
-			</div>
+			<TitleBanner className={styles.homeBanner}>
+				<div className="d-flex flex-column-reverse">
+					<h1>HackUCI</h1>
+					<span className={styles.landingDate}>February 3 &ndash; 5, 2023</span>
+				</div>
+
+				<Row className={styles.homeButtons}>
+					<Col md="auto">{hackerApplyButton}</Col>
+					<Col md="auto">{mentorApplyButton}</Col>
+				</Row>
+			</TitleBanner>
+			<Image
+				src={benchImage}
+				alt="Two Anteaters sitting on a bench and admiring the gallery of artwork"
+				className={styles.landingBench}
+			/>
 		</section>
 	);
 }
