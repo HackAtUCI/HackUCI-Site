@@ -1,3 +1,68 @@
-.landing {
-	min-height: 100vh;
+@import "bootstrap/scss/_functions";
+@import "bootstrap/scss/_variables";
+@import "bootstrap/scss/mixins/_breakpoints";
+@import "/src/styles/hackuci-overrides.scss";
+@import "/src/styles/gallery-theme";
+
+.homeDate {
+	color: $white;
+	font-size: 10px;
+	margin-right: auto;
+	@include media-breakpoint-up(md) {
+		font-size: 20px;
+	}
+	@include media-breakpoint-up(lg) {
+		font-size: 24px;
+	}
+}
+.homeHeading {
+	color: $white;
+	font-size: 48px;
+	font-family: var(--next-font-merriweather);
+	@include media-breakpoint-up(md) {
+		font-size: 84px;
+	}
+	@include media-breakpoint-up(lg) {
+		font-size: 96px;
+	}
+}
+
+.homeButtons {
+	margin-top: 0px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	@include media-breakpoint-up(md) {
+		margin-top: 20px;
+	}
+	@include media-breakpoint-up(lg) {
+		margin-top: 50px;
+	}
+}
+
+.homeLanding {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 25vh;
+
+	.homeBenches {
+		position: absolute;
+		top: 230px;
+		@include media-breakpoint-up(md) {
+			top: 480px;
+		}
+		@include media-breakpoint-up(lg) {
+			top: 580px;
+		}
+
+		.homeBenchImage {
+			width: 200px;
+			@include media-breakpoint-up(md) {
+				width: 340px;
+			}
+		}
+	}
 }

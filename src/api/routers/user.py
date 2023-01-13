@@ -75,7 +75,7 @@ async def apply(
                 status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Resume upload is too large"
             )
         except RuntimeError as err:
-            log.error("During user apply: %s", err)
+            log.error("During user %s apply, resume upload: %s", user.uid, err)
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
     else:
         resume_url = None
@@ -97,11 +97,11 @@ async def apply(
         await mongodb_handler.update_one(
             Collection.USERS,
             {"_id": user.uid},
-            applicant.dict(exclude={"_id"}),
+            applicant.dict(),
             upsert=True,
         )
     except RuntimeError:
-        log.error("Could not insert applicant to MongoDB")
+        log.error("Could not insert applicant %s to MongoDB.", user.uid)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     try:
@@ -109,7 +109,7 @@ async def apply(
             applicant.application_data
         )
     except RuntimeError:
-        log.error("Could not send confirmation email with SendGrid")
+        log.error("Could not send confirmation email with SendGrid to %s.", user.uid)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     # TODO: handle inconsistent results if one service fails

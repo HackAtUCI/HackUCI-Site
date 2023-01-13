@@ -13,8 +13,8 @@ function Faq() {
 						className={styles["accordion-border"]}
 						eventKey={`${index}`}
 					>
-						<Accordion.Header>{q["question"]}</Accordion.Header>
-						<Accordion.Body>{q["answer"]}</Accordion.Body>
+						<Accordion.Header as="h3">{q["question"]}</Accordion.Header>
+						<Accordion.Body as="p">{q["answer"]}</Accordion.Body>
 					</Accordion.Item>
 				))}
 			</Accordion>

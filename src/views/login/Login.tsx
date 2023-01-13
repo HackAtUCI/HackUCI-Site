@@ -1,8 +1,11 @@
+import Head from "next/head";
 import { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 
 import MuseumRoom from "layouts/MuseumRoom";
+
 import LoginForm from "./components/LoginForm";
+
 import styles from "./Login.module.scss";
 
 function Login() {
@@ -12,6 +15,9 @@ function Login() {
 
 	return (
 		<MuseumRoom>
+			<Head>
+				<title>Login | HackUCI 2023</title>
+			</Head>
 			<section className={styles.login}>
 				<Container className={styles.container}>
 					<h1>Log In</h1>

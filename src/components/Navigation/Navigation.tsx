@@ -16,7 +16,7 @@ import { NavLinkItem, PrivateNavLinkItem } from "./NavigationHelpers";
 function Navigation() {
 	const [expanded, setExpanded] = useState<boolean>(false);
 
-	const { uid } = useContext(UserContext);
+	const { uid, status } = useContext(UserContext);
 
 	const router = useRouter();
 	const isLoggedIn = uid !== null;
@@ -43,9 +43,9 @@ function Navigation() {
 				<Navbar.Collapse id="main-navbar-nav">
 					<Nav as="ul" className="ms-auto" activeKey={currentRoute}>
 						<NavLinkItem href="/">Home</NavLinkItem>
-						<NavLinkItem href="/apply">Apply</NavLinkItem>
-						<PrivateNavLinkItem authorized={isLoggedIn} href="/dashboard">
-							Dashboard
+						{!status && <NavLinkItem href="/apply">Apply</NavLinkItem>}
+						<PrivateNavLinkItem authorized={status !== null} href="/portal">
+							Portal
 						</PrivateNavLinkItem>
 						<NavLinkItem
 							href={logButtonPath}

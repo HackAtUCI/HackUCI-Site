@@ -13,6 +13,8 @@ $offset: $r / 1.8;
 .museumRoom {
 	// start from top of page by excluding at least navbar height
 	margin-top: -66px;
+	overflow-x: hidden;
+	overflow-y: hidden;
 
 	width: 100%;
 	$room-height: 60vh;
