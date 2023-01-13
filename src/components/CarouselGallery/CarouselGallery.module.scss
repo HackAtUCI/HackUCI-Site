@@ -3,7 +3,7 @@
 
 .carouselGallery {
 	$n: 12;
-	$tt: 120s;
+	$rotation-period: 180s;
 
 	@keyframes rotate-carousel {
 		from {
@@ -32,15 +32,17 @@
 		transform-style: preserve-3d; /* needed even when not rotating for Chrome */
 		transform-origin: 50% 50% $offset; /* needed even when not rotating for Safari */
 		&.rotating {
-			animation: $tt rotate-carousel infinite linear;
+			animation: rotate-carousel infinite linear;
+			animation-duration: $rotation-period;
+			@media (prefers-reduced-motion: reduce) {
+				animation-duration: 2 * $rotation-period;
+			}
 		}
 
 		.painting {
 			height: 30vh;
 			aspect-ratio: 3/2;
 			position: absolute;
-
-			background-image: linear-gradient(55.62deg, $wild-orange, $midnight-blue);
 
 			&:nth-child(2n + 1) {
 				aspect-ratio: 4/5;
@@ -53,15 +55,6 @@
 					transform: translateZ($offset) rotateY($ry) translateZ($dz);
 				}
 			}
-		}
-
-		.paintingNumber {
-			display: flex;
-			flex-direction: column;
-			text-align: center;
-			justify-content: center;
-			font-size: 8rem;
-			font-weight: 700;
 		}
 	}
 }
