@@ -16,11 +16,11 @@
 
 	$r: MuseumRoom.$r;
 	$offset: MuseumRoom.$offset;
-	perspective: inherit;
-	perspective-origin: inherit;
 
-	/* for certain versions of Safari, perspective origin is shifted incorrectly */
-	transform-origin: center center (-$offset/2.5);
+	/* for certain versions of Safari and iOS, perspective origin is shifted incorrectly
+	   when perspective is applied to the element rather than preserved through transform */
+	transform-origin: center center (-$offset);
+	transform-style: preserve-3d; // instead of inheriting perspective
 
 	.paintings {
 		height: 100%;
