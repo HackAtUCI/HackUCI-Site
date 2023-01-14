@@ -37,11 +37,11 @@ function ApplicationPreface(props: ApplicationPrefaceProps) {
 					Log In To Apply
 				</Button>
 			)}
-			<p style={{ marginTop: "1vh" }}>
+			<hr className="mt-5" />
+			<small className="text-secondary">
 				Interested in helping out instead? Consider applying to be a{" "}
-				<a href="https://forms.gle/tcnikpj5gHnGPNvx7">mentor</a> or a{" "}
-				<a href="https://forms.gle/bLw9nHffqoz4kAGR7">volunteer</a>.
-			</p>
+				<a href="/mentor">mentor</a> or a <a href="/volunteer">volunteer</a>.
+			</small>
 		</div>
 	);
 }
