@@ -9,7 +9,6 @@ import {
 } from "../utils/InputComponents";
 
 function SocialInformation({
-	values,
 	errors,
 	touched,
 	setFieldValue,
@@ -19,8 +18,8 @@ function SocialInformation({
 >) {
 	return (
 		<div>
-			<h3>Social Information (Optional Section)</h3>
-			<strong>All fields in this section are optional.</strong>
+			<h3>Social Information</h3>
+			<p className="text-secondary">All fields in this section are optional.</p>
 			<Row className="mb-3">
 				<FieldFileUploadGroup
 					name="resume"
