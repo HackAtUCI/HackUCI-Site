@@ -4,6 +4,9 @@ $r: 90vh;
 // z-coordinate of center of carousel
 $offset: $r / 1.8;
 
+$navbar-height: 66px;
+$navbar-expanded-height: 266px;
+
 @mixin circle($radius) {
 	width: 2 * $radius;
 	height: 2 * $radius;
@@ -11,15 +14,18 @@ $offset: $r / 1.8;
 }
 
 .museumRoom {
-	// start from top of page by excluding at least navbar height
-	margin-top: -66px;
-	overflow-x: hidden;
-	overflow-y: hidden;
+	$room-height: 60vh;
+
+	overflow: hidden;
+
+	// Start from beyond top of page by excluding at least navbar height
+	// This will allow the ceiling to extend down when expanding a collapsed navbar
+	margin-top: -2 * $navbar-expanded-height;
+	transform: translateY($navbar-expanded-height - $navbar-height);
 
 	width: 100%;
-	$room-height: 60vh;
-	height: $room-height * 1.6;
-	background-image: linear-gradient(#9e3b10, #50200b);
+	height: calc($room-height * 1.6 + 2 * $navbar-expanded-height);
+	background-image: linear-gradient($dark-orange, $dark-brown);
 
 	position: absolute;
 	perspective: 1.2 * $r;
@@ -47,28 +53,53 @@ $offset: $r / 1.8;
 
 		.ceilingHole {
 			@include circle(35vh);
-			background-image: radial-gradient($k, #391000, #542614 40%, #3e1b0d 100%);
+			background-image: radial-gradient(
+				$k,
+				#391000 0%,
+				#542614 40%,
+				#3e1b0d 100%
+			);
 		}
 
 		.ceilingHoleTrim {
 			@include circle(45vh);
-			background-image: radial-gradient($k, #5e3412 55%, #7a4010 100%);
+			background-image: radial-gradient(
+				$k,
+				#5e3412 0%,
+				#5e3412 55%,
+				#7a4010 100%
+			);
 		}
 
 		.ceilingMain {
 			@include circle(70vh);
-			background-image: radial-gradient($k, #9f4e04 65%, #c87427 100%);
+			background-image: radial-gradient(
+				$k,
+				#9f4e04 0%,
+				#9f4e04 65%,
+				#c87427 100%
+			);
 		}
 
 		.ceilingTrim {
 			@include circle(90vh);
-			background-image: radial-gradient($k, #d89141 90%, #f5ad5b 100%);
+			background-image: radial-gradient(
+				$k,
+				#d89141 0%,
+				#d89141 90%,
+				#f5ad5b 100%
+			);
 		}
 
 		.floor {
 			@include circle(90vh);
 			transform: translateZ($room-height/2);
-			background-image: radial-gradient($k, $dark-brown 60%, #402101 100%);
+			background-image: radial-gradient(
+				$k,
+				$dark-brown 0%,
+				$dark-brown 60%,
+				#402101 100%
+			);
 		}
 	}
 }
