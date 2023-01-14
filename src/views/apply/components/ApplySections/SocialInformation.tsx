@@ -19,7 +19,8 @@ function SocialInformation({
 >) {
 	return (
 		<div>
-			<h3>Social Information</h3>
+			<h3>Social Information (Optional Section)</h3>
+			<strong>All fields in this section are optional.</strong>
 			<Row className="mb-3">
 				<FieldFileUploadGroup
 					name="resume"
@@ -34,7 +35,7 @@ function SocialInformation({
 				/>
 				<FieldInputGroup
 					name="portfolio_link"
-					label="Github/Portfolio Link (Optional)"
+					label="Github/Portfolio Link"
 					controlId="formPortfolio"
 					isTouched={touched.portfolio_link}
 					errorMsg={errors.portfolio_link}
@@ -43,7 +44,7 @@ function SocialInformation({
 				/>
 				<FieldInputGroup
 					name="linkedin_link"
-					label="LinkedIn Link (Optional)"
+					label="LinkedIn Link"
 					controlId="formLinkedIn"
 					isTouched={touched.linkedin_link}
 					errorMsg={errors.linkedin_link}

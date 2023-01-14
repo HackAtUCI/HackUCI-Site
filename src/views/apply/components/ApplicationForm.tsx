@@ -92,7 +92,6 @@ const validationSchema = yup.object({
 	linkedin_link: yup.string().url("Please enter a valid URL."),
 	resume: yup
 		.mixed()
-		.required("Please upload your resume.")
 		.test(
 			"file-size",
 			"The file is too large. Please choose a smaller file.",
