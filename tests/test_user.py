@@ -23,3 +23,11 @@ def test_login_as_non_uci_redirects_to_guest_login() -> None:
     )
     assert res.status_code == status.HTTP_307_TEMPORARY_REDIRECT
     assert res.headers["location"] == "/api/guest/login"
+
+
+def test_logout() -> None:
+    """Test that logging out removes the authentication cookie."""
+    res = client.get("/logout", follow_redirects=False)
+    assert res.status_code == status.HTTP_303_SEE_OTHER
+    assert res.headers["location"] == "/"
+    assert res.headers["Set-Cookie"].startswith('hackuci_auth=""; Max-Age=0;')

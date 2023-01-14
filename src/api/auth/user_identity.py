@@ -65,6 +65,12 @@ def utc_now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+def remove_user_identity(response: Response) -> Response:
+    """Remove authentication cookie."""
+    response.set_cookie("hackuci_auth", "", max_age=0)
+    return response
+
+
 def issue_user_identity(user: User, response: Response) -> Response:
     """Issue a user identity as a JWT cookie added to the given response."""
     jwt_token = _generate_jwt_token(user)
