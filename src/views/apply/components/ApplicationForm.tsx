@@ -9,7 +9,7 @@ import {
 	BasicInformation,
 	QuestionPrompts,
 	SchoolInformation,
-	SocialInformation
+	SocialInformation,
 } from "./ApplySections";
 import { FormValuesType } from "./utils/ApplicationInterfaces";
 

@@ -9,7 +9,6 @@ import {
 } from "../utils/InputComponents";
 
 function SocialInformation({
-	values,
 	errors,
 	touched,
 	setFieldValue,
@@ -19,8 +18,20 @@ function SocialInformation({
 >) {
 	return (
 		<div>
-			<h3>Social Information (Optional)</h3>
+			<h3>Social Information</h3>
+			<p className="text-secondary">All fields in this section are optional.</p>
 			<Row className="mb-3">
+				<FieldFileUploadGroup
+					name="resume"
+					label="Resume (*.pdf)"
+					controlId="formResume"
+					isTouched={touched.resume}
+					errorMsg={errors.resume}
+					setFieldValue={setFieldValue}
+					accept=".pdf"
+					sm={12}
+					lg={4}
+				/>
 				<FieldInputGroup
 					name="portfolio_link"
 					label="Github/Portfolio Link"
@@ -37,17 +48,6 @@ function SocialInformation({
 					isTouched={touched.linkedin_link}
 					errorMsg={errors.linkedin_link}
 					sm={6}
-					lg={4}
-				/>
-				<FieldFileUploadGroup
-					name="resume"
-					label="Resume (*.pdf)"
-					controlId="formResume"
-					isTouched={values.resume !== undefined}
-					errorMsg={errors.resume}
-					setFieldValue={setFieldValue}
-					accept=".pdf"
-					sm={12}
 					lg={4}
 				/>
 			</Row>

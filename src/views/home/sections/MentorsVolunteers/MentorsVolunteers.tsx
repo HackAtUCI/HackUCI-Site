@@ -29,7 +29,8 @@ function MentorsVolunteers() {
 							</p>
 							<Button
 								variant="museum"
-								href="https://forms.gle/tcnikpj5gHnGPNvx7"
+								href="/mentor"
+								role=""
 								target="_blank"
 								rel="noreferrer noopener"
 							>
@@ -58,7 +59,8 @@ function MentorsVolunteers() {
 							</p>
 							<Button
 								variant="museum"
-								href="https://forms.gle/bLw9nHffqoz4kAGR7"
+								href="/volunteer"
+								role=""
 								target="_blank"
 								rel="noreferrer noopener"
 							>

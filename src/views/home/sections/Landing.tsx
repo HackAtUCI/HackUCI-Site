@@ -14,10 +14,7 @@ function Landing() {
 				<Button className="btn-museum btn-landing" href="/apply">
 					Apply as a Hacker
 				</Button>
-				<Button
-					className="btn-museum btn-landing"
-					href="https://forms.gle/tcnikpj5gHnGPNvx7"
-				>
+				<Button className="btn-museum btn-landing" href="/mentor">
 					Apply as a Mentor
 				</Button>
 			</div>
