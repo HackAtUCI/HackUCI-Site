@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 // import App from "next/app";
 import Head from "next/head";
 
-import { Footer, Navigation } from "components";
+import MainLayout from "layouts/MainLayout";
 import FontProvider from "utils/FontProvider";
 import Loading from "utils/Loading";
 import UserContext, { Identity } from "utils/userContext";
@@ -51,11 +51,9 @@ AppProps) {
 			{!identity && <Loading />}
 			{identity && (
 				<UserContext.Provider value={identity}>
-					<Navigation />
-					<main>
+					<MainLayout>
 						<Component {...pageProps} />
-					</main>
-					<Footer />
+					</MainLayout>
 				</UserContext.Provider>
 			)}
 		</>

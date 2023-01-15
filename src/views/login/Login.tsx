@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import Container from "react-bootstrap/Container";
 
 import { TitleBanner } from "components";
-import MuseumRoom from "layouts/MuseumRoom";
 
 import LoginForm from "./components/LoginForm";
 
@@ -13,9 +12,9 @@ function Login() {
 	});
 
 	return (
-		<MuseumRoom>
+		<>
 			<Head>
-				<title>Login | HackUCI 2023</title>
+				<title>Log In | HackUCI 2023</title>
 			</Head>
 			<TitleBanner>
 				<h1>Log In</h1>
@@ -23,7 +22,7 @@ function Login() {
 			<Container className="museum-container">
 				<LoginForm />
 			</Container>
-		</MuseumRoom>
+		</>
 	);
 }
 

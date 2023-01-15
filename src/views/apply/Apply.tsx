@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 
 import { TitleBanner } from "components";
-import MuseumRoom from "layouts/MuseumRoom";
 import UserContext from "utils/userContext";
 
 import ApplicationForm from "./components/ApplicationForm";
@@ -38,7 +37,7 @@ function Apply() {
 	);
 
 	return (
-		<MuseumRoom>
+		<>
 			<Head>
 				<title>Apply | HackUCI 2023</title>
 			</Head>
@@ -48,7 +47,7 @@ function Apply() {
 			<Container className="museum-container museum-container-wide">
 				{applyBody}
 			</Container>
-		</MuseumRoom>
+		</>
 	);
 }
 
