@@ -1,7 +1,12 @@
 @use "utils/bootstrap";
 @import "styles/hackuci-overrides";
 
+$banner-dark-blue: #153d63;
+$banner-lit-blue: #3a6895;
+
 .titleBanner {
+	--banner-opacity: 0.9;
+
 	width: calc(200px + 35vw);
 	max-width: 600px;
 	position: relative; // to absolutely position edges
@@ -48,10 +53,14 @@
 
 		background-image: radial-gradient(
 			100% 125% at 50% 7%,
-			rgba(#153d63, 0.9) 0%,
-			rgba(#153d63, 0.9) 50%,
-			rgba(#3a6895, 0.9) 100%
+			rgba($banner-dark-blue, var(--banner-opacity)) 0%,
+			rgba($banner-dark-blue, var(--banner-opacity)) 50%,
+			rgba($banner-lit-blue, var(--banner-opacity)) 100%
 		);
+
+		@include bootstrap.media-breakpoint-up(md) {
+			--banner-opacity: 1;
+		}
 	}
 
 	.bannerTitle {
