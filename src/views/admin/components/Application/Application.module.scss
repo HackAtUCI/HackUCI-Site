@@ -1,0 +1,27 @@
+@import "styles/gallery-theme";
+
+.application {
+	background-color: $navy-blue;
+	border: 10px solid $light-orange;
+	color: white;
+
+	h1 {
+		font-size: 2em;
+		text-align: center;
+	}
+
+	h2 {
+		font-size: 1.5em;
+	}
+
+	h3,
+	a {
+		font-size: 1em;
+	}
+
+	a {
+		color: $light-orange;
+		display: inline-block;
+		margin-bottom: 0.5em;
+	}
+}
