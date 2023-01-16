@@ -2,9 +2,9 @@ import Image from "next/image";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
-import styles from "./StatuePedastal.module.scss";
+import styles from "./StatuePedestal.module.scss";
 
-interface StatuePedastalProps {
+interface StatuePedestalProps {
 	statueTitle: string;
 	statueImage: string;
 	statueAlt: string;
@@ -13,7 +13,7 @@ interface StatuePedastalProps {
 	children: string;
 }
 
-export default function StatuePedastal(props: StatuePedastalProps) {
+export default function StatuePedestal(props: StatuePedestalProps) {
 	return (
 		<Col>
 			<div className={styles.statueContainer}>
