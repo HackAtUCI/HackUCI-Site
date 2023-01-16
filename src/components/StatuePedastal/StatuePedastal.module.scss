@@ -11,9 +11,9 @@
 }
 
 .statueCube {
-	margin-top: 11rem;
-	width: 20rem;
-	height: 20rem;
+	margin-top: 13rem;
+	width: 22.5rem;
+	height: 22.5rem;
 	transform-style: preserve-3d;
 	transform: rotateX(265deg) rotateZ(-175deg);
 }
@@ -27,7 +27,7 @@
 }
 
 .cubeTop {
-	transform: translateZ(-20rem);
+	transform: translateZ(-22.5rem);
 	background: linear-gradient($orange, $wild-orange);
 }
 
@@ -38,13 +38,13 @@
 }
 
 .cubeLeft {
-	width: 20rem;
-	transform: translateZ(-20rem) rotateY(90deg);
+	width: 22.5rem;
+	transform: translateZ(-22.5rem) rotateY(90deg);
 	transform-origin: right;
 	background: linear-gradient($orange, $wild-orange);
 }
 
 .statueDescription {
 	text-align: left;
-	padding: 10px;
+	padding: 25px;
 }
