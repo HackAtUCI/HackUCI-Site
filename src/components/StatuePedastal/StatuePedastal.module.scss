@@ -1,3 +1,4 @@
+@use "utils/bootstrap";
 @import "styles/gallery-theme";
 
 .statueContainer {
@@ -11,11 +12,20 @@
 }
 
 .statueCube {
-	margin-top: 13rem;
-	width: 22.5rem;
-	height: 22.5rem;
+	margin-top: 11rem;
+	width: 21rem;
+	height: 21rem;
 	transform-style: preserve-3d;
 	transform: rotateX(265deg) rotateZ(-175deg);
+	@include bootstrap.media-breakpoint-up(xs) {
+		width: 20rem;
+		height: 20rem;
+	}
+	@include bootstrap.media-breakpoint-up(md) {
+		margin-top: 13rem;
+		width: 22.5rem;
+		height: 22.5rem;
+	}
 }
 
 .cubeSide {
@@ -27,8 +37,14 @@
 }
 
 .cubeTop {
-	transform: translateZ(-22.5rem);
+	transform: translateZ(-21rem);
 	background: linear-gradient($orange, $wild-orange);
+	@include bootstrap.media-breakpoint-up(xs) {
+		transform: translateZ(-20rem);
+	}
+	@include bootstrap.media-breakpoint-up(md) {
+		transform: translateZ(-22.5rem);
+	}
 }
 
 .cubeFront {
@@ -38,13 +54,27 @@
 }
 
 .cubeLeft {
-	width: 22.5rem;
-	transform: translateZ(-22.5rem) rotateY(90deg);
+	width: 21rem;
+	transform: translateZ(-21rem) rotateY(90deg);
 	transform-origin: right;
 	background: linear-gradient($orange, $wild-orange);
+	@include bootstrap.media-breakpoint-up(xs) {
+		width: 20rem;
+		transform: translateZ(-20rem) rotateY(90deg);
+	}
+	@include bootstrap.media-breakpoint-up(md) {
+		width: 22.5rem;
+		transform: translateZ(-22.5rem) rotateY(90deg);
+	}
 }
 
 .statueDescription {
 	text-align: left;
-	padding: 25px;
+	padding: 15px;
+	@include bootstrap.media-breakpoint-up(xs) {
+		padding: 12.5px;
+	}
+	@include bootstrap.media-breakpoint-up(md) {
+		padding: 25px;
+	}
 }
