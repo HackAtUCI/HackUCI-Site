@@ -1,10 +1,11 @@
 import Container from "react-bootstrap/Container";
+
+import { Applicant } from "admin/utils/useApplicants";
+
 import UpdateStatus from "../UpdateStatus/UpdateStatus";
 import styles from "./Application.module.scss";
 import ApplicationHeader from "./ApplicationHeader/ApplicationHeader";
 import ApplicationSection from "./ApplicationSection/ApplicationSection";
-
-import { Applicant } from "admin/views/applications/Applications";
 
 const PERSONAL_INFORMATION = ["gender", "pronouns", "ethnicity", "is_18_older"];
 const EDUCATION = ["university", "education_level", "major"];
@@ -23,20 +24,22 @@ interface ApplicationProps {
 }
 
 function Application({ applicant }: ApplicationProps) {
+	const application = applicant.application_data;
+
 	return (
 		<div className={styles["application"]}>
 			<Container className="p-5">
 				<ApplicationHeader
-					firstName={applicant.first_name}
-					lastName={applicant.last_name}
-					email={applicant.email}
-					submissionTime={applicant.submission_time}
+					firstName={application.first_name}
+					lastName={application.last_name}
+					email={application.email}
+					submissionTime={application.submission_time}
 				/>
 				{Object.entries(TITLE_PROPERTY_MAP).map((entry, index) => (
 					<ApplicationSection
 						key={index}
 						title={entry[0]}
-						data={applicant}
+						data={application}
 						propsToShow={entry[1]}
 					/>
 				))}

@@ -6,7 +6,15 @@ import { Dispatch, SetStateAction } from "react";
 import Button from "react-bootstrap/Button";
 import styles from "./SearchResults.module.scss";
 
-import { SidebarDisplay, Status } from "admin/views/applications/Applications";
+import { Status } from "admin/utils/useApplicants";
+
+// SidebarDisplay stores an applicant's name and string. This will be used
+// to display search results for applicants (formatted as name and status)
+// in the admin portal.
+export interface SidebarDisplay {
+	name: string;
+	status: Status;
+}
 
 interface SearchResultsProps {
 	data: SidebarDisplay[];

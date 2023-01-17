@@ -9,7 +9,7 @@ import { Container, Form } from "react-bootstrap";
 import styles from "./ApplicationSearch.module.scss";
 import SearchResults from "./SearchResults/SearchResults";
 
-import { SidebarDisplay, Status } from "admin/views/applications/Applications";
+// import { SidebarDisplay, Status } from "admin/views/applications/Applications";
 
 interface ApplicationSidebarProps {
 	data: SidebarDisplay[];
