@@ -1,31 +1,14 @@
-.sponsorImages {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    align-items: center;
-
-    margin: 30px auto 0px auto;
-
-    width: 80%;
+.column {
+	display: flex;
+	justify-content: center;
 }
 
-.sponsorInfo {
-    width: 70%;
-    margin: 40px auto;
-    text-align: center;
+.smallTierImage {
+	width: 200px;
+	height: 200px;
 }
 
-.sponsorLink {
-    display: contents;
-}
-
-a > .sponsorImage:only-child {
-    width: 15%;
-    max-width: 300px;
-    min-width: 150px;
-    height: auto;
-    margin: auto;
-}
-.sponsorImage:hover {
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
+.smallTierImage:hover {
+	transform: scale(1.1);
+	transition: all 0.3s ease-in-out;
 }
