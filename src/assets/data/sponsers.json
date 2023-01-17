@@ -1,0 +1,37 @@
+[
+    {
+        "name": "Google Cloud",
+        "src": "/src/assets/sponsors/google_cloud.svg",
+        "url": "https://cloud.google.com/"
+    },
+    {
+        "name": "Twillo",
+        "src": "/src/assets/sponsors/twillo.svg",
+        "url": "https://www.twilio.com/"
+    },
+    {
+        "name": "MobilityWare",
+        "src": "/src/assets/sponsors/mobilityware.svg",
+        "url": "https://www.mobilityware.com/"
+    },
+    {
+        "name": "WayUp",
+        "src": "/src/assets/sponsors/wayup.svg",
+        "url": "https://www.wayup.com/"
+    },
+    {
+        "name": "Stickermule",
+        "src": "/src/assets/sponsors/stickermule.svg",
+        "url": "https://www.stickermule.com/"
+    },
+    {
+        "name": "PIMCO",
+        "src": "/src/assets/sponsors/pimco.svg",
+        "url": "https://www.pimco.com/en-us/?showSplash=1"
+    },
+    {
+        "name": "CoStar Group",
+        "src": "/src/assets/sponsors/costar_group.svg",
+        "url": "https://www.costargroup.com/"
+    }
+]
