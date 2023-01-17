@@ -1,4 +1,5 @@
-import { Button, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
 
 import mentorStatue from "assets/images/mentor_statue.svg";
 import volunteerStatue from "assets/images/volunteer_statue.svg";
