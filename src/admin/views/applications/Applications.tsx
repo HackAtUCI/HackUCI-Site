@@ -1,9 +1,6 @@
 import axios from "axios";
-import TitleBanner from "components/TitleBanner/TitleBanner";
-import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import UserContext from "utils/userContext";
 
 import Application from "admin/components/Application/Application";
 import ApplicationSearch from "admin/components/ApplicationSearch/ApplicationSearch";
@@ -53,11 +50,7 @@ interface User {
 	status: string;
 }
 
-function AdminHome() {
-	const { uid, role } = useContext(UserContext);
-	const isLoggedIn = uid !== null;
-	const hasAccess = role === "admin";
-
+function Applications() {
 	const [userDisplayed, setUserDisplayed] = useState<number>(0);
 	const [sidebarInfo, setSidebarInfo] = useState<SidebarDisplay[]>([
 		{
@@ -131,32 +124,22 @@ function AdminHome() {
 				})
 			);
 		};
-		if (isLoggedIn && hasAccess) {
-			getUsers();
-		}
-	}, [isLoggedIn, hasAccess]);
+		getUsers();
+	}, []);
 
-	if (isLoggedIn && hasAccess) {
-		return (
-			<>
-				<TitleBanner>
-					<h1 style={{ fontSize: "50px", marginBottom: "1.5em" }}>
-						HackUCI 2023 Administration Portal
-					</h1>
-				</TitleBanner>
-				<Row className={styles["application-review"] + " " + "mt-5 px-5"}>
-					<Col md="3">
-						<ApplicationSearch data={sidebarInfo} setUser={setUserDisplayed} />
-					</Col>
-					<Col className={styles["application-side"]}>
-						<Application applicant={applications[userDisplayed]} />
-					</Col>
-				</Row>
-			</>
-		);
-	} else {
-		Router.push("/");
-	}
+	return (
+		<>
+			<h1>Applications</h1>
+			<Row className={styles["application-review"] + " " + "mt-5 px-5"}>
+				<Col md="3">
+					<ApplicationSearch data={sidebarInfo} setUser={setUserDisplayed} />
+				</Col>
+				<Col className={styles["application-side"]}>
+					<Application applicant={applications[userDisplayed]} />
+				</Col>
+			</Row>
+		</>
+	);
 }
 
-export default AdminHome;
+export default Applications;

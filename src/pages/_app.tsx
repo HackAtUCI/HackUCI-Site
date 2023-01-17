@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 import type { AppProps } from "next/app";
-// import App from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
-import { Footer, Navigation } from "components";
+import AdminLayout from "layouts/AdminLayout";
+import MainLayout from "layouts/MainLayout";
 import FontProvider from "utils/FontProvider";
 import Loading from "utils/Loading";
 import UserContext, { Identity } from "utils/userContext";
@@ -25,12 +26,11 @@ import "styles/hackuci.scss";
 // 	identity: Identity;
 // }
 
-export default function MyApp({
-	Component,
-	pageProps,
-}: // identity,
-AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
 	const [identity, setIdentity] = useState<Identity>();
+
+	const router = useRouter();
+
 	useEffect(() => {
 		const getIdentity = async () => {
 			const res = await axios.get(`/api/user/me`);
@@ -40,6 +40,10 @@ AppProps) {
 
 		getIdentity();
 	}, []);
+
+	const Layout = router.pathname.startsWith("/admin/")
+		? AdminLayout
+		: MainLayout;
 
 	return (
 		<>
@@ -51,11 +55,9 @@ AppProps) {
 			{!identity && <Loading />}
 			{identity && (
 				<UserContext.Provider value={identity}>
-					<Navigation />
-					<main>
+					<Layout>
 						<Component {...pageProps} />
-					</main>
-					<Footer />
+					</Layout>
 				</UserContext.Provider>
 			)}
 		</>
