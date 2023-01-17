@@ -55,8 +55,8 @@ interface User {
 
 function AdminHome() {
 	const { uid, role } = useContext(UserContext);
-	const isLoggedIn = true; //uid !== null;
-	const hasAccess = true; //role === "admin";
+	const isLoggedIn = uid !== null;
+	const hasAccess = role === "admin";
 
 	const [userDisplayed, setUserDisplayed] = useState<number>(0);
 	const [sidebarInfo, setSidebarInfo] = useState<SidebarDisplay[]>([
