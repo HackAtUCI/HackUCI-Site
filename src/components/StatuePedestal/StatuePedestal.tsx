@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
 import styles from "./StatuePedestal.module.scss";
@@ -8,9 +7,7 @@ interface StatuePedestalProps {
 	statueTitle: string;
 	statueImage: string;
 	statueAlt: string;
-	href: string;
-	buttonName: string;
-	children: string;
+	children: React.ReactNode;
 }
 
 export default function StatuePedestal(props: StatuePedestalProps) {
@@ -25,16 +22,7 @@ export default function StatuePedestal(props: StatuePedestalProps) {
 					<div
 						className={`${styles.cubeSide} ${styles.cubeFront} ${styles.statueDescription}`}
 					>
-						<p>{props.children}</p>
-						<Button
-							variant="museum"
-							href={props.href}
-							role=""
-							target="_blank"
-							rel="noreferrer noopener"
-						>
-							{props.buttonName}
-						</Button>
+						{props.children}
 					</div>
 				</div>
 			</div>
