@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import Container from "react-bootstrap/Container";
 import UpdateStatus from "../UpdateStatus/UpdateStatus";
 import styles from "./Application.module.scss";
 import ApplicationHeader from "./ApplicationHeader/ApplicationHeader";

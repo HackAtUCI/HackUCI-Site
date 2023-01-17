@@ -18,10 +18,7 @@ interface ApplicationSidebarProps {
 
 function ApplicationSearch({ data, setUser }: ApplicationSidebarProps) {
 	const [displayedApplicants, setDisplayedApplicants] = useState<number[]>([]);
-	const [showAccepted, setShowAccepted] = useState<boolean>(false);
-	const [showRejected, setShowRejected] = useState<boolean>(false);
-	const [showWaitlisted, setShowWaitlisted] = useState<boolean>(false);
-	const [showPending, setShowPending] = useState<boolean>(true);
+	const [showStatuses, setShowStatuses] = useState<Array<string>>([]);
 
 	function updateDisplayedNames(e: ChangeEvent<HTMLInputElement>): void {
 		setDisplayedApplicants(
@@ -33,20 +30,34 @@ function ApplicationSearch({ data, setUser }: ApplicationSidebarProps) {
 		);
 	}
 
+	function updateStatuses(changedStatus: string): void {
+		if (showStatuses.includes(changedStatus)) {
+			setShowStatuses(
+				showStatuses.filter((status) => status !== changedStatus)
+			);
+		} else {
+			setShowStatuses([...showStatuses, changedStatus]);
+		}
+	}
+
 	useEffect(() => {
 		setDisplayedApplicants(
 			data
 				.map((_, index) => index)
 				.filter((index) => {
 					return (
-						(showAccepted && data[index].status === Status.accepted) ||
-						(showRejected && data[index].status === Status.rejected) ||
-						(showWaitlisted && data[index].status === Status.waitlisted) ||
-						(showPending && data[index].status === Status.pending)
+						(showStatuses.includes("accepted") &&
+							data[index].status === Status.accepted) ||
+						(showStatuses.includes("rejected") &&
+							data[index].status === Status.rejected) ||
+						(showStatuses.includes("waitlisted") &&
+							data[index].status === Status.waitlisted) ||
+						(showStatuses.includes("pending") &&
+							data[index].status === Status.pending)
 					);
 				})
 		);
-	}, [showAccepted, showRejected, showWaitlisted, showPending, data]);
+	}, [showStatuses, data]);
 
 	return (
 		<div className={styles["sidebar"]}>
@@ -64,26 +75,25 @@ function ApplicationSearch({ data, setUser }: ApplicationSidebarProps) {
 					<Form.Check
 						id="pending_review"
 						label="Pending Review"
-						checked={showPending}
-						onChange={() => setShowPending(!showPending)}
+						checked={showStatuses.includes("pending")}
+						onChange={() => updateStatuses("pending")}
 					/>
 					<Form.Check
 						id="accepted"
 						label="Accepted"
-						checked={showAccepted}
-						onChange={() => setShowAccepted(!showAccepted)}
+						checked={showStatuses.includes("accepted")}
+						onChange={() => updateStatuses("accepted")}
 					/>
 					<Form.Check
 						id="rejected"
 						label="Rejected"
-						checked={showRejected}
-						onChange={() => setShowRejected(!showRejected)}
+						checked={showStatuses.includes("rejected")}
+						onChange={() => updateStatuses("rejected")}
 					/>
 					<Form.Check
 						id="waitlisted"
 						label="Waitlisted"
-						checked={showWaitlisted}
-						onChange={() => setShowWaitlisted(!showWaitlisted)}
+						onChange={() => updateStatuses("waitlisted")}
 					/>
 				</Form.Group>
 			</Container>

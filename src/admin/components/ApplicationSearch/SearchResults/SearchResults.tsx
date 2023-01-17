@@ -3,7 +3,7 @@ import questionCircleFill from "assets/icons/question-circle-fill.svg";
 import xCircleFill from "assets/icons/x-circle-fill.svg";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
-import { Button } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import styles from "./SearchResults.module.scss";
 
 import { SidebarDisplay, Status } from "admin/views/applications/Applications";
