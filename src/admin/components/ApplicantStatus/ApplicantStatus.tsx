@@ -23,7 +23,7 @@ interface ApplicantStatusProps {
 
 function ApplicantStatus({ status }: ApplicantStatusProps) {
 	return (
-		<Badge bg={StatusColors[status]} pill>
+		<Badge bg={StatusColors[status]} pill className="float-end">
 			{StatusLabels[status]}
 		</Badge>
 	);

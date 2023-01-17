@@ -1,18 +1,19 @@
-import { ReactElement } from "react";
-import { Col, Row } from "react-bootstrap";
+import Card from "react-bootstrap/Card";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
-import { Applicant } from "admin/utils/useApplicants";
+import {
+	ApplicationData,
+	ApplicationQuestion,
+} from "admin/utils/useApplicants";
 
-interface ApplicationSectionProps {
-	title: string;
-	data: Applicant;
-	propsToShow: Array<string>;
+interface ApplicationResponseProps {
+	value: string | boolean | string[] | null;
 }
 
-function generateElement(data: Applicant, prop: string): ReactElement {
-	const value = data[prop as keyof Applicant];
-	if (!value) {
-		return <p>Not Provided</p>;
+function ApplicationResponse({ value }: ApplicationResponseProps) {
+	if (value === null) {
+		return <p>Not provided</p>;
 	}
 
 	switch (typeof value) {
@@ -32,14 +33,20 @@ function generateElement(data: Applicant, prop: string): ReactElement {
 		case "object":
 			return (
 				<ul>
-					{value.map((v, i) => (
-						<li key={i}>{v}</li>
+					{value.map((v) => (
+						<li key={v}>{v}</li>
 					))}
 				</ul>
 			);
 		default:
 			return <p />;
 	}
+}
+
+interface ApplicationSectionProps {
+	title: string;
+	data: ApplicationData;
+	propsToShow: ApplicationQuestion[];
 }
 
 function ApplicationSection({
@@ -49,23 +56,22 @@ function ApplicationSection({
 }: ApplicationSectionProps) {
 	return (
 		<div className="mb-5">
-			<h2>{title}</h2>
-			<Row>
+			<Card.Subtitle as="h3">{title}</Card.Subtitle>
+			<Card.Text as={Row}>
 				{propsToShow.map((prop, index) => {
-					const element = generateElement(data, prop);
 					return (
-						<Col key={index} lg="6">
-							<h3>
+						<Col key={index} sm="6" md={propsToShow.length < 3 ? "6" : "4"}>
+							<h4>
 								{prop
 									.split("_")
 									.map((str) => str.charAt(0).toUpperCase() + str.substring(1))
 									.join(" ")}
-							</h3>
-							{element}
+							</h4>
+							<ApplicationResponse value={data[prop]} />
 						</Col>
 					);
 				})}
-			</Row>
+			</Card.Text>
 		</div>
 	);
 }

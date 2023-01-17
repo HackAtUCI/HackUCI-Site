@@ -9,7 +9,7 @@ export interface ApplicationData {
 	last_name: string;
 	email: string;
 	gender: string;
-	pronouns: Array<string>;
+	pronouns: string[];
 	ethnicity: string;
 	is_18_older: boolean;
 	university: string;
@@ -23,6 +23,8 @@ export interface ApplicationData {
 	resume_url: string;
 	submission_time: string;
 }
+
+export type ApplicationQuestion = keyof ApplicationData;
 
 export enum Status {
 	accepted = "ACCEPTED",

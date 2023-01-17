@@ -1,22 +1,24 @@
-import Container from "react-bootstrap/Container";
+import Card from "react-bootstrap/Card";
 
-import { Applicant } from "admin/utils/useApplicants";
+import { ApplicantActions, ApplicantStatus } from "admin/components";
+import { Applicant, ApplicationQuestion } from "admin/utils/useApplicants";
 
-import UpdateStatus from "../UpdateStatus/UpdateStatus";
-import styles from "./Application.module.scss";
-import ApplicationHeader from "./ApplicationHeader/ApplicationHeader";
 import ApplicationSection from "./ApplicationSection/ApplicationSection";
 
-const PERSONAL_INFORMATION = ["gender", "pronouns", "ethnicity", "is_18_older"];
-const EDUCATION = ["university", "education_level", "major"];
-const EXPERIENCE = ["portfolio_link", "linkedin_link", "resume_url"];
-const FRQ = ["stress_relief_question", "company_specialize_question"];
+import styles from "./Application.module.scss";
 
-const TITLE_PROPERTY_MAP = {
-	"Personal Information": PERSONAL_INFORMATION,
-	Education: EDUCATION,
-	Experience: EXPERIENCE,
-	"Free Response Questions": FRQ,
+interface ApplicationSections {
+	[key: string]: ApplicationQuestion[];
+}
+
+const APPLICATION_SECTIONS: ApplicationSections = {
+	"Personal Information": ["gender", "pronouns", "ethnicity", "is_18_older"],
+	Education: ["university", "education_level", "major"],
+	Experience: ["portfolio_link", "linkedin_link", "resume_url"],
+	"Free Response Questions": [
+		"stress_relief_question",
+		"company_specialize_question",
+	],
 };
 
 interface ApplicationProps {
@@ -24,28 +26,29 @@ interface ApplicationProps {
 }
 
 function Application({ applicant }: ApplicationProps) {
-	const application = applicant.application_data;
+	const { _id, application_data, status } = applicant;
+	const { first_name, last_name, email, submission_time } = application_data;
+
+	const submittedDate = new Date(submission_time).toDateString();
 
 	return (
-		<div className={styles["application"]}>
-			<Container className="p-5">
-				<ApplicationHeader
-					firstName={application.first_name}
-					lastName={application.last_name}
-					email={application.email}
-					submissionTime={application.submission_time}
-				/>
-				{Object.entries(TITLE_PROPERTY_MAP).map((entry, index) => (
+		<Card className={styles.application}>
+			<Card.Header>
+				{email} submitted {submittedDate} <ApplicantStatus status={status} />
+			</Card.Header>
+			<Card.Body>
+				<Card.Title as="h2">{`${first_name} ${last_name}`}</Card.Title>
+				{Object.entries(APPLICATION_SECTIONS).map(([section, questions]) => (
 					<ApplicationSection
-						key={index}
-						title={entry[0]}
-						data={application}
-						propsToShow={entry[1]}
+						key={section}
+						title={section}
+						data={application_data}
+						propsToShow={questions}
 					/>
 				))}
-				<UpdateStatus />
-			</Container>
-		</div>
+				<ApplicantActions uid={_id} />
+			</Card.Body>
+		</Card>
 	);
 }
 
