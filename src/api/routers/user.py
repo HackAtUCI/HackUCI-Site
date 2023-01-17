@@ -9,10 +9,10 @@ from pydantic import BaseModel, EmailStr
 from auth import user_identity
 from auth.user_identity import User, require_user_identity, use_user_identity
 from models.ApplicationData import ProcessedApplicationData, RawApplicationData
-from models.User import Applicant
 from services import mongodb_handler
 from services.mongodb_handler import Collection
 from utils import email_handler, resume_handler
+from utils.user_record import Applicant, Role
 
 log = getLogger(__name__)
 
@@ -22,7 +22,7 @@ router = APIRouter()
 class IdentityResponse(BaseModel):
     uid: Optional[str]
     status: Optional[str]
-    role: Optional[str]
+    role: Optional[Role]
 
 
 @router.post("/login")

@@ -8,10 +8,10 @@ from fastapi.testclient import TestClient
 from auth import user_identity
 from auth.user_identity import NativeUser
 from models.ApplicationData import ProcessedApplicationData
-from models.User import Applicant
 from routers import user
 from services.mongodb_handler import Collection
 from utils import resume_handler
+from utils.user_record import Applicant
 
 SAMPLE_APPLICATION = {
     "first_name": "pk",
