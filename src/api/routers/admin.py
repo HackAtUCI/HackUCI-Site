@@ -1,37 +1,29 @@
 from logging import getLogger
 
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Depends
 
-from auth.user_identity import User, require_user_identity
-from services.mongodb_handler import Collection, retrieve
+from auth.authorization import require_role
+from auth.user_identity import User
+from services import mongodb_handler
+from services.mongodb_handler import Collection
+from utils.user_record import Role
 
 log = getLogger(__name__)
 
 router = APIRouter()
 
-
-async def _is_not_authorized(
-    user: User = Depends(require_user_identity),
-) -> bool:
-    if not user:
-        return True
-    response: list[dict[str, object]] = await retrieve(
-        Collection.USERS, {"role": "admin", "_id": user.uid}
-    )
-    return len(response) > 0
+ADMIN_ROLES = (Role.DIRECTOR, Role.REVIEWER)
 
 
-@router.get("/users", status_code=status.HTTP_200_OK)
-async def users(
-    response: Response, user: User = Depends(require_user_identity)
+@router.get("/applicants")
+async def applicants(
+    user: User = Depends(require_role(ADMIN_ROLES)),
 ) -> list[dict[str, object]]:
-    log.info(user)
+    """Get records of all applicants."""
+    log.info("%s requested applicants", user)
 
-    if _is_not_authorized(user):
-        response.status_code = status.HTTP_401_UNAUTHORIZED
-        return []
-
-    result: list[dict[str, object]] = await retrieve(
-        Collection.USERS, {"role": "applicant"}, []
+    records: list[dict[str, object]] = await mongodb_handler.retrieve(
+        Collection.USERS, {"role": Role.APPLICANT}
     )
-    return result
+
+    return records

@@ -14,6 +14,9 @@ class User(BaseModel):
     uid: str
     email: EmailStr
 
+    def __str__(self) -> str:
+        return self.uid
+
 
 class NativeUser(User):
     ucinetid: str

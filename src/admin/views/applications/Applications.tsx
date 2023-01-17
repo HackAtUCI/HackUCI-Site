@@ -105,7 +105,7 @@ function AdminHome() {
 
 	useEffect(() => {
 		const getUsers = async () => {
-			const res = await axios.get<User[]>("/api/admin/users/");
+			const res = await axios.get<User[]>("/api/admin/applicants");
 			setApplications(res.data.map((app) => app["application_data"]));
 			setSidebarInfo(
 				res.data.map((app) => {
