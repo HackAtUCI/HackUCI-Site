@@ -5,11 +5,11 @@ import { useContext } from "react";
 import UserContext from "utils/userContext";
 
 interface ApplicantActionsProps {
-	uid: uid;
+	applicant: uid;
 	submitReview: submitReview;
 }
 
-function ApplicantActions({ uid, submitReview }: ApplicantActionsProps) {
+function ApplicantActions({ applicant, submitReview }: ApplicantActionsProps) {
 	const { role } = useContext(UserContext);
 
 	if (role !== "reviewer") {
@@ -18,7 +18,7 @@ function ApplicantActions({ uid, submitReview }: ApplicantActionsProps) {
 
 	const reviewSubmitter = (review: Decision) => {
 		return () => {
-			submitReview(uid, review);
+			submitReview(applicant, review);
 		};
 	};
 

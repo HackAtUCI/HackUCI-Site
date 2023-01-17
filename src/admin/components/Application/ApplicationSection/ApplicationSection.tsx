@@ -45,7 +45,7 @@ function ApplicationResponse({ value }: ApplicationResponseProps) {
 
 interface ApplicationSectionProps {
 	title: string;
-	data: ApplicationData;
+	data: Omit<ApplicationData, "reviews">;
 	propsToShow: ApplicationQuestion[];
 }
 

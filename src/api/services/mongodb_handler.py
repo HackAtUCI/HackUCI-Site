@@ -28,6 +28,8 @@ class BaseRecord(BaseModel):
     uid: str = Field(alias="_id")
 
     def dict(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
+        if "by_alias" in kwargs:
+            return BaseModel.dict(self, *args, **kwargs)
         return BaseModel.dict(self, by_alias=True, *args, **kwargs)
 
     class Config:

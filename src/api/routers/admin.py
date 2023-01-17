@@ -1,13 +1,14 @@
 from logging import getLogger
 
 from fastapi import APIRouter, Body, Depends, HTTPException, status
+from pydantic import ValidationError, parse_obj_as
 
 from auth.authorization import require_role
 from auth.user_identity import User, utc_now
 from models.ApplicationData import Decision, Review
 from services import mongodb_handler
 from services.mongodb_handler import Collection
-from utils.user_record import Role
+from utils.user_record import Applicant, Role
 
 log = getLogger(__name__)
 
@@ -19,7 +20,7 @@ ADMIN_ROLES = (Role.DIRECTOR, Role.REVIEWER)
 @router.get("/applicants")
 async def applicants(
     user: User = Depends(require_role(ADMIN_ROLES)),
-) -> list[dict[str, object]]:
+) -> list[Applicant]:
     """Get records of all applicants."""
     log.info("%s requested applicants", user)
 
@@ -27,14 +28,17 @@ async def applicants(
         Collection.USERS, {"role": Role.APPLICANT}
     )
 
-    return records
+    try:
+        return parse_obj_as(list[Applicant], records)
+    except ValidationError:
+        raise RuntimeError("Could not parse applicant data.")
 
 
 @router.post("/review")
 async def submit_review(
     applicant: str = Body(),
     decision: Decision = Body(),
-    reviewer: User = Depends(require_role([Role.DIRECTOR, Role.REVIEWER])),
+    reviewer: User = Depends(require_role([Role.REVIEWER])),
 ) -> None:
     """Submit a review decision from the reviewer for the given applicant."""
     log.info("%s submitted a review for %s", reviewer, applicant)

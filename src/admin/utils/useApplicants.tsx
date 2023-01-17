@@ -9,6 +9,8 @@ export enum Decision {
 	waitlisted = "WAITLISTED",
 }
 
+export type Review = [string, uid, Decision];
+
 // The application responses submitted by an applicant
 export interface ApplicationData {
 	first_name: string;
@@ -28,9 +30,10 @@ export interface ApplicationData {
 	company_specialize_question: string;
 	resume_url: string;
 	submission_time: string;
+	reviews: Review[];
 }
 
-export type ApplicationQuestion = keyof ApplicationData;
+export type ApplicationQuestion = Exclude<keyof ApplicationData, "reviews">;
 
 export enum Status {
 	accepted = "ACCEPTED",
