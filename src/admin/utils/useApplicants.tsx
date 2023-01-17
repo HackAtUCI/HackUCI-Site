@@ -36,11 +36,11 @@ export interface ApplicationData {
 export type ApplicationQuestion = Exclude<keyof ApplicationData, "reviews">;
 
 export enum Status {
+	pending = "PENDING_REVIEW",
+	reviewed = "REVIEWED",
 	accepted = "ACCEPTED",
 	rejected = "REJECTED",
 	waitlisted = "WAITLISTED",
-	pending = "PENDING_REVIEW",
-	reviewed = "REVIEWED",
 }
 
 export interface Applicant {

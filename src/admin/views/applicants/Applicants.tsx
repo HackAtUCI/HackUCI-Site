@@ -3,19 +3,30 @@ import { useState } from "react";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-import { ApplicantList, Application } from "admin/components";
-import useApplicants, { Applicants, uid } from "admin/utils/useApplicants";
+import { ApplicantFilters, ApplicantList, Application } from "admin/components";
+import useApplicants, {
+	Applicants,
+	Status,
+	uid,
+} from "admin/utils/useApplicants";
 import Loading from "utils/Loading";
 
 import styles from "./Applicants.module.scss";
 
 function Applications() {
 	const [currentApplicant, setCurrentApplicant] = useState<uid>("");
+	const [selectedStatuses, setSelectedStatuses] = useState<Status[]>([
+		Status.pending,
+	]);
 	const { applicantList, submitReview } = useApplicants();
 
 	if (!applicantList) {
 		return <Loading />;
 	}
+
+	const filteredApplicants = applicantList.filter((applicant) =>
+		selectedStatuses.includes(applicant.status)
+	);
 
 	const applicants: Applicants = Object.fromEntries(
 		applicantList.map((applicant) => [applicant._id, applicant])
@@ -24,10 +35,16 @@ function Applications() {
 	return (
 		<>
 			<h1>Applications</h1>
+			<Row>
+				<ApplicantFilters
+					selectedStatuses={selectedStatuses}
+					setSelectedStatuses={setSelectedStatuses}
+				/>
+			</Row>
 			<Row className={styles["application-review"] + " " + "mt-5 px-5"}>
 				<Col>
 					<ApplicantList
-						applicantList={applicantList}
+						applicantList={filteredApplicants}
 						currentApplicant={currentApplicant}
 						setCurrentApplicant={setCurrentApplicant}
 					/>

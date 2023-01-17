@@ -2,7 +2,7 @@ import Badge from "react-bootstrap/Badge";
 
 import { Status } from "admin/utils/useApplicants";
 
-const StatusLabels = {
+export const StatusLabels = {
 	[Status.accepted]: "accepted",
 	[Status.rejected]: "rejected",
 	[Status.waitlisted]: "waitlisted",
