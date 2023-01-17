@@ -4,9 +4,10 @@ import Router from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import UserContext from "utils/userContext";
-import Application from "../components/Application/Application";
-import ApplicationSearch from "../components/ApplicationSearch/ApplicationSearch";
-import styles from "./AdminHome.module.scss";
+
+import Application from "admin/components/Application/Application";
+import ApplicationSearch from "admin/components/ApplicationSearch/ApplicationSearch";
+import styles from "./Applications.module.scss";
 
 // Applicant stores an applicant's responses
 export interface Applicant {

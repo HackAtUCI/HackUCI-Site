@@ -1,6 +1,7 @@
 import { ReactElement } from "react";
 import { Col, Row } from "react-bootstrap";
-import { Applicant } from "views/admin/applications/AdminHome";
+
+import { Applicant } from "admin/views/applications/Applications";
 
 interface ApplicationSectionProps {
 	title: string;

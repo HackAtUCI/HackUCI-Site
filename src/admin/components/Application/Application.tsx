@@ -1,9 +1,10 @@
 import { Container } from "react-bootstrap";
-import { Applicant } from "views/admin/applications/AdminHome";
 import UpdateStatus from "../UpdateStatus/UpdateStatus";
 import styles from "./Application.module.scss";
 import ApplicationHeader from "./ApplicationHeader/ApplicationHeader";
 import ApplicationSection from "./ApplicationSection/ApplicationSection";
+
+import { Applicant } from "admin/views/applications/Applications";
 
 const PERSONAL_INFORMATION = ["gender", "pronouns", "ethnicity", "is_18_older"];
 const EDUCATION = ["university", "education_level", "major"];

@@ -6,9 +6,10 @@ import {
 	useState,
 } from "react";
 import { Container, Form } from "react-bootstrap";
-import { SidebarDisplay, Status } from "views/admin/applications/AdminHome";
 import styles from "./ApplicationSearch.module.scss";
 import SearchResults from "./SearchResults/SearchResults";
+
+import { SidebarDisplay, Status } from "admin/views/applications/Applications";
 
 interface ApplicationSidebarProps {
 	data: SidebarDisplay[];

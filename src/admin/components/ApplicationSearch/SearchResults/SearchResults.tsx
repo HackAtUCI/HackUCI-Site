@@ -4,8 +4,9 @@ import xCircleFill from "assets/icons/x-circle-fill.svg";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 import { Button } from "react-bootstrap";
-import { SidebarDisplay, Status } from "views/admin/applications/AdminHome";
 import styles from "./SearchResults.module.scss";
+
+import { SidebarDisplay, Status } from "admin/views/applications/Applications";
 
 interface SearchResultsProps {
 	data: SidebarDisplay[];
