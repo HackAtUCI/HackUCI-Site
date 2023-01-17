@@ -15,10 +15,16 @@
 		.title-banner {
 			position: absolute;
 			bottom: calc(24vh + 30px);
+			max-width: 720px;
+			// revert default title margin
+			margin: auto;
 		}
 	}
 
 	.homeBanner {
+		min-height: 55vh;
+		max-height: 70vh;
+
 		// center content horizontally
 		display: flex;
 		flex-direction: column;
@@ -38,7 +44,7 @@
 		}
 
 		.landingDate {
-			@include bootstrap.rfs(1.5rem);
+			font-size: calc(bootstrap.rfs-fluid-value(2.5rem) / 1.5);
 			font-weight: 400;
 		}
 	}
@@ -51,6 +57,7 @@
 		width: calc(150px + 20vw);
 		max-width: 400px;
 		height: auto;
+		max-height: 30vh;
 	}
 }
 
@@ -63,14 +70,7 @@
 	}
 
 	.btnLanding {
-		padding: 15px 12px;
-
-		@include bootstrap.media-breakpoint-up(md) {
-			padding: 30px 12px;
-		}
-		@include bootstrap.media-breakpoint-up(xl) {
-			padding: 40px 12px;
-		}
+		padding: min(2vh + 1vw, 40px) 12px;
 
 		&:first-child {
 			background: radial-gradient(

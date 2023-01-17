@@ -21,7 +21,7 @@ function MuseumRoom({ rotating, children }: MuseumRoomProps) {
 				</div>
 				<CarouselGallery rotating={rotating || false} />
 			</div>
-			<div style={{ position: "relative" }}>{children}</div>
+			<div className="position-relative">{children}</div>
 		</>
 	);
 }

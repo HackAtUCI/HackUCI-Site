@@ -2,12 +2,11 @@ import Head from "next/head";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 
+import { TitleBanner } from "components";
 import UserContext from "utils/userContext";
 
 import ApplicationForm from "./components/ApplicationForm";
 import ApplicationPreface from "./components/ApplicationPreface";
-
-import styles from "./Apply.module.scss";
 
 function Apply() {
 	const { uid, status } = useContext(UserContext);
@@ -28,22 +27,27 @@ function Apply() {
 		return null;
 	}
 
+	const applyBody = !acceptedPreface ? (
+		<ApplicationPreface
+			isLoggedIn={isLoggedIn}
+			setAcceptedPreface={setAcceptedPreface}
+		/>
+	) : (
+		<ApplicationForm setSubmittedApplication={setSubmittedApplication} />
+	);
+
 	return (
-		<div className={styles.main}>
+		<>
 			<Head>
 				<title>Apply | HackUCI 2023</title>
 			</Head>
-			<Container className={styles.apply}>
-				{!acceptedPreface ? (
-					<ApplicationPreface
-						isLoggedIn={isLoggedIn}
-						setAcceptedPreface={setAcceptedPreface}
-					/>
-				) : (
-					<ApplicationForm setSubmittedApplication={setSubmittedApplication} />
-				)}
+			<TitleBanner>
+				<h1>Apply</h1>
+			</TitleBanner>
+			<Container className="museum-container museum-container-wide">
+				{applyBody}
 			</Container>
-		</div>
+		</>
 	);
 }
 

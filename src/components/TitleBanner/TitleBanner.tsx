@@ -17,7 +17,13 @@ function TitleBanner({
 				className={styles.lamp}
 				style={{ width: "100%", height: "auto" }}
 			/>
-			<div className={styles.bannerContent + " " + className}>{children}</div>
+			<div
+				className={
+					(className || styles.bannerTitle) + " " + styles.bannerContent
+				}
+			>
+				{children}
+			</div>
 			<div className={styles.panelEnd} />
 		</div>
 	);

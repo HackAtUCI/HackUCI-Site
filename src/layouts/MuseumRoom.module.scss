@@ -20,18 +20,20 @@ $navbar-expanded-height: 266px;
 
 	// Start from beyond top of page by excluding at least navbar height
 	// This will allow the ceiling to extend down when expanding a collapsed navbar
-	margin-top: -2 * $navbar-expanded-height;
-	transform: translateY($navbar-expanded-height - $navbar-height);
+	margin-top: -1 * ($navbar-expanded-height);
+	transform: translateY(-$navbar-height);
 
 	width: 100%;
-	height: calc($room-height * 1.6 + 2 * $navbar-expanded-height);
+	height: calc($room-height * 1.6 + $navbar-expanded-height);
 	background-image: linear-gradient($dark-orange, $dark-brown);
 
 	position: absolute;
 	perspective: 1.2 * $r;
+	perspective-origin: center calc($room-height * 0.8 + $navbar-expanded-height);
 
 	> * {
 		position: absolute;
+		top: $navbar-expanded-height / 2;
 		width: 100%;
 		height: 100%;
 	}
