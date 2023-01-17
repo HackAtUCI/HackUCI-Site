@@ -1,7 +1,11 @@
 import Card from "react-bootstrap/Card";
 
 import { ApplicantActions, ApplicantStatus } from "admin/components";
-import { Applicant, ApplicationQuestion } from "admin/utils/useApplicants";
+import {
+	Applicant,
+	ApplicationQuestion,
+	submitReview,
+} from "admin/utils/useApplicants";
 
 import ApplicationSection from "./ApplicationSection/ApplicationSection";
 
@@ -23,9 +27,10 @@ const APPLICATION_SECTIONS: ApplicationSections = {
 
 interface ApplicationProps {
 	applicant: Applicant;
+	submitReview: submitReview;
 }
 
-function Application({ applicant }: ApplicationProps) {
+function Application({ applicant, submitReview }: ApplicationProps) {
 	const { _id, application_data, status } = applicant;
 	const { first_name, last_name, email, submission_time } = application_data;
 
@@ -46,7 +51,7 @@ function Application({ applicant }: ApplicationProps) {
 						propsToShow={questions}
 					/>
 				))}
-				<ApplicantActions uid={_id} />
+				<ApplicantActions uid={_id} submitReview={submitReview} />
 			</Card.Body>
 		</Card>
 	);

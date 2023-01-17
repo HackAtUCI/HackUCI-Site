@@ -3,6 +3,12 @@ import useSWR from "swr";
 
 export type uid = string;
 
+export enum Decision {
+	accepted = "ACCEPTED",
+	rejected = "REJECTED",
+	waitlisted = "WAITLISTED",
+}
+
 // The application responses submitted by an applicant
 export interface ApplicationData {
 	first_name: string;
@@ -31,6 +37,7 @@ export enum Status {
 	rejected = "REJECTED",
 	waitlisted = "WAITLISTED",
 	pending = "PENDING_REVIEW",
+	reviewed = "REVIEWED",
 }
 
 export interface Applicant {
@@ -50,12 +57,19 @@ const fetcher = async (url: string) => {
 };
 
 function useApplicants() {
-	const { data, error, isLoading } = useSWR<Applicant[]>(
+	const { data, error, isLoading, mutate } = useSWR<Applicant[]>(
 		"/api/admin/applicants",
 		fetcher
 	);
 
-	return { applicantList: data, loading: isLoading, error };
+	async function submitReview(uid: uid, review: Decision) {
+		await axios.post("/api/admin/review", { applicant: uid, decision: review });
+		mutate();
+	}
+
+	return { applicantList: data, loading: isLoading, error, submitReview };
 }
+
+export type submitReview = (uid: uid, review: Decision) => Promise<void>;
 
 export default useApplicants;

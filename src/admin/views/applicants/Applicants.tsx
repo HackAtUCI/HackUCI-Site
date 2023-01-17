@@ -11,7 +11,7 @@ import styles from "./Applicants.module.scss";
 
 function Applications() {
 	const [currentApplicant, setCurrentApplicant] = useState<uid>("");
-	const { applicantList } = useApplicants();
+	const { applicantList, submitReview } = useApplicants();
 
 	if (!applicantList) {
 		return <Loading />;
@@ -34,7 +34,10 @@ function Applications() {
 				</Col>
 				{currentApplicant && (
 					<Col className={styles["application-side"]} lg="9">
-						<Application applicant={applicants[currentApplicant]} />
+						<Application
+							applicant={applicants[currentApplicant]}
+							submitReview={submitReview}
+						/>
 					</Col>
 				)}
 			</Row>

@@ -7,6 +7,7 @@ const StatusLabels = {
 	[Status.rejected]: "rejected",
 	[Status.waitlisted]: "waitlisted",
 	[Status.pending]: "needs review",
+	[Status.reviewed]: "reviewed",
 };
 
 // colors corresponding to Bootstrap's color utility classes
@@ -15,6 +16,7 @@ const StatusColors = {
 	[Status.rejected]: "danger",
 	[Status.waitlisted]: "warning",
 	[Status.pending]: "secondary",
+	[Status.reviewed]: "primary",
 };
 
 interface ApplicantStatusProps {
