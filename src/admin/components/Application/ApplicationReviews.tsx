@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { Review } from "admin/utils/useApplicants";
+import { Review, uid } from "admin/utils/useApplicants";
 import UserContext from "utils/userContext";
 
 interface ApplicationReviewsProps {
@@ -17,9 +17,11 @@ function ApplicationReviews({ reviews }: ApplicationReviewsProps) {
 	const formattedReviews = reviews.map(([date, reviewer, decision]) => [
 		date,
 		new Date(date).toLocaleDateString(),
-		reviewer.split(".").at(-1) as string,
+		reviewer,
 		decision,
 	]);
+
+	const formatUid = (uid: uid) => uid.split(".").at(-1);
 
 	return (
 		<ul>
@@ -30,7 +32,7 @@ function ApplicationReviews({ reviews }: ApplicationReviewsProps) {
 					</li>
 				) : (
 					<li key={date}>
-						{reviewer} reviewed this application on {date}
+						{formatUid(reviewer)} reviewed this application on {date}
 					</li>
 				)
 			)}

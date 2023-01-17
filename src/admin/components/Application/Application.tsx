@@ -33,15 +33,14 @@ interface ApplicationProps {
 
 function Application({ applicant, submitReview }: ApplicationProps) {
 	const { _id, application_data, status } = applicant;
-	const { first_name, last_name, email, submission_time, reviews } =
-		application_data;
+	const { first_name, last_name, submission_time, reviews } = application_data;
 
 	const submittedDate = new Date(submission_time).toDateString();
 
 	return (
 		<Card className={styles.application}>
 			<Card.Header>
-				{email} submitted {submittedDate} <ApplicantStatus status={status} />
+				{_id} submitted {submittedDate} <ApplicantStatus status={status} />
 			</Card.Header>
 			<Card.Body>
 				<Card.Title as="h2">{`${first_name} ${last_name}`}</Card.Title>
