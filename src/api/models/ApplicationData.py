@@ -6,6 +6,7 @@ from pydantic import BaseModel, EmailStr, Field, HttpUrl
 
 from .utils import form_body
 
+
 class Decision(str, Enum):
     ACCEPTED = "ACCEPTED"
     WAITLISTED = "WAITLISTED"
