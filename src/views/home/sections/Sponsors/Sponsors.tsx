@@ -1,44 +1,47 @@
 import Image from "next/image";
-import Link from "next/link";
 
-import { Col, Row } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
 
 import sponsors from "assets/data/sponsors.json";
+import logo_stickerMule from "assets/sponsors/sticker_mule.svg";
 
 import styles from "./Sponsors.module.scss";
 
-import stickerMule from "assets/sponsors/sticker_mule.svg";
+interface SponsorItemProps {
+	name: string;
+	src: string;
+	url: string;
+}
 
-function SponsorItem(props: any) {
+function SponsorItem({ name, src, url }: SponsorItemProps) {
 	return (
-		<Link href={props.data.url}>
-			<Image
-				src={props.src}
-				alt={props.name}
-				className={styles.smallTierImage}
-			/>
-		</Link>
+		<a href={url}>
+			<Image src={src} alt={name} className={styles.smallTierImage} />
+		</a>
 	);
 }
 
 function Sponsors() {
 	// Temporary workaround
-	const stickermule = sponsors.smallTier[4];
+	const stickerMule = sponsors.smallTier[4];
 
 	return (
 		<section id="sponsors" className="container">
-			<h2 className="text-center">Sponsors</h2>
+			<h2>Sponsors</h2>
 			<p className={styles.sponsorInfo}>
 				Interested in sponsoring HackUCI 2023? Check out our information above
 				to learn more about our event! For more information, please email us at
 				hack@uci.edu.
 			</p>
-			<Row className={styles.smallTier}>
+			<Row className="my-4">
 				<Col className={styles.column}>
-					<SponsorItem data={stickermule} src={stickerMule} />
+					<SponsorItem {...stickerMule} src={logo_stickerMule} />
 				</Col>
 			</Row>
-			<h3 className="text-center">...and more to come!</h3>
+			<p className="text-center">
+				<span className="h3">...and more to come!</span>
+			</p>
 		</section>
 	);
 }

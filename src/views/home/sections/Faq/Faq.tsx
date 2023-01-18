@@ -5,7 +5,7 @@ import styles from "./Faq.module.scss";
 function Faq() {
 	return (
 		<section id="faq" className="container faq-block">
-			<h2 className="text-center">FAQ</h2>
+			<h2>FAQ</h2>
 			<Accordion className={styles["accordion"]} alwaysOpen>
 				{questions.map((q, index) => (
 					<Accordion.Item
