@@ -1,3 +1,9 @@
+/** @type {import('next').NextConfig} */
+const baseConfig = {
+	reactStrictMode: true,
+	transpilePackages: ["@cloudscape-design/components"],
+};
+
 const REWRITES = [
 	{
 		source: "/mentor",
@@ -11,7 +17,7 @@ const REWRITES = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	reactStrictMode: true,
+	...baseConfig,
 	async rewrites() {
 		return REWRITES;
 	},
@@ -19,7 +25,7 @@ const nextConfig = {
 
 /** @type {import('next').NextConfig} */
 const devConfig = {
-	reactStrictMode: true,
+	...baseConfig,
 	async rewrites() {
 		return REWRITES.concat([
 			{
