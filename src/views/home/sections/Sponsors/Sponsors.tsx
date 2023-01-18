@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import sponsors from "assets/data/sponsors.json";
-import logo_stickerMule from "assets/sponsors/sticker_mule.svg";
+import logo_stickerMule from "assets/sponsors/sticker-mule-logo-light-bg-stacked.svg";
 
 import styles from "./Sponsors.module.scss";
 
@@ -12,12 +12,18 @@ interface SponsorItemProps {
 	name: string;
 	src: string;
 	url: string;
+	bg?: string;
 }
 
-function SponsorItem({ name, src, url }: SponsorItemProps) {
+function SponsorItem({ name, src, url, bg }: SponsorItemProps) {
 	return (
 		<a href={url}>
-			<Image src={src} alt={name} className={styles.smallTierImage} />
+			<Image
+				src={src}
+				alt={name}
+				className={styles.smallTierImage}
+				style={{ backgroundColor: bg }}
+			/>
 		</a>
 	);
 }

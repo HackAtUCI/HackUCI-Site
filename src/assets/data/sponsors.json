@@ -43,7 +43,8 @@
 		{
 			"name": "Sticker Mule",
 			"src": "/src/assets/sponsors/sticker_mule.svg",
-			"url": "https://mule.to/p3gu"
+			"url": "https://mule.to/p3gu",
+			"bg": "white"
 		}
 	]
 }
