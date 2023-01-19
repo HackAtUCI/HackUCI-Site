@@ -35,11 +35,14 @@ function Sponsors() {
 	return (
 		<section id="sponsors" className="container">
 			<h2>Sponsors</h2>
-			<p className={styles.sponsorInfo}>
+			<p className="text-center">
 				Interested in sponsoring HackUCI 2023? Check out our information above
 				to learn more about our event! For additional inquiries, please email us
 				at&nbsp;
-				<a href="mailto: hack@uci.edu">hack@uci.edu</a>.
+				<a href="mailto:hack@uci.edu" className={styles.sponsorLink}>
+					hack@uci.edu
+				</a>
+				.
 			</p>
 			<Row className="my-4">
 				<Col className={styles.column}>
