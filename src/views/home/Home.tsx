@@ -1,5 +1,6 @@
 import Faq from "./sections/Faq/Faq";
 import Landing from "./sections/Landing";
+import Sponsors from "./sections/Sponsors/Sponsors";
 import Support from "./sections/Support";
 import WallPanel from "./sections/WallPanel/WallPanel";
 
@@ -14,6 +15,7 @@ function Home() {
 			<div className={styles.faqBackground}>
 				<Faq />
 			</div>
+			<Sponsors />
 		</div>
 	);
 }

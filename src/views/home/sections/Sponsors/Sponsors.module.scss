@@ -1,0 +1,23 @@
+@import "styles/gallery-theme";
+
+.column {
+	display: flex;
+	justify-content: center;
+}
+
+.smallTierImage {
+	width: 200px;
+	height: 200px;
+	transform: scale(1);
+	transition: transform 0.3s ease-in-out;
+
+	&:hover {
+		transform: scale(1.1);
+	}
+}
+
+.sponsorLink,
+.sponsorLink:hover {
+	color: $light-orange;
+	text-decoration: none;
+}

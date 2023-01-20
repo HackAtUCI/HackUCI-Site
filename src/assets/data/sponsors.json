@@ -1,0 +1,50 @@
+{
+	"largeTier": [
+		{
+			"name": "CoStar Group",
+			"src": "/assets/sponsors/costar_group.svg",
+			"url": "https://www.costargroup.com/"
+		}
+	],
+	"mediumTier": [
+		{
+			"name": "PIMCO",
+			"src": "/assets/sponsors/pimco.svg",
+			"url": "https://www.pimco.com/en-us/?showSplash=1"
+		},
+
+		{
+			"name": "Cockroach Labs",
+			"src": "/assets/sponsors/cockroach_labs.svg",
+			"url": "https://www.cockroachlabs.com/"
+		}
+	],
+	"smallTier": [
+		{
+			"name": "Twilio",
+			"src": "/src/assets/sponsors/twillo.svg",
+			"url": "https://www.twilio.com/"
+		},
+		{
+			"name": "MobilityWare",
+			"src": "/src/assets/sponsors/mobilityware.svg",
+			"url": "https://www.mobilityware.com/"
+		},
+		{
+			"name": "WayUp",
+			"src": "/src/assets/sponsors/wayup.svg",
+			"url": "https://www.wayup.com/"
+		},
+		{
+			"name": "Google Cloud",
+			"src": "/src/assets/sponsors/google_cloud.svg",
+			"url": "https://cloud.google.com/"
+		},
+		{
+			"name": "Sticker Mule",
+			"src": "/src/assets/sponsors/sticker_mule.svg",
+			"url": "https://mule.to/p3gu",
+			"bg": "white"
+		}
+	]
+}
