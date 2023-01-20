@@ -25,7 +25,7 @@ function Portal() {
 	return (
 		<>
 			<Head>
-				<title>Portal | HackUCI 2023</title>
+				<title>Portal | Hack at UCI 2023</title>
 			</Head>
 			<TitleBanner>
 				<h1>Portal</h1>
