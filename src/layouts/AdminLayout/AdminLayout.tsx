@@ -1,8 +1,12 @@
 import { useRouter } from "next/router";
 import { PropsWithChildren, useContext, useEffect } from "react";
 
-import { AdminSidebar } from "admin/components";
+import AppLayout from "@cloudscape-design/components/app-layout";
+
 import UserContext from "utils/userContext";
+
+import AdminSidebar from "./AdminSidebar";
+import Breadcrumbs from "./Breadcrumbs";
 
 const ADMIN_ROLES = ["director", "reviewer"];
 
@@ -27,10 +31,11 @@ function AdminLayout({ children }: PropsWithChildren) {
 	}
 
 	return (
-		<>
-			<AdminSidebar />
-			<main>{children}</main>
-		</>
+		<AppLayout
+			content={children}
+			navigation={<AdminSidebar />}
+			breadcrumbs={<Breadcrumbs />}
+		/>
 	);
 }
 
