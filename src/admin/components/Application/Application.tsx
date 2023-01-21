@@ -18,7 +18,7 @@ interface ApplicationSections {
 
 const APPLICATION_SECTIONS: ApplicationSections = {
 	"Personal Information": ["gender", "pronouns", "ethnicity", "is_18_older"],
-	Education: ["university", "education_level", "major"],
+	Education: ["university", "education_level", "major", "is_first_hackathon"],
 	Experience: ["portfolio_link", "linkedin_link", "resume_url"],
 	"Free Response Questions": [
 		"stress_relief_question",
