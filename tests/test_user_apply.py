@@ -3,15 +3,20 @@ from unittest.mock import AsyncMock, Mock, patch
 
 from aiogoogle import HTTPError
 from fastapi import FastAPI
-from fastapi.testclient import TestClient
 
-from auth import user_identity
-from auth.user_identity import NativeUser
+from auth.user_identity import NativeUser, UserTestClient
 from models.ApplicationData import ProcessedApplicationData
-from models.User import Applicant
 from routers import user
 from services.mongodb_handler import Collection
 from utils import resume_handler
+from utils.user_record import Applicant
+
+USER_PKFIRE = NativeUser(
+    ucinetid="pkfire",
+    display_name="pkfire",
+    email="pkfire@uci.edu",
+    affiliations=["pkfire"],
+)
 
 SAMPLE_APPLICATION = {
     "first_name": "pk",
@@ -65,19 +70,7 @@ resume_handler.RESUMES_FOLDER_ID = "RESUMES_FOLDER_ID"
 app = FastAPI()
 app.include_router(user.router)
 
-client = TestClient(
-    app,
-    cookies={
-        "hackuci_auth": user_identity._generate_jwt_token(
-            NativeUser(
-                ucinetid="pkfire",
-                display_name="pkfire",
-                email="pkfire@uci.edu",
-                affiliations=["pkfire"],
-            )
-        )
-    },
-)
+client = UserTestClient(USER_PKFIRE, app)
 
 
 @patch("utils.email_handler.send_application_confirmation_email", autospec=True)

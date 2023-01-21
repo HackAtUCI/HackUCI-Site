@@ -28,6 +28,8 @@ class BaseRecord(BaseModel):
     uid: str = Field(alias="_id")
 
     def dict(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
+        if "by_alias" in kwargs:
+            return BaseModel.dict(self, *args, **kwargs)
         return BaseModel.dict(self, by_alias=True, *args, **kwargs)
 
     class Config:
@@ -83,11 +85,20 @@ async def update_one(
     *,
     upsert: bool = False,
 ) -> bool:
-    """Search for and update a document (if it exists) using the provided query data."""
+    """Search for and set a document's fields using the provided query and data."""
+    return await raw_update_one(collection, query, {"$set": new_data}, upsert=upsert)
+
+
+async def raw_update_one(
+    collection: Collection,
+    query: Mapping[str, object],
+    update: Mapping[str, object],
+    *,
+    upsert: bool = False,
+) -> bool:
+    """Search for and update a document using the provided query and raw update."""
     COLLECTION = DB[collection.value]
-    result: UpdateResult = await COLLECTION.update_one(
-        query, {"$set": new_data}, upsert=upsert
-    )
+    result: UpdateResult = await COLLECTION.update_one(query, update, upsert=upsert)
     if not result.acknowledged:
         log.error("MongoDB document update was not acknowledged")
         raise RuntimeError("Could not update documents in MongoDB collection")

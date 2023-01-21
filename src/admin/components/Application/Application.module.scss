@@ -1,0 +1,23 @@
+@import "styles/gallery-theme";
+
+.application {
+	background-color: $navy-blue;
+	border: 10px solid $light-orange;
+	// color: white;
+
+	h2 {
+		text-align: center;
+	}
+
+	a {
+		// color: $light-orange;
+		display: inline-block;
+		margin-bottom: 0.5em;
+	}
+
+	:global {
+		.btn {
+			margin-right: 1rem;
+		}
+	}
+}

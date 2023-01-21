@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Optional
 
 from fastapi import Cookie, HTTPException, Response, status
+from fastapi.testclient import TestClient
 from jose import JWTError, jwt
 from pydantic import BaseModel, EmailStr
 
@@ -13,6 +14,9 @@ JWT_SECRET = os.getenv("JWT_SECRET", "not a good idea")
 class User(BaseModel):
     uid: str
     email: EmailStr
+
+    def __str__(self) -> str:
+        return self.uid
 
 
 class NativeUser(User):
@@ -37,6 +41,15 @@ class GuestUser(User):
     def __init__(self, *, email: str):
         uid = scoped_uid(EmailStr(email))
         super().__init__(uid=uid, email=email)
+
+
+class UserTestClient(TestClient):
+    """Provide a test client that sends requests on behalf of the given user."""
+
+    def __init__(self, user: User, *args: Any, **kwargs: Any):
+        kwargs["cookies"] = kwargs.get("cookies", dict())
+        kwargs["cookies"]["hackuci_auth"] = _generate_jwt_token(user)
+        super().__init__(*args, **kwargs)
 
 
 class JWTClaims(BaseModel):

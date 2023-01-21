@@ -1,13 +1,24 @@
+from enum import Enum
+
 from pydantic import Field
 
+from models.ApplicationData import ProcessedApplicationData
 from services.mongodb_handler import BaseRecord
 
-from .ApplicationData import ProcessedApplicationData
+
+class Role(str, Enum):
+    APPLICANT = "applicant"
+    DIRECTOR = "director"
+    HACKER = "hacker"
+    MENTOR = "mentor"
+    REVIEWER = "reviewer"
+    TECH_ORGANIZER = "tech_organizer"
+    VOLUNTEER = "volunteer"
 
 
 class UserRecord(BaseRecord):
     uid: str = Field(alias="_id")
-    role: str
+    role: Role
 
     class Config:
         anystr_strip_whitespace = True
@@ -15,7 +26,7 @@ class UserRecord(BaseRecord):
 
 
 class Applicant(UserRecord):
-    role: str = "applicant"
+    role = Role.APPLICANT
     # TODO: enumerate status
     status: str
     application_data: ProcessedApplicationData

@@ -1,9 +1,19 @@
 from datetime import datetime
+from enum import Enum
 from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field, HttpUrl
 
 from .utils import form_body
+
+
+class Decision(str, Enum):
+    ACCEPTED = "ACCEPTED"
+    WAITLISTED = "WAITLISTED"
+    REJECTED = "REJECTED"
+
+
+Review = tuple[datetime, str, Decision]
 
 
 @form_body
@@ -32,3 +42,4 @@ class RawApplicationData(BaseModel):
 class ProcessedApplicationData(RawApplicationData):
     resume_url: Optional[HttpUrl]
     submission_time: datetime
+    reviews: list[Review] = []

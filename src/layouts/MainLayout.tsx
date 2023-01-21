@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
 
 import { Footer, Navigation } from "components";
-import MuseumRoom from "layouts/MuseumRoom";
+import MuseumRoom from "./MuseumRoom";
 
 function MainLayout({ children }: PropsWithChildren) {
 	const router = useRouter();
