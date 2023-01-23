@@ -4,11 +4,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import { ApplicantFilters, ApplicantList, Application } from "admin/components";
-import useApplicants, {
-	Applicants,
-	Status,
-	uid,
-} from "admin/utils/useApplicants";
+import { Status, uid } from "admin/utils/useApplicant";
+import useApplicants, { Applicants } from "admin/utils/useApplicants";
 import Loading from "utils/Loading";
 
 import styles from "./Applicants.module.scss";
@@ -18,7 +15,7 @@ function Applications() {
 	const [selectedStatuses, setSelectedStatuses] = useState<Status[]>([
 		Status.pending,
 	]);
-	const { applicantList, submitReview } = useApplicants();
+	const { applicantList } = useApplicants();
 
 	if (!applicantList) {
 		return <Loading />;
@@ -51,10 +48,7 @@ function Applications() {
 				</Col>
 				{currentApplicant && (
 					<Col className={styles["application-side"]} lg="9">
-						<Application
-							applicant={applicants[currentApplicant]}
-							submitReview={submitReview}
-						/>
+						<Application applicant={applicants[currentApplicant]} />
 					</Col>
 				)}
 			</Row>

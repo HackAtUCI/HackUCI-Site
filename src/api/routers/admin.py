@@ -1,4 +1,5 @@
 from logging import getLogger
+from typing import Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, status
 from pydantic import ValidationError, parse_obj_as
@@ -34,6 +35,25 @@ async def applicants(
         raise RuntimeError("Could not parse applicant data.")
 
 
+@router.get("/applicant/{uid}")
+async def applicant(
+    uid: str,
+    admin: User = Depends(require_role(ADMIN_ROLES)),
+) -> Applicant:
+    """Get record of an applicant by uid."""
+    record: Optional[dict[str, object]] = await mongodb_handler.retrieve_one(
+        Collection.USERS, {"_id": uid, "role": Role.APPLICANT}
+    )
+
+    if not record:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    try:
+        return Applicant.parse_obj(record)
+    except ValidationError:
+        raise RuntimeError("Could not parse applicant data.")
+
+
 @router.post("/review")
 async def submit_review(
     applicant: str = Body(),
@@ -41,7 +61,7 @@ async def submit_review(
     reviewer: User = Depends(require_role([Role.REVIEWER])),
 ) -> None:
     """Submit a review decision from the reviewer for the given applicant."""
-    log.info("%s submitted a review for %s", reviewer, applicant)
+    log.info("%s reviewed applicant %s", reviewer, applicant)
 
     review: Review = (utc_now(), reviewer.uid, decision)
 

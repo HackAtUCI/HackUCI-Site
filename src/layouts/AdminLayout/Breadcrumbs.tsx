@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 import BreadcrumbGroup, {
 	BreadcrumbGroupProps,
@@ -11,21 +12,41 @@ interface PathTitles {
 }
 
 const pathTitles: PathTitles = {
-	"/admin/applicants": "Applicants",
+	applicants: "Applicants",
 };
+
+const DEFAULT_ITEMS = [{ text: "HackUCI 2023", href: BASE_PATH }];
 
 function Breadcrumbs() {
 	const router = useRouter();
+	const { asPath, isReady } = router;
 
-	const currentPath = router.pathname;
+	const [breadcrumbItems, setBreadcrumbItems] =
+		useState<BreadcrumbGroupProps.Item[]>(DEFAULT_ITEMS);
 
-	const breadcrumbItems: BreadcrumbGroupProps.Item[] = [
-		{ text: "HackUCI 2023", href: BASE_PATH },
-	];
+	useEffect(() => {
+		if (!isReady) {
+			return;
+		}
 
-	if (currentPath !== BASE_PATH) {
-		breadcrumbItems.push({ text: pathTitles[currentPath], href: "" });
-	}
+		const items = [...DEFAULT_ITEMS];
+
+		if (asPath !== BASE_PATH) {
+			asPath
+				.slice("/admin/".length)
+				.split("/")
+				.reduce((partial, path) => {
+					partial += path;
+					items.push({
+						text: pathTitles[path] || path,
+						href: partial,
+					});
+					return partial;
+				}, "/admin/");
+		}
+
+		setBreadcrumbItems(items);
+	}, [asPath, isReady]);
 
 	return (
 		<BreadcrumbGroup

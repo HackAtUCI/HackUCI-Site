@@ -1,6 +1,8 @@
-import Badge from "react-bootstrap/Badge";
+import StatusIndicator, {
+	StatusIndicatorProps,
+} from "@cloudscape-design/components/status-indicator";
 
-import { Status } from "admin/utils/useApplicants";
+import { Status } from "admin/utils/useApplicant";
 
 export const StatusLabels = {
 	[Status.accepted]: "accepted",
@@ -8,15 +10,16 @@ export const StatusLabels = {
 	[Status.waitlisted]: "waitlisted",
 	[Status.pending]: "needs review",
 	[Status.reviewed]: "reviewed",
+	[Status.released]: "released",
 };
 
-// colors corresponding to Bootstrap's color utility classes
-const StatusColors = {
+const StatusTypes: Record<Status, StatusIndicatorProps.Type> = {
 	[Status.accepted]: "success",
-	[Status.rejected]: "danger",
-	[Status.waitlisted]: "warning",
-	[Status.pending]: "secondary",
-	[Status.reviewed]: "primary",
+	[Status.rejected]: "error",
+	[Status.waitlisted]: "pending",
+	[Status.pending]: "pending",
+	[Status.reviewed]: "in-progress",
+	[Status.released]: "success",
 };
 
 interface ApplicantStatusProps {
@@ -25,9 +28,9 @@ interface ApplicantStatusProps {
 
 function ApplicantStatus({ status }: ApplicantStatusProps) {
 	return (
-		<Badge bg={StatusColors[status]} pill className="float-end">
+		<StatusIndicator type={StatusTypes[status]}>
 			{StatusLabels[status]}
-		</Badge>
+		</StatusIndicator>
 	);
 }
 

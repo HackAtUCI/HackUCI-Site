@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 
 import { StatusLabels } from "admin/components/ApplicantStatus/ApplicantStatus";
-import { Status } from "admin/utils/useApplicants";
+import { Status } from "admin/utils/useApplicant";
 
 interface ApplicantFiltersProps {
 	selectedStatuses: Status[];
