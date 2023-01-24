@@ -22,6 +22,8 @@ router = APIRouter()
 class IdentityResponse(BaseModel):
     uid: Optional[str]
     status: Optional[str]
+    submission_time: Optional[datetime]
+    verdict_time: Optional[datetime]
     role: Optional[Role]
 
 

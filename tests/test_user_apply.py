@@ -42,15 +42,20 @@ LARGE_RESUME = ("large-resume.pdf", b"resume" * 100_000, "application/pdf")
 EXPECTED_RESUME_UPLOAD = ("pk-fire-69f2afc2.pdf", b"resume", "application/pdf")
 SAMPLE_RESUME_URL = "https://drive.google.com/file/d/..."
 SAMPLE_SUBMISSION_TIME = datetime(2023, 1, 12, 8, 1, 21)
+SAMPLE_VERDICT_TIME = datetime(2023, 1, 12, 8, 1, 21)
 
 EXPECTED_APPLICATION_DATA = ProcessedApplicationData(
     **SAMPLE_APPLICATION,
     resume_url=SAMPLE_RESUME_URL,
     submission_time=SAMPLE_SUBMISSION_TIME,
+    verdict_time=SAMPLE_VERDICT_TIME,
 )
 
 EXPECTED_APPLICATION_DATA_WITHOUT_RESUME = ProcessedApplicationData(
-    **SAMPLE_APPLICATION, resume_url=None, submission_time=SAMPLE_SUBMISSION_TIME
+    **SAMPLE_APPLICATION,
+    resume_url=None,
+    submission_time=SAMPLE_SUBMISSION_TIME,
+    verdict_time=SAMPLE_VERDICT_TIME,
 )
 
 EXPECTED_USER = Applicant(
