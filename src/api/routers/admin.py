@@ -1,14 +1,15 @@
+from datetime import datetime
 from logging import getLogger
 from typing import Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, status
-from pydantic import ValidationError, parse_obj_as
+from pydantic import BaseModel, Field, ValidationError, parse_obj_as
 
 from auth.authorization import require_role
 from auth.user_identity import User, utc_now
 from models.ApplicationData import Decision, Review
 from services import mongodb_handler
-from services.mongodb_handler import Collection
+from services.mongodb_handler import BaseRecord, Collection
 from utils.user_record import Applicant, Role
 
 log = getLogger(__name__)
@@ -18,19 +19,41 @@ router = APIRouter()
 ADMIN_ROLES = (Role.DIRECTOR, Role.REVIEWER)
 
 
+class ApplicationDataSummary(BaseModel):
+    first_name: str
+    last_name: str
+    university: str
+    submission_time: datetime
+
+
+class ApplicantSummary(BaseRecord):
+    uid: str = Field(alias="_id")
+    status: str
+    application_data: ApplicationDataSummary
+
+
 @router.get("/applicants")
 async def applicants(
     user: User = Depends(require_role(ADMIN_ROLES)),
-) -> list[Applicant]:
+) -> list[ApplicantSummary]:
     """Get records of all applicants."""
     log.info("%s requested applicants", user)
 
     records: list[dict[str, object]] = await mongodb_handler.retrieve(
-        Collection.USERS, {"role": Role.APPLICANT}
+        Collection.USERS,
+        {"role": Role.APPLICANT},
+        [
+            "_id",
+            "status",
+            "application_data.first_name",
+            "application_data.last_name",
+            "application_data.university",
+            "application_data.submission_time",
+        ],
     )
 
     try:
-        return parse_obj_as(list[Applicant], records)
+        return parse_obj_as(list[ApplicantSummary], records)
     except ValidationError:
         raise RuntimeError("Could not parse applicant data.")
 
