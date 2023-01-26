@@ -18,6 +18,7 @@ const REWRITES = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	...baseConfig,
+	swcMinify: false,
 	async rewrites() {
 		return REWRITES;
 	},
