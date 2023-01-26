@@ -1,6 +1,6 @@
 from datetime import datetime
 from logging import getLogger
-from typing import Optional
+from typing import Any, Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, status
 from pydantic import BaseModel, Field, ValidationError, parse_obj_as
@@ -29,6 +29,7 @@ class ApplicationDataSummary(BaseModel):
 class ApplicantSummary(BaseRecord):
     uid: str = Field(alias="_id")
     status: str
+    decision: Optional[Decision] = None
     application_data: ApplicationDataSummary
 
 
@@ -49,8 +50,12 @@ async def applicants(
             "application_data.last_name",
             "application_data.university",
             "application_data.submission_time",
+            "application_data.reviews",
         ],
     )
+
+    for record in records:
+        _include_review_decision(record)
 
     try:
         return parse_obj_as(list[ApplicantSummary], records)
@@ -100,3 +105,9 @@ async def submit_review(
     except RuntimeError:
         log.error("Could not submit review for %s", applicant)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+def _include_review_decision(applicant_record: dict[str, Any]) -> None:
+    """Sets the applicant's decision as the last submitted review decision or None."""
+    reviews = applicant_record["application_data"]["reviews"]
+    applicant_record["decision"] = reviews[-1][2] if reviews else None

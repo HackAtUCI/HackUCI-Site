@@ -15,19 +15,26 @@ function Applicants() {
 	const [selectedStatuses, setSelectedStatuses] = useState<
 		readonly OptionDefinition[]
 	>([]);
+	const [selectedDecisions, setSelectedDecisions] = useState<
+		readonly OptionDefinition[]
+	>([]);
 	const { applicantList, loading } = useApplicants();
 
 	const selectedStatusValues = selectedStatuses.map(({ value }) => value);
+	const selectedDecisionValues = selectedDecisions.map(({ value }) => value);
 
-	const filteredApplicants = applicantList.filter((applicant) =>
-		selectedStatusValues.includes(applicant.status)
+	const filteredApplicants = applicantList.filter(
+		(applicant) =>
+			(selectedStatuses.length === 0 ||
+				selectedStatusValues.includes(applicant.status)) &&
+			(selectedDecisions.length === 0 ||
+				selectedDecisionValues.includes(applicant.decision || "-"))
 	);
 
-	const items =
-		selectedStatuses.length > 0 ? filteredApplicants : applicantList;
+	const items = filteredApplicants;
 
 	const counter =
-		selectedStatuses.length > 0
+		selectedStatuses.length > 0 || selectedDecisions.length > 0
 			? `(${items.length}/${applicantList.length})`
 			: `(${applicantList.length})`;
 
@@ -58,6 +65,11 @@ function Applicants() {
 						content: ({ application_data }) =>
 							new Date(application_data.submission_time).toLocaleDateString(),
 					},
+					{
+						id: "decision",
+						header: "Decision",
+						content: DecisionStatus,
+					},
 				],
 			}}
 			// visibleSections={preferences.visibleContent}
@@ -70,6 +82,8 @@ function Applicants() {
 				<ApplicantFilters
 					selectedStatuses={selectedStatuses}
 					setSelectedStatuses={setSelectedStatuses}
+					selectedDecisions={selectedDecisions}
+					setSelectedDecisions={setSelectedDecisions}
 				/>
 			}
 			empty={emptyContent}
@@ -83,5 +97,8 @@ const CardHeader = ({ _id, application_data }: ApplicantSummary) => (
 		{application_data.first_name} {application_data.last_name}
 	</Link>
 );
+
+const DecisionStatus = ({ decision }: ApplicantSummary) =>
+	decision ? <ApplicantStatus status={decision} /> : "-";
 
 export default Applicants;

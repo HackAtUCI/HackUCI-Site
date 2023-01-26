@@ -6,6 +6,7 @@ import { Status } from "./useApplicant";
 export interface ApplicantSummary {
 	_id: string;
 	status: Status;
+	decision: Status | null;
 	application_data: {
 		first_name: string;
 		last_name: string;
