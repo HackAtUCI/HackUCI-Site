@@ -25,7 +25,7 @@ function Landing() {
 		<section className={styles.homeLanding}>
 			<TitleBanner className={styles.homeBanner}>
 				<div className="d-flex flex-column-reverse">
-					<h1>HackUCI</h1>
+					<h1>Hack at UCI</h1>
 					<span className={styles.landingDate}>February 3 &ndash; 5, 2023</span>
 				</div>
 

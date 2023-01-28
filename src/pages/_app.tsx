@@ -48,7 +48,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<>
 			<Head>
-				<title>HackUCI 2023</title>
+				<title>Hack at UCI 2023</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 			</Head>
 			<FontProvider />

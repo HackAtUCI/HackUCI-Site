@@ -13,7 +13,7 @@ function MentorsVolunteers() {
 		<Row>
 			<Col>
 				<div className={styles.statueContainer}>
-					<Image src={mentorStatue} alt="HackUCI Mentor Statue" />
+					<Image src={mentorStatue} alt="Hack at UCI Mentor Statue" />
 					<h3 className={styles.statueTitle}>Apply to be a Mentor</h3>
 					<div className={styles.statueCube}>
 						<div className={`${styles.cubeSide} ${styles.cubeTop}`} />
@@ -23,8 +23,8 @@ function MentorsVolunteers() {
 						>
 							<p>
 								Have a knack for innovation? Interested in inspiring the next
-								generation of developers? Our mentors are vital to making
-								HackUCI 2023 successful and enjoyable for our hackers. Apply to
+								generation of developers? Our mentors are vital to making Hack
+								at UCI 2023 successful and enjoyable for our hackers. Apply to
 								be a mentor today!
 							</p>
 							<Button
@@ -42,7 +42,7 @@ function MentorsVolunteers() {
 			</Col>
 			<Col>
 				<div className={styles.statueContainer}>
-					<Image src={volunteerStatue} alt="HackUCI Volunteer Statue" />
+					<Image src={volunteerStatue} alt="Hack at UCI Volunteer Statue" />
 					<h3 className={styles.statueTitle}>Become a Volunteer</h3>
 					<div className={styles.statueCube}>
 						<div className={`${styles.cubeSide} ${styles.cubeTop}`} />
@@ -52,10 +52,10 @@ function MentorsVolunteers() {
 						>
 							<p>
 								Want a peek behind the scenes? Join our team of event volunteers
-								that make HackUCI run as smoothly as possible! Many roles are
-								available and shifts are flexible. Plus, get access to all the
-								free food and all our hackathon swag. We hope to see you on the
-								team!
+								that make Hack at UCI run as smoothly as possible! Many roles
+								are available and shifts are flexible. Plus, get access to all
+								the free food and all our hackathon swag. We hope to see you on
+								the team!
 							</p>
 							<Button
 								variant="museum"

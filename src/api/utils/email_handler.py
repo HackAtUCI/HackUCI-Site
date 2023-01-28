@@ -5,7 +5,7 @@ from pydantic import EmailStr
 
 from services import sendgrid_handler
 
-HACKUCI_SENDER = ("apply@hackuci.com", "HackUCI 2023 Applications")
+HACKUCI_SENDER = ("apply@hackuci.com", "Hack at UCI 2023 Applications")
 
 
 class ContactInfo(Protocol):

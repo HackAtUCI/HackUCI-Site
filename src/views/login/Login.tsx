@@ -14,7 +14,7 @@ function Login() {
 	return (
 		<>
 			<Head>
-				<title>Log In | HackUCI 2023</title>
+				<title>Log In | Hack at UCI 2023</title>
 			</Head>
 			<TitleBanner>
 				<h1>Log In</h1>
