@@ -29,7 +29,7 @@ function Landing() {
 					<span className={styles.landingDate}>February 3 &ndash; 5, 2023</span>
 				</div>
 
-				<Row className={styles.homeButtons + " " + "justify-content-center"}>
+				<Row className={styles.homeButtons}>
 					<Col md="auto">{hackerApplyButton}</Col>
 					<Col md="auto">{mentorApplyButton}</Col>
 				</Row>
