@@ -18,7 +18,7 @@ function Applicant() {
 		throw TypeError();
 	}
 
-	const { applicant, loading, submitReview } = useApplicant(uid);
+	const { applicant, loading, submitReview } = useApplicant(uid ? uid[0] : "");
 
 	if (loading || !applicant) {
 		return (

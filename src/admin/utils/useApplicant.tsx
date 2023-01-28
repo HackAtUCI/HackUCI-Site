@@ -51,17 +51,17 @@ export interface Applicant {
 	application_data: ApplicationData;
 }
 
-const fetcher = async (url: string) => {
-	if (url.endsWith("/")) {
+const fetcher = async ([api, uid]: string[]) => {
+	if (!uid) {
 		return null;
 	}
-	const res = await axios.get<Applicant>(url);
+	const res = await axios.get<Applicant>(api + uid);
 	return res.data;
 };
 
-function useApplicant(uid?: uid[]) {
+function useApplicant(uid: uid) {
 	const { data, error, isLoading, mutate } = useSWR<Applicant | null>(
-		`/api/admin/applicant/${uid ? uid[0] : ""}`,
+		["/api/admin/applicant/", uid],
 		fetcher
 	);
 
