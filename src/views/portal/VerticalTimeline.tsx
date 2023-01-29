@@ -1,17 +1,18 @@
+import Image from "next/image";
+
 import CheckCircle from "assets/icons/check-circle-fill.svg";
 import XCircle from "assets/icons/x-circle-fill.svg";
-import Image from "next/image";
 import ListGroup from "react-bootstrap/ListGroup";
 import styles from "views/portal/Portal.module.scss";
 
-export interface TimelineProps {
+export interface VerticalTimelineProps {
 	status: string | null;
 	submission_time: string | null;
 	verdict_time?: string | null;
 }
 
-function VerticalTimeline(props: TimelineProps) {
-	const first_item = (
+function VerticalTimeline(props: VerticalTimelineProps) {
+	const submission_component = (
 		<ListGroup.Item className={styles.list_item}>
 			<Image
 				src={CheckCircle}
@@ -24,7 +25,7 @@ function VerticalTimeline(props: TimelineProps) {
 		</ListGroup.Item>
 	);
 
-	const second_item =
+	const verdict_component =
 		props.status === "accepted" || props.status === "confirmed" ? (
 			<ListGroup.Item className={styles.list_item}>
 				<Image
@@ -52,8 +53,8 @@ function VerticalTimeline(props: TimelineProps) {
 	return (
 		<div className={styles.verticle_timeline}>
 			<ListGroup className={styles.list}>
-				{first_item}
-				{second_item}
+				{submission_component}
+				{verdict_component}
 			</ListGroup>
 		</div>
 	);

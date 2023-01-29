@@ -1,11 +1,10 @@
 import Head from "next/head";
-import Router from "next/router";
+// import Router from "next/router";
 import { useContext, useEffect } from "react";
+import Container from "react-bootstrap/Container";
 
 import { TitleBanner } from "components";
-import { Container } from "react-bootstrap";
 import UserContext from "utils/userContext";
-
 import Message from "./Message";
 import VerticalTimeline from "./VerticalTimeline";
 
@@ -14,12 +13,12 @@ function Portal() {
 
 	useEffect(() => {
 		if (status === null) {
-			Router.push("/apply");
+			// Router.push("/apply");
 		}
 	}, [status]);
 
 	if (status === null) {
-		return null;
+		// return null;
 	}
 
 	return (
