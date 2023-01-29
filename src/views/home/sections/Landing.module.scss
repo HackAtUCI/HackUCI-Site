@@ -25,6 +25,10 @@
 		min-height: 55vh;
 		max-height: 70vh;
 
+		h1 {
+			@include bootstrap.font-size(5.5rem);
+		}
+
 		// center content horizontally
 		display: flex;
 		flex-direction: column;

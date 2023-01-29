@@ -9,7 +9,7 @@ function GuestLogin() {
 	return (
 		<>
 			<Head>
-				<title>Guest Login | HackUCI 2023</title>
+				<title>Guest Login | Hack at UCI 2023</title>
 			</Head>
 			<TitleBanner>
 				<h1>Log In</h1>

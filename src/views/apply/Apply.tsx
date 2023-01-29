@@ -39,7 +39,7 @@ function Apply() {
 	return (
 		<>
 			<Head>
-				<title>Apply | HackUCI 2023</title>
+				<title>Apply | Hack at UCI 2023</title>
 			</Head>
 			<TitleBanner>
 				<h1>Apply</h1>

@@ -6,11 +6,11 @@ import styles from "./HackLogo.module.scss";
 function HackLogo() {
 	return (
 		<div className={styles.hackLogo}>
-			<Image src={hackAnteater} alt="HackUCI Logo Anteater" />
+			<Image src={hackAnteater} alt="Hack at UCI Logo Anteater" />
 			<Image
 				className={styles.spinning}
 				src={hackGear}
-				alt="HackUCI Logo Gear"
+				alt="Hack at UCI Logo Gear"
 			/>
 		</div>
 	);

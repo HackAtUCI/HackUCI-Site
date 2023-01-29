@@ -173,7 +173,7 @@ function ApplicationForm(props: ApplicationFormProps) {
 					<h2
 						className={(Object.keys(errors).length !== 0 && "is-invalid") || ""}
 					>
-						HackUCI 2023 Application
+						Hack at UCI 2023 Application
 					</h2>
 					<BasicInformation values={values} errors={errors} touched={touched} />
 					<SchoolInformation
