@@ -1,5 +1,5 @@
 import Head from "next/head";
-// import Router from "next/router";
+import Router from "next/router";
 import { useContext, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 
@@ -13,12 +13,12 @@ function Portal() {
 
 	useEffect(() => {
 		if (status === null) {
-			// Router.push("/apply");
+			Router.push("/apply");
 		}
 	}, [status]);
 
 	if (status === null) {
-		// return null;
+		return null;
 	}
 
 	return (
@@ -31,11 +31,7 @@ function Portal() {
 			</TitleBanner>
 			<Container className="museum-container">
 				<h2>Status</h2>
-				<VerticalTimeline
-					status={status}
-					submission_time={submission_time}
-					verdict_time={verdict_time}
-				/>
+				<VerticalTimeline status={status} submission_time={submission_time} />
 				<Message status={status} />
 			</Container>
 		</>

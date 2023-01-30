@@ -5,13 +5,14 @@ import XCircle from "assets/icons/x-circle-fill.svg";
 import ListGroup from "react-bootstrap/ListGroup";
 import styles from "views/portal/Portal.module.scss";
 
-export interface VerticalTimelineProps {
+interface VerticalTimelineProps {
 	status: string | null;
 	submission_time: string | null;
-	verdict_time?: string | null;
 }
 
 function VerticalTimeline(props: VerticalTimelineProps) {
+	const { status, submission_time } = props;
+
 	const submission_component = (
 		<ListGroup.Item className={styles.list_item}>
 			<Image
@@ -21,12 +22,12 @@ function VerticalTimeline(props: VerticalTimelineProps) {
 				height={25}
 				className={styles.icon}
 			/>
-			Application submitted: {props.submission_time}
+			Application submitted: {submission_time}
 		</ListGroup.Item>
 	);
 
 	const verdict_component =
-		props.status === "accepted" || props.status === "confirmed" ? (
+		status === "accepted" || status === "confirmed" ? (
 			<ListGroup.Item className={styles.list_item}>
 				<Image
 					src={CheckCircle}
@@ -35,9 +36,9 @@ function VerticalTimeline(props: VerticalTimelineProps) {
 					height={25}
 					className={styles.icon}
 				/>
-				Application accepted: {props.verdict_time}
+				Application accepted!
 			</ListGroup.Item>
-		) : props.status === "denied" ? (
+		) : status === "denied" ? (
 			<ListGroup.Item className={styles.list_item}>
 				<Image
 					src={XCircle}
@@ -46,7 +47,7 @@ function VerticalTimeline(props: VerticalTimelineProps) {
 					height={25}
 					className={styles.icon}
 				/>
-				Application denied: {props.verdict_time}
+				Application rejected
 			</ListGroup.Item>
 		) : null;
 
