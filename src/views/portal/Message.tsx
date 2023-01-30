@@ -25,6 +25,7 @@ function Message(props: MessageProps) {
 		),
 		accepted: (
 			<>
+				<h3>Event Logistics</h3>
 				<p>
 					Congrats on your acceptance to Hack at UCI 2023! Before confirming
 					your attendance, it is crucial that you read through the following
@@ -36,6 +37,7 @@ function Message(props: MessageProps) {
 		),
 		confirmed: (
 			<>
+				<h3>Event Logistics</h3>
 				<p>
 					Thank you for confirming your attendance! We look forward to seeing
 					you at Hack at UCI!
