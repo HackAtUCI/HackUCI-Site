@@ -109,6 +109,41 @@ function AcceptedMessage() {
 				</a>
 			</p>
 
+			<h4>General Schedule</h4>
+			<p>
+				<u>Thursday (2/2):</u>
+				<br />
+				7:00 PM - Team Formation #1 (at DBH 6011)
+			</p>
+
+			<p>
+				<u>Friday (2/3):</u> <br />
+				5:00 PM - Venue Opens for Day 1 Check In <br />
+				6:00 PM - Dinner <br />
+				7:00 PM - Team Formation #2 <br />
+				8:00 PM - Opening Ceremony <br />
+				<strong> 9:00 PM - Hacking Begins</strong> <br />
+				12:00 AM - Venue Closes <br />
+			</p>
+
+			<p>
+				<u>Saturday (2/4):</u> <br />
+				8:00 AM - Venue Opens for Day 2 Check In <br />
+				9:00 AM - Breakfast <br />
+				12:00 PM - Lunch <br />
+				6:00 PM - Dinner <br />
+				12:00 AM - Venue Closes <br />
+			</p>
+
+			<p>
+				<u>Sunday (2/5):</u> <br />
+				7:00 AM - Venue Opens for Day 3 Check In <br />
+				<strong> 9:00 AM - Hacking Ends</strong> <br />
+				9:00 AM - Breakfast <br />
+				9:30 AM - Project Expo / Judging <br />
+				12:30 PM - Closing Ceremony <br />
+			</p>
+
 			<h4>Pre-Hack-At-UCI Checklist</h4>
 			<ul>
 				<li>Confirm your attendance by clicking on the button below</li>
