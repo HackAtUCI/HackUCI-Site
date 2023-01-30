@@ -1,16 +1,10 @@
-import Card from "react-bootstrap/Card";
+import Container from "@cloudscape-design/components/container";
+import Header from "@cloudscape-design/components/header";
+import SpaceBetween from "@cloudscape-design/components/space-between";
 
-import { ApplicantActions, ApplicantStatus } from "admin/components";
-import {
-	Applicant,
-	ApplicationQuestion,
-	submitReview,
-} from "admin/utils/useApplicants";
+import { Applicant, ApplicationQuestion } from "admin/utils/useApplicant";
 
-import ApplicationReviews from "./ApplicationReviews";
-import ApplicationSection from "./ApplicationSection/ApplicationSection";
-
-import styles from "./Application.module.scss";
+import ApplicationSection from "./ApplicationSection";
 
 interface ApplicationSections {
 	[key: string]: ApplicationQuestion[];
@@ -28,23 +22,14 @@ const APPLICATION_SECTIONS: ApplicationSections = {
 
 interface ApplicationProps {
 	applicant: Applicant;
-	submitReview: submitReview;
 }
 
-function Application({ applicant, submitReview }: ApplicationProps) {
-	const { _id, application_data, status } = applicant;
-	const { first_name, last_name, submission_time, reviews } = application_data;
-
-	const submittedDate = new Date(submission_time).toDateString();
+function Application({ applicant }: ApplicationProps) {
+	const { application_data } = applicant;
 
 	return (
-		<Card className={styles.application}>
-			<Card.Header>
-				{_id} submitted {submittedDate} <ApplicantStatus status={status} />
-			</Card.Header>
-			<Card.Body>
-				<Card.Title as="h2">{`${first_name} ${last_name}`}</Card.Title>
-
+		<Container header={<Header variant="h2">Application</Header>}>
+			<SpaceBetween direction="vertical" size="m">
 				{Object.entries(APPLICATION_SECTIONS).map(([section, questions]) => (
 					<ApplicationSection
 						key={section}
@@ -53,15 +38,8 @@ function Application({ applicant, submitReview }: ApplicationProps) {
 						propsToShow={questions}
 					/>
 				))}
-
-				<Card.Subtitle as="h3">Reviews</Card.Subtitle>
-				<Card.Text>
-					<ApplicationReviews reviews={reviews} />
-				</Card.Text>
-
-				<ApplicantActions applicant={_id} submitReview={submitReview} />
-			</Card.Body>
-		</Card>
+			</SpaceBetween>
+		</Container>
 	);
 }
 

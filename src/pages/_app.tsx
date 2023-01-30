@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import AdminLayout from "layouts/AdminLayout";
+import { AdminLayout } from "layouts";
 import MainLayout from "layouts/MainLayout";
 import FontProvider from "utils/FontProvider";
 import Loading from "utils/Loading";

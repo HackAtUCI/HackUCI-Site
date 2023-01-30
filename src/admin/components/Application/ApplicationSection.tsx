@@ -1,15 +1,16 @@
-import Card from "react-bootstrap/Card";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import ColumnLayout from "@cloudscape-design/components/column-layout";
+import TextContent from "@cloudscape-design/components/text-content";
 
-import {
-	ApplicationData,
-	ApplicationQuestion,
-} from "admin/utils/useApplicants";
+import { ApplicationData, ApplicationQuestion } from "admin/utils/useApplicant";
 
 interface ApplicationResponseProps {
 	value: string | boolean | string[] | null;
 }
+
+const titleCase = (str: string) =>
+	str.charAt(0).toUpperCase() + str.substring(1);
+
+const formatQuestion = (q: string) => q.split("_").map(titleCase).join(" ");
 
 function ApplicationResponse({ value }: ApplicationResponseProps) {
 	if (value === null) {
@@ -55,24 +56,20 @@ function ApplicationSection({
 	propsToShow,
 }: ApplicationSectionProps) {
 	return (
-		<div className="mb-5">
-			<Card.Subtitle as="h3">{title}</Card.Subtitle>
-			<Card.Text as={Row}>
-				{propsToShow.map((prop, index) => {
-					return (
-						<Col key={index} sm="6" md={propsToShow.length < 3 ? "6" : "4"}>
-							<h4>
-								{prop
-									.split("_")
-									.map((str) => str.charAt(0).toUpperCase() + str.substring(1))
-									.join(" ")}
-							</h4>
-							<ApplicationResponse value={data[prop]} />
-						</Col>
-					);
-				})}
-			</Card.Text>
-		</div>
+		<TextContent>
+			<h3>{title}</h3>
+			<ColumnLayout
+				columns={Math.min(propsToShow.length, 4)}
+				variant="text-grid"
+			>
+				{propsToShow.map((prop) => (
+					<div key={prop}>
+						<h4>{formatQuestion(prop)}</h4>
+						<ApplicationResponse value={data[prop]} />
+					</div>
+				))}
+			</ColumnLayout>
+		</TextContent>
 	);
 }
 

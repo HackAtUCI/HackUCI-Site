@@ -1,6 +1,7 @@
 import { useContext } from "react";
 
-import { Review, uid } from "admin/utils/useApplicants";
+import { ApplicantStatus } from "admin/components";
+import { Review, uid } from "admin/utils/useApplicant";
 import UserContext from "utils/userContext";
 
 interface ApplicationReviewsProps {
@@ -11,28 +12,27 @@ function ApplicationReviews({ reviews }: ApplicationReviewsProps) {
 	const { uid } = useContext(UserContext);
 
 	if (reviews.length === 0) {
-		return <p>No reviews</p>;
+		return <p>-</p>;
 	}
 
-	const formattedReviews = reviews.map(([date, reviewer, decision]) => [
-		date,
-		new Date(date).toLocaleDateString(),
-		reviewer,
-		decision,
-	]);
-
 	const formatUid = (uid: uid) => uid.split(".").at(-1);
+	const formatDate = (timestamp: string) =>
+		new Date(timestamp).toLocaleDateString();
 
 	return (
 		<ul>
-			{formattedReviews.map(([raw_date, date, reviewer, decision]) =>
+			{reviews.map(([date, reviewer, decision]) =>
 				reviewer === uid ? (
-					<li key={raw_date}>
-						You reviewed as {decision} on {date}
+					<li key={date}>
+						<>
+							You reviewed as <ApplicantStatus status={decision} /> on{" "}
+							{formatDate(date)}
+						</>
 					</li>
 				) : (
 					<li key={date}>
-						{formatUid(reviewer)} reviewed this application on {date}
+						{formatUid(reviewer)} reviewed this application on{" "}
+						{formatDate(date)}
 					</li>
 				)
 			)}
