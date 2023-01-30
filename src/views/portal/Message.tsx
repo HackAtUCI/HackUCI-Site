@@ -21,8 +21,8 @@ function Message(props: MessageProps) {
 					look forward to seeing you at Hack at UCI!
 				</p>
 
+				<h4>Waiver</h4>
 				<p>
-					<h4>Waiver</h4>
 					ALL ATTENDEES, please review our{" "}
 					<a href="https://docs.google.com/document/u/1/d/e/2PACX-1vRPuYBKQ2YR64FVzDKunDeVkeFGD573hSqfTmf8JwvyhlvPQPEnovxhlYbal45WI3k3Jr2iLNRzz1Hp/pub">
 						Code of Conduct
@@ -39,14 +39,14 @@ function Message(props: MessageProps) {
 					</strong>
 				</p>
 
+				<h4>Communication</h4>
 				<p>
-					<h4>Communication</h4>
 					Communication during the event will primarily be done through Slack.
 					You will receive an invite via email closer to the event date.
 				</p>
 
+				<h4>Team Formation</h4>
 				<p>
-					<h4>Team Formation</h4>
 					Still looking for teammates? Attend our two team formation events,
 					Thursday (2/2) 7-8 PM in DBH 6011 and Friday (2/3) 7-8 PM in Student
 					Center Pacific Ballroom. You can also create an introductory slide{" "}
@@ -57,8 +57,8 @@ function Message(props: MessageProps) {
 					Slack to find teammates! Teams are limited to groups of up to four.
 				</p>
 
+				<h4>Health and Safety Protocols</h4>
 				<p>
-					<h4>Health and Safety Protocols</h4>
 					Please be mindful of your personal health and of those around you.
 					Although not required, we strongly encourage wearing masks, and please
 					stay home if you feel sick. To help us ensure your safety at the
@@ -66,8 +66,8 @@ function Message(props: MessageProps) {
 					<strong>visible at all times</strong>.
 				</p>
 
+				<h4>Venue Information</h4>
 				<p>
-					<h4>Venue Information</h4>
 					Hack at UCI 2023 will take place (not overnight) on Friday evening,
 					all-day Saturday, and approximately the first half of Sunday on-campus
 					at UC Irvine Student Center.{" "}
@@ -100,11 +100,9 @@ function Message(props: MessageProps) {
 						https://conference.studentaffairs.uci.edu/node/24
 					</a>
 				</p>
+				<h4>On-Campus Parking</h4>
 				<p>
-					<h4>On-Campus Parking</h4>
-					<strong>
-						Attendees will be responsible for their own parking.
-					</strong>{" "}
+					<strong>Attendees will be responsible for their own parking.</strong>{" "}
 					The closest parking structure to our event is the UCI Student Center
 					Parking Structure. This structure provides both pay-by-space ($2 per
 					hour) and permit dispensers ($1 per hour, $13 for a day). You may
@@ -128,24 +126,22 @@ function Message(props: MessageProps) {
 						https://map.concept3d.com/?id=463#!ce/8403?ct/55161,27429,35849?m/367524?s/
 					</a>
 				</p>
+
+				<h4>Pre-Hack-At-UCI Checklist</h4>
+				<ul>
+					<li>Confirm your attendance by clicking on the button below</li>
+					<li>Sign the liability waiver once it has been sent to your email</li>
+					<li>Join the Slack once the invite has been sent to your email</li>
+					<li>
+						Bring a <strong>photo ID for check</strong> in on Day 1, and your{" "}
+						<strong>badge</strong> to check in on Day 2 and 3. Other items to
+						bring include a laptop + charger, refillable water bottle, and a
+						positive attitude to the event!
+					</li>
+				</ul>
+
+				<h4>Questions/Comments</h4>
 				<p>
-					<h4>Pre-Hack-At-UCI Checklist</h4>
-					<ul>
-						<li>Confirm your attendance by clicking on the button below</li>
-						<li>
-							Sign the liability waiver once it has been sent to your email
-						</li>
-						<li>Join the Slack once the invite has been sent to your email</li>
-						<li>
-							Bring a <strong>photo ID for check</strong> in on Day 1, and your{" "}
-							<strong>badge</strong> to check in on Day 2 and 3. Other items to
-							bring include a laptop + charger, refillable water bottle, and a
-							positive attitude to the event!
-						</li>
-					</ul>
-				</p>
-				<p>
-					<h4>Questions/Comments</h4>
 					If you have any questions that have not yet been answered, please
 					reach out to us at <u>hack@uci.edu</u>, and we will be glad to assist
 					you with your concerns.
