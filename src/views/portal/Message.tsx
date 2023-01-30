@@ -109,15 +109,15 @@ function Message(props: MessageProps) {
 					Parking Structure. This structure provides both pay-by-space ($2 per
 					hour) and permit dispensers ($1 per hour, $13 for a day). You may
 					purchase a permit at any information kiosk, dispenser, or through
-					UCI's ParkbyPlate signage located in select parking areas. All options
-					accept major credit cards (Visa, MasterCard, American Express,
+					UCI&#39;s ParkbyPlate signage located in select parking areas. All
+					options accept major credit cards (Visa, MasterCard, American Express,
 					Discover). These dispensers are available from 7AM-7PM.
 				</p>
 				<p>
 					To enter the venue from the parking structure, cross Pereira Dr. and
 					enter the building with the large arch labeled “Student Center”. Once
 					you enter the building, walk straight down the hallway till the
-					stairs. Continue down the steps (there's a ramp to the left for
+					stairs. Continue down the steps (there&#39;s a ramp to the left for
 					accessibility) and check in at the large desk in the lobby. If you
 					cannot get inside the venue at any point, please let an organizer know
 					via Slack, and we'd be happy to help.

@@ -9,7 +9,7 @@ import Message from "./Message";
 import VerticalTimeline from "./VerticalTimeline";
 
 function Portal() {
-	const { status, submission_time, verdict_time } = useContext(UserContext);
+	const { status, submission_time } = useContext(UserContext);
 
 	useEffect(() => {
 		if (status === null) {

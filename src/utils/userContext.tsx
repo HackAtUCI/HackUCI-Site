@@ -5,7 +5,6 @@ const UserContext = createContext<Identity>({
 	role: null,
 	status: null,
 	submission_time: null,
-	verdict_time: null,
 });
 
 export interface Identity {
@@ -13,7 +12,6 @@ export interface Identity {
 	role: string | null;
 	status: string | null;
 	submission_time: string | null;
-	verdict_time: string | null;
 }
 
 export default UserContext;
