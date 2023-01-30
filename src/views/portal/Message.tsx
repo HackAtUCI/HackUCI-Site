@@ -120,7 +120,7 @@ function Message(props: MessageProps) {
 					stairs. Continue down the steps (there&#39;s a ramp to the left for
 					accessibility) and check in at the large desk in the lobby. If you
 					cannot get inside the venue at any point, please let an organizer know
-					via Slack, and we'd be happy to help.
+					via Slack, and we&#39;d be happy to help.
 				</p>
 				<p>
 					Map:{" "}
