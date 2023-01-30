@@ -25,8 +25,8 @@ function AcceptedMessage() {
 			<h4>Team Formation</h4>
 			<p>Still looking for teammates? Attend our two team formation events!</p>
 			<ol>
-				<li>Thursday (2/2) 7-8 PM at DBH 6011</li>
-				<li>Friday (2/3) 7-8 PM at Student Center Pacific Ballroom</li>
+				<li>Thursday from 7-8 PM at DBH 6011</li>
+				<li>Friday from 7-8 PM at Student Center Pacific Ballroom</li>
 			</ol>
 			<p>
 				You can also create an introductory slide on our{" "}
