@@ -20,6 +20,7 @@ class Role(str, Enum):
 class Status(str, Enum):
     PENDING_REVIEW = "PENDING_REVIEW"
     REVIEWED = "REVIEWED"
+    CONFIRMED = "CONFIRMED"
 
 
 class UserRecord(BaseRecord):

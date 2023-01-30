@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from logging import getLogger
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from fastapi.responses import RedirectResponse
@@ -8,11 +8,15 @@ from pydantic import BaseModel, EmailStr
 
 from auth import user_identity
 from auth.user_identity import User, require_user_identity, use_user_identity
-from models.ApplicationData import ProcessedApplicationData, RawApplicationData
+from models.ApplicationData import (
+    Decision,
+    ProcessedApplicationData,
+    RawApplicationData,
+)
 from services import mongodb_handler
 from services.mongodb_handler import Collection
 from utils import email_handler, resume_handler
-from utils.user_record import Applicant, Role
+from utils.user_record import Applicant, Role, Status
 
 log = getLogger(__name__)
 
@@ -132,13 +136,14 @@ async def rsvp(user: User = Depends(require_user_identity)) -> RedirectResponse:
         Collection.USERS, {"_id": user.uid}, ["status"]
     )
 
-    if not user_record:
+    if not user_record or "status" not in user_record:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
-    if user_record["status"] == "accepted":
-        new_status = "confirmed"
-    elif user_record["status"] == "confirmed":
-        new_status = "accepted"
+    new_status: Union[Status, Decision]
+    if user_record["status"] == Decision.ACCEPTED:
+        new_status = Status.CONFIRMED
+    elif user_record["status"] == Status.CONFIRMED:
+        new_status = Decision.ACCEPTED
     else:
         raise HTTPException(status.HTTP_403_FORBIDDEN)
 
