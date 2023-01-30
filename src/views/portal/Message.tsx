@@ -1,20 +1,24 @@
 import AcceptedMessage from "./AcceptedMessage";
+import { PortalStatus } from "./Portal";
 
 import styles from "views/portal/Portal.module.scss";
 
 interface MessageProps {
-	status: string;
+	status: PortalStatus;
 }
 
-function Message(props: MessageProps) {
-	const messages: { [key: string]: JSX.Element } = {
-		submitted: (
-			<p>
-				Thank you for submitting your application! We are currently reviewing
-				applications on a rolling basis and you will hear back from us soon!
-			</p>
-		),
-		denied: (
+function Message({ status }: MessageProps) {
+	const submittedMessage = (
+		<p>
+			Thank you for submitting your application! We are currently reviewing
+			applications on a rolling basis, and you will hear back from us soon!
+		</p>
+	);
+
+	const messages: Record<PortalStatus, JSX.Element> = {
+		[PortalStatus.pending]: submittedMessage,
+		[PortalStatus.reviewed]: submittedMessage,
+		[PortalStatus.rejected]: (
 			<p>
 				Thank you for applying to Hack at UCI this year. We have read through
 				many applications so far, and unfortunately are unable to offer you a
@@ -23,7 +27,8 @@ function Message(props: MessageProps) {
 				next year!
 			</p>
 		),
-		accepted: (
+		[PortalStatus.waitlisted]: <></>,
+		[PortalStatus.accepted]: (
 			<>
 				<h3>Event Logistics</h3>
 				<p>
@@ -35,7 +40,7 @@ function Message(props: MessageProps) {
 				<AcceptedMessage />
 			</>
 		),
-		confirmed: (
+		[PortalStatus.confirmed]: (
 			<>
 				<h3>Event Logistics</h3>
 				<p>
@@ -47,7 +52,7 @@ function Message(props: MessageProps) {
 		),
 	};
 
-	return <div className={styles.message}>{messages[props.status]}</div>;
+	return <div className={styles.message}>{messages[status]}</div>;
 }
 
 export default Message;

@@ -9,6 +9,15 @@ import ConfirmAttendance from "./ConfirmAttendance";
 import Message from "./Message";
 import VerticalTimeline from "./VerticalTimeline";
 
+export const enum PortalStatus {
+	pending = "PENDING_REVIEW",
+	reviewed = "REVIEWED",
+	accepted = "ACCEPTED",
+	rejected = "REJECTED",
+	waitlisted = "WAITLISTED",
+	confirmed = "CONFIRMED",
+}
+
 function Portal() {
 	const { status } = useContext(UserContext);
 
@@ -22,7 +31,8 @@ function Portal() {
 		return null;
 	}
 
-	const isAccepted = status === "accepted" || status === "confirmed";
+	const isAccepted =
+		status === PortalStatus.accepted || status === PortalStatus.confirmed;
 
 	return (
 		<>
@@ -35,7 +45,7 @@ function Portal() {
 			<Container className="museum-container museum-container-wide">
 				<h2>Status</h2>
 				<VerticalTimeline status={status} />
-				<Message status={status} />
+				<Message status={status as PortalStatus} />
 				{isAccepted && <ConfirmAttendance status={status} />}
 			</Container>
 		</>

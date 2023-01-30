@@ -1,17 +1,18 @@
 import Image from "next/image";
+import ListGroup from "react-bootstrap/ListGroup";
 
 import CheckCircle from "assets/icons/check-circle-fill.svg";
 import XCircle from "assets/icons/x-circle-fill.svg";
-import ListGroup from "react-bootstrap/ListGroup";
+
+import { PortalStatus } from "./Portal";
+
 import styles from "views/portal/Portal.module.scss";
 
 interface VerticalTimelineProps {
-	status: string | null;
+	status: string;
 }
 
-function VerticalTimeline(props: VerticalTimelineProps) {
-	const { status } = props;
-
+function VerticalTimeline({ status }: VerticalTimelineProps) {
 	const submission_component = (
 		<ListGroup.Item className={styles.list_item}>
 			<Image
@@ -26,7 +27,7 @@ function VerticalTimeline(props: VerticalTimelineProps) {
 	);
 
 	const verdict_component =
-		status === "accepted" || status === "confirmed" ? (
+		status === PortalStatus.accepted || status === PortalStatus.confirmed ? (
 			<ListGroup.Item className={styles.list_item}>
 				<Image
 					src={CheckCircle}
@@ -37,7 +38,7 @@ function VerticalTimeline(props: VerticalTimelineProps) {
 				/>
 				Application accepted
 			</ListGroup.Item>
-		) : status === "denied" ? (
+		) : status === PortalStatus.rejected ? (
 			<ListGroup.Item className={styles.list_item}>
 				<Image
 					src={XCircle}
