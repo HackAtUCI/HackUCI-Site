@@ -5,11 +5,12 @@ import Container from "react-bootstrap/Container";
 
 import { TitleBanner } from "components";
 import UserContext from "utils/userContext";
+import ConfirmAttendance from "./ConfirmAttendance";
 import Message from "./Message";
 import VerticalTimeline from "./VerticalTimeline";
 
 function Portal() {
-	const { status, submission_time } = useContext(UserContext);
+	const { status } = useContext(UserContext);
 
 	useEffect(() => {
 		if (status === null) {
@@ -21,6 +22,8 @@ function Portal() {
 		return null;
 	}
 
+	const isAccepted = status === "accepted" || status === "confirmed";
+
 	return (
 		<>
 			<Head>
@@ -29,10 +32,11 @@ function Portal() {
 			<TitleBanner>
 				<h1>Portal</h1>
 			</TitleBanner>
-			<Container className="museum-container">
+			<Container className="museum-container museum-container-wide">
 				<h2>Status</h2>
-				<VerticalTimeline status={status} submission_time={submission_time} />
+				<VerticalTimeline status={status} />
 				<Message status={status} />
+				{isAccepted && <ConfirmAttendance status={status} />}
 			</Container>
 		</>
 	);

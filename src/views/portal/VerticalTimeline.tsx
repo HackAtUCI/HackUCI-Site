@@ -7,11 +7,10 @@ import styles from "views/portal/Portal.module.scss";
 
 interface VerticalTimelineProps {
 	status: string | null;
-	submission_time: string | null;
 }
 
 function VerticalTimeline(props: VerticalTimelineProps) {
-	const { status, submission_time } = props;
+	const { status } = props;
 
 	const submission_component = (
 		<ListGroup.Item className={styles.list_item}>
@@ -22,7 +21,7 @@ function VerticalTimeline(props: VerticalTimelineProps) {
 				height={25}
 				className={styles.icon}
 			/>
-			Application submitted: {submission_time}
+			Application submitted
 		</ListGroup.Item>
 	);
 
@@ -36,7 +35,7 @@ function VerticalTimeline(props: VerticalTimelineProps) {
 					height={25}
 					className={styles.icon}
 				/>
-				Application accepted!
+				Application accepted
 			</ListGroup.Item>
 		) : status === "denied" ? (
 			<ListGroup.Item className={styles.list_item}>
