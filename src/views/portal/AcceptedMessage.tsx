@@ -139,7 +139,10 @@ function AcceptedMessage() {
 
 			<h4>Pre-Hack-At-UCI Checklist</h4>
 			<ol>
-				<li>Confirm your attendance by clicking on the button below</li>
+				<li>
+					Confirm your attendance by clicking on the RSVP button at the bottom
+					of the page
+				</li>
 				<li>Sign the liability waiver once it has been sent to your email</li>
 				<li>Join the Slack once the invite has been sent to your email</li>
 				<li>
