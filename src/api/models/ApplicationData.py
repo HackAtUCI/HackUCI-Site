@@ -41,6 +41,4 @@ class RawApplicationData(BaseModel):
 
 class ProcessedApplicationData(RawApplicationData):
     resume_url: Optional[HttpUrl]
-    submission_time: datetime
-    verdict_time: Optional[datetime]
     reviews: list[Review] = []

@@ -22,8 +22,6 @@ router = APIRouter()
 class IdentityResponse(BaseModel):
     uid: Optional[str]
     status: Optional[str]
-    submission_time: Optional[datetime]
-    verdict_time: Optional[datetime]
     role: Optional[Role]
 
 
@@ -125,3 +123,27 @@ async def apply(
     # TODO: handle inconsistent results if one service fails
 
     log.info("%s submitted an application", user.uid)
+
+
+@router.get("/rsvp")
+async def rsvp(user: User = Depends(require_user_identity)) -> RedirectResponse:
+    """Change user status for RSVP"""
+    user_record = await mongodb_handler.retrieve_one(
+        Collection.USERS, {"_id": user.uid}, ["status"]
+    )
+
+    if not user_record:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+    if user_record["status"] == "accepted":
+        new_status = "confirmed"
+    elif user_record["status"] == "confirmed":
+        new_status = "accepted"
+    else:
+        raise HTTPException(status.HTTP_403_FORBIDDEN)
+
+    await mongodb_handler.update_one(
+        Collection.USERS, {"_id": user.uid}, {"status": new_status}
+    )
+
+    return RedirectResponse("/portal", status.HTTP_303_SEE_OTHER)
