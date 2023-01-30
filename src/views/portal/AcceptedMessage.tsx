@@ -126,9 +126,6 @@ function AcceptedMessage() {
 			<p>
 				<u>Saturday (2/4):</u> <br />
 				8:00 AM - Venue Opens for Day 2 Check-In <br />
-				9:00 AM - Breakfast <br />
-				12:00 PM - Lunch <br />
-				6:00 PM - Dinner <br />
 				12:00 AM - Venue Closes <br />
 			</p>
 
@@ -136,7 +133,6 @@ function AcceptedMessage() {
 				<u>Sunday (2/5):</u> <br />
 				7:00 AM - Venue Opens for Day 3 Check-In <br />
 				<strong> 9:00 AM - Hacking Ends</strong> <br />
-				9:00 AM - Breakfast <br />
 				9:30 AM - Project Expo / Judging <br />
 				12:30 PM - Closing Ceremony <br />
 			</p>
