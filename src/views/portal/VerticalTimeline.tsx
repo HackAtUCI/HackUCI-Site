@@ -52,7 +52,7 @@ function VerticalTimeline({ status }: VerticalTimelineProps) {
 		) : null;
 
 	return (
-		<div className={styles.verticle_timeline}>
+		<div className="p-3">
 			<ListGroup className={styles.list}>
 				{submission_component}
 				{verdict_component}

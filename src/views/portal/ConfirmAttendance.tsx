@@ -14,7 +14,8 @@ function ConfirmAttendance({ status }: ConfirmAttendanceProps) {
 
 	return (
 		<div>
-			<h4>RSVP</h4>
+			<hr />
+			<h3>RSVP</h3>
 			{status === PortalStatus.confirmed && (
 				<p>
 					Thank you for confirming your attendance. We look forward to seeing

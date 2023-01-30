@@ -32,10 +32,10 @@ function Message({ status }: MessageProps) {
 			<>
 				<h3>Event Logistics</h3>
 				<p>
-					Congrats on your acceptance to Hack at UCI 2023! Before confirming
-					your attendance, it is crucial that you read through the following
-					event logistics in its entirety and complete the required tasks. We
-					look forward to seeing you at Hack at UCI!
+					Congratulations on your acceptance to Hack at UCI 2023! Before
+					confirming your attendance, it is crucial that you read through the
+					following event logistics in its entirety and complete the required
+					tasks. We look forward to seeing you at Hack at UCI!
 				</p>
 				<AcceptedMessage />
 			</>
