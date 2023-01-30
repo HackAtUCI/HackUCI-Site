@@ -10,18 +10,21 @@ import Breadcrumbs from "./Breadcrumbs";
 
 const ADMIN_ROLES = ["director", "reviewer"];
 
+export function isAdminRole(role: string | null) {
+	return role !== null && ADMIN_ROLES.includes(role);
+}
+
 function AdminLayout({ children }: PropsWithChildren) {
 	const { uid, role } = useContext(UserContext);
 	const router = useRouter();
 
 	const loggedIn = uid !== null;
-	const authorized = role && ADMIN_ROLES.includes(role);
+	const authorized = isAdminRole(role);
 
 	useEffect(() => {
 		if (!loggedIn) {
 			router.replace("/login");
-		}
-		if (!authorized) {
+		} else if (!authorized) {
 			router.replace("/unauthorized");
 		}
 	}, [router, loggedIn, authorized]);
