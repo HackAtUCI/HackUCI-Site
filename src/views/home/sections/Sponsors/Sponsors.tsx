@@ -5,37 +5,72 @@ import Row from "react-bootstrap/Row";
 
 import sponsors from "assets/data/sponsors.json";
 import logo_stickerMule from "assets/sponsors/sticker-mule-logo-light-bg-stacked.svg";
+import logo_cockroach from "assets/sponsors/cockroach_labs.svg";
+import logo_costar from "assets/sponsors/costar_group.svg";
+import logo_googleCloud from "assets/sponsors/google_cloud.svg";
+import logo_mobilityWare from "assets/sponsors/mobilityware.svg";
+import logo_pimco from "assets/sponsors/pimco.svg";
+import logo_twilio from "assets/sponsors/twilio.svg";
+import logo_wayup from "assets/sponsors/wayup.svg";
 
 import styles from "./Sponsors.module.scss";
+
+enum SponsorSize {
+	LARGE = "large",
+	MEDIUM = "medium",
+	SMALL = "small",
+}
 
 interface SponsorItemProps {
 	name: string;
 	src: string;
 	url: string;
+	size: SponsorSize;
 	bg?: string;
 }
 
-function SponsorItem({ name, src, url, bg }: SponsorItemProps) {
+function SponsorItem({ name, src, url, bg, size }: SponsorItemProps) {
+	let width, height;
+	switch (size) {
+		case SponsorSize.SMALL:
+			width = 200;
+			break;
+		case SponsorSize.MEDIUM:
+			width = 250;
+			break;
+		default:
+			width = 300;
+			break;
+	}
 	return (
 		<a href={url}>
 			<Image
 				src={src}
 				alt={name}
-				className={styles.smallTierImage}
+				className={styles.tierImage}
 				style={{ backgroundColor: bg }}
+				width={width}
+				height={height}
 			/>
 		</a>
 	);
 }
 
 function Sponsors() {
-	// Temporary workaround
-	const stickerMule = sponsors.smallTier[4];
+	const largeTiers = [logo_costar];
+	const mediumTiers = [logo_pimco, logo_cockroach];
+	const smallTiers = [
+		logo_twilio,
+		logo_mobilityWare,
+		logo_wayup,
+		logo_googleCloud,
+		logo_stickerMule,
+	];
 
 	return (
 		<section id="sponsors" className="container">
 			<h2>Sponsors</h2>
-			<p className="text-center">
+			<p className="text-center mb-5 px-5">
 				Interested in sponsoring HackUCI 2023? Check out our information above
 				to learn more about our event! For additional inquiries, please email us
 				at&nbsp;
@@ -44,14 +79,54 @@ function Sponsors() {
 				</a>
 				.
 			</p>
-			<Row className="my-4">
-				<Col className={styles.column}>
-					<SponsorItem {...stickerMule} src={logo_stickerMule} />
-				</Col>
+
+			<Row className="my-5 align-items-center">
+				{sponsors["largeTier"].map((sponsor, index) => (
+					<Col
+						key={`large-tier-${index}`}
+						className={styles.column + " py-2 my-2"}
+					>
+						<SponsorItem
+							key={`large-tier-${index}`}
+							{...sponsor}
+							src={largeTiers[index]}
+							size={SponsorSize.LARGE}
+						/>
+					</Col>
+				))}
 			</Row>
-			<p className="text-center">
-				<span className="h3">...and more to come!</span>
-			</p>
+
+			<Row className="my-5 align-items-center">
+				{sponsors["mediumTier"].map((sponsor, index) => (
+					<Col
+						key={`medium-tier-${index}`}
+						className={styles.column + " py-2 my-2"}
+					>
+						<SponsorItem
+							key={`medium-tier-${index}`}
+							{...sponsor}
+							src={mediumTiers[index]}
+							size={SponsorSize.MEDIUM}
+						/>
+					</Col>
+				))}
+			</Row>
+
+			<Row className="my-5 align-items-center">
+				{sponsors["smallTier"].map((sponsor, index) => (
+					<Col
+						key={`small-tier-${index}`}
+						className={styles.column + " py-2 my-2"}
+					>
+						<SponsorItem
+							key={`small-tier-${index}`}
+							{...sponsor}
+							src={smallTiers[index]}
+							size={SponsorSize.SMALL}
+						/>
+					</Col>
+				))}
+			</Row>
 		</section>
 	);
 }
