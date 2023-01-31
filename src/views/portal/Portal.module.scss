@@ -1,33 +1,16 @@
 @import "styles/gallery-theme";
 
-.portal {
-	color: $white;
-	background-color: $dark-brown;
-	min-height: 80vh;
-	padding: 1rem;
-
+.list_item {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: center;
 }
 
-.content {
-	display: flex;
-	flex-direction: center;
-	flex-wrap: wrap;
-	justify-content: center;
-	width: 100%;
-	padding: 2rem;
+.icon {
+	margin: 6px;
+	margin-right: 20px;
 }
 
-.display_message {
-	width: 50%;
-	min-width: 28rem;
-	display: flex;
-	justify-content: center;
-}
-
-.card {
-	width: 24rem;
-	background-color: $dark-orange;
+.message {
+	margin-top: 1rem;
 }

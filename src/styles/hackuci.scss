@@ -36,6 +36,15 @@ h2,
 	@include bootstrap.padding(3rem);
 	border-radius: 10px;
 	background-color: white;
+
+	h3,
+	.h3 {
+		font-weight: 600;
+	}
+	h4,
+	.h4 {
+		font-weight: 500;
+	}
 }
 
 .museum-container-wide {

@@ -1,13 +1,22 @@
 import Head from "next/head";
-import { Container } from "react-bootstrap";
-
 import Router from "next/router";
 import { useContext, useEffect } from "react";
+import Container from "react-bootstrap/Container";
 
 import { TitleBanner } from "components";
 import UserContext from "utils/userContext";
+import ConfirmAttendance from "./ConfirmAttendance";
+import Message from "./Message";
+import VerticalTimeline from "./VerticalTimeline";
 
-import VerticleTimeline from "./components/VerticleTimeline/VerticleTimeline";
+export const enum PortalStatus {
+	pending = "PENDING_REVIEW",
+	reviewed = "REVIEWED",
+	accepted = "ACCEPTED",
+	rejected = "REJECTED",
+	waitlisted = "WAITLISTED",
+	confirmed = "CONFIRMED",
+}
 
 function Portal() {
 	const { status } = useContext(UserContext);
@@ -22,6 +31,9 @@ function Portal() {
 		return null;
 	}
 
+	const isAccepted =
+		status === PortalStatus.accepted || status === PortalStatus.confirmed;
+
 	return (
 		<>
 			<Head>
@@ -30,8 +42,11 @@ function Portal() {
 			<TitleBanner>
 				<h1>Portal</h1>
 			</TitleBanner>
-			<Container className="museum-container">
-				<VerticleTimeline status="submitted" date_submitted="1/11/23" />
+			<Container className="museum-container museum-container-wide">
+				<h2>Status</h2>
+				<VerticalTimeline status={status} />
+				<Message status={status as PortalStatus} />
+				{isAccepted && <ConfirmAttendance status={status} />}
 			</Container>
 		</>
 	);
