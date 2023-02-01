@@ -1,3 +1,4 @@
+import Head from "next/head";
 import resources from "assets/data/resources.json";
 import aiML from "assets/icons/ai-ml.svg";
 import backend from "assets/icons/backend.svg";
@@ -27,9 +28,13 @@ const RESOURCE_INDEX_MAP = [
 function Resources() {
 	return (
 		<Container>
+			<Head>
+				<title>Resources | Hack at UCI 2023</title>
+			</Head>
 			<TitleBanner>
 				<h1>Resources</h1>
 			</TitleBanner>
+
 			{resources.map((category, index) => (
 				<Card className="p-5 mb-5" key={index}>
 					<Row className="align-items-center">

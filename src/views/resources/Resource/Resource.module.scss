@@ -15,6 +15,7 @@
 	background-color: $midnight-blue;
 
 	&:hover {
+		color: #ddd;
 		background-color: $light-blue;
 		transition: 0.25s ease;
 	}

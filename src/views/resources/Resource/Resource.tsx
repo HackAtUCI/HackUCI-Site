@@ -19,17 +19,17 @@ function Resource({ resourceIndex, name, link, tooltip }: ResourceProps) {
 				placement="top"
 				overlay={<Tooltip id={"resource-description"}>{tooltip}</Tooltip>}
 			>
-				<a href={link} style={{ textDecoration: "none" }}>
-					<div
-						className={
-							(resourceIndex % 2 === 0
-								? styles["badge-gold"]
-								: styles["badge-dark"]) + " d-block my-3 p-3 rounded-pill badge"
-						}
-						ref={target}
-					>
-						{name}
-					</div>
+				<a
+					className={
+						(resourceIndex % 2 === 0
+							? styles["badge-gold"]
+							: styles["badge-dark"]) + " d-block my-3 p-3 rounded-pill badge"
+					}
+					href={link}
+					style={{ textDecoration: "none" }}
+					ref={target}
+				>
+					{name}
 				</a>
 			</OverlayTrigger>
 		</>
