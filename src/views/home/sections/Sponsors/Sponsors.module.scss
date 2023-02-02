@@ -1,5 +1,12 @@
 @import "styles/gallery-theme";
 
+.card {
+	background-color: $dark-orange;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .column {
 	display: flex;
 	justify-content: center;

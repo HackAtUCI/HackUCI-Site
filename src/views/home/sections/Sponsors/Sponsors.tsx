@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import Card from "react-bootstrap/Card";
 
 import sponsors from "assets/data/sponsors.json";
 import logo_stickerMule from "assets/sponsors/sticker-mule-logo-light-bg-stacked.svg";
@@ -31,28 +32,37 @@ interface SponsorItemProps {
 
 function SponsorItem({ name, src, url, bg, size }: SponsorItemProps) {
 	let width, height;
+	let cardDimensions;
 	switch (size) {
 		case SponsorSize.SMALL:
 			width = 200;
+			cardDimensions = 250;
 			break;
 		case SponsorSize.MEDIUM:
 			width = 250;
+			cardDimensions = 300;
 			break;
 		default:
 			width = 300;
+			cardDimensions = 350;
 			break;
 	}
 	return (
-		<a href={url}>
-			<Image
-				src={src}
-				alt={name}
-				className={styles.tierImage}
-				style={{ backgroundColor: bg }}
-				width={width}
-				height={height}
-			/>
-		</a>
+		<Card
+			className={styles.card + " p-0 m-0"}
+			style={{ minWidth: cardDimensions, minHeight: cardDimensions }}
+		>
+			<a href={url}>
+				<Image
+					src={src}
+					alt={name}
+					className={styles.tierImage}
+					style={{ backgroundColor: bg }}
+					width={width}
+					height={height}
+				/>
+			</a>
+		</Card>
 	);
 }
 
@@ -82,10 +92,7 @@ function Sponsors() {
 
 			<Row className="my-5 align-items-center">
 				{sponsors["largeTier"].map((sponsor, index) => (
-					<Col
-						key={`large-tier-${index}`}
-						className={styles.column + " py-2 my-2"}
-					>
+					<Col key={`large-tier-${index}`} className={styles.column + " my-3"}>
 						<SponsorItem
 							key={`large-tier-${index}`}
 							{...sponsor}
@@ -96,12 +103,9 @@ function Sponsors() {
 				))}
 			</Row>
 
-			<Row className="my-5 align-items-center">
+			<Row className="my-5 align-items-center gx-0">
 				{sponsors["mediumTier"].map((sponsor, index) => (
-					<Col
-						key={`medium-tier-${index}`}
-						className={styles.column + " py-2 my-2"}
-					>
+					<Col key={`medium-tier-${index}`} className={styles.column + " my-3"}>
 						<SponsorItem
 							key={`medium-tier-${index}`}
 							{...sponsor}
@@ -114,10 +118,7 @@ function Sponsors() {
 
 			<Row className="my-5 align-items-center">
 				{sponsors["smallTier"].map((sponsor, index) => (
-					<Col
-						key={`small-tier-${index}`}
-						className={styles.column + " py-2 my-2"}
-					>
+					<Col key={`small-tier-${index}`} className={styles.column + " my-3"}>
 						<SponsorItem
 							key={`small-tier-${index}`}
 							{...sponsor}
