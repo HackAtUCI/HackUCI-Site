@@ -13,6 +13,7 @@ function Schedule() {
 			{schedule.friday.map((event) =>
 				event.category === "Announcement" ? (
 					<Announcement
+						key={event.title}
 						title={event.title}
 						start={new Date(event.time.start).toLocaleTimeString([], {
 							hour: "2-digit",
@@ -22,6 +23,7 @@ function Schedule() {
 					/>
 				) : (
 					<Event
+						key={event.title}
 						title={event.title}
 						start={new Date(event.time.start).toLocaleTimeString([], {
 							hour: "2-digit",
@@ -40,6 +42,7 @@ function Schedule() {
 			{schedule.saturday.map((event) =>
 				event.category === "Announcement" ? (
 					<Announcement
+						key={event.title}
 						title={event.title}
 						start={new Date(event.time.start).toLocaleTimeString([], {
 							hour: "2-digit",
@@ -49,6 +52,7 @@ function Schedule() {
 					/>
 				) : (
 					<Event
+						key={event.title}
 						title={event.title}
 						start={new Date(event.time.start).toLocaleTimeString([], {
 							hour: "2-digit",
@@ -67,6 +71,7 @@ function Schedule() {
 			{schedule.sunday.map((event) =>
 				event.category === "Announcement" ? (
 					<Announcement
+						key={event.title}
 						title={event.title}
 						start={new Date(event.time.start).toLocaleTimeString([], {
 							hour: "2-digit",
@@ -76,6 +81,7 @@ function Schedule() {
 					/>
 				) : (
 					<Event
+						key={event.title}
 						title={event.title}
 						start={new Date(event.time.start).toLocaleTimeString([], {
 							hour: "2-digit",
