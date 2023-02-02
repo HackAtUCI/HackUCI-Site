@@ -1,10 +1,11 @@
-import schedule from "assets/data/schedule.json";
+import Head from "next/head";
+
 import { TitleBanner } from "components";
-import Container from "react-bootstrap/Container";
-import Announcement from "views/schedule/components/Announcement";
-import Event from "views/schedule/components/Event";
+
 import Countdown from "./components/Countdown";
-import './Schedule.module.scss';
+import ScheduleList from "./sections/ScheduleList";
+
+import "./Schedule.module.scss";
 
 function Schedule() {
 	const hackingBegins = "3 Feb 2023 21:00:00 PDT";
@@ -37,98 +38,14 @@ function Schedule() {
 	}
 
 	return (
-		<Container>
-			<TitleBanner>
-				{generateCountdown()}
-			</TitleBanner>
-			{schedule.friday.map((event) =>
-				event.category === "Announcement" ? (
-					<Announcement
-						key={event.title}
-						title={event.title}
-						start={new Date(event.time.start).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						description={event.description}
-					/>
-				) : (
-					<Event
-						key={event.title}
-						title={event.title}
-						start={new Date(event.time.start).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						end={new Date(event.time.end).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						category={event.category}
-						host={event.host}
-						description={event.description}
-					/>
-				)
-			)}
-			{schedule.saturday.map((event) =>
-				event.category === "Announcement" ? (
-					<Announcement
-						key={event.title}
-						title={event.title}
-						start={new Date(event.time.start).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						description={event.description}
-					/>
-				) : (
-					<Event
-						key={event.title}
-						title={event.title}
-						start={new Date(event.time.start).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						end={new Date(event.time.end).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						category={event.category}
-						host={event.host}
-						description={event.description}
-					/>
-				)
-			)}
-			{schedule.sunday.map((event) =>
-				event.category === "Announcement" ? (
-					<Announcement
-						key={event.title}
-						title={event.title}
-						start={new Date(event.time.start).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						description={event.description}
-					/>
-				) : (
-					<Event
-						key={event.title}
-						title={event.title}
-						start={new Date(event.time.start).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						end={new Date(event.time.end).toLocaleTimeString([], {
-							hour: "2-digit",
-							minute: "2-digit",
-						})}
-						category={event.category}
-						host={event.host}
-						description={event.description}
-					/>
-				)
-			)}
-		</Container>
+		<>
+			<Head>
+				<title>Schedule | Hack at UCI 2023</title>
+			</Head>
+			<TitleBanner>{generateCountdown()}</TitleBanner>
+			<h2 className="visually-hidden">Events Schedule</h2>
+			<ScheduleList />
+		</>
 	);
 }
 
