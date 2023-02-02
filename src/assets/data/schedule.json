@@ -1,0 +1,368 @@
+{
+	"friday": [
+		{
+			"title": "Check In",
+			"time": {
+				"start": "2023-02-03 17:00:00-08",
+				"end": "2023-02-03 18:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Come check in at Pacific Ballroom lobby before the fun begins. Be sure to have a photo ID ready!"
+		},
+		{
+			"title": "Dinner",
+			"time": {
+				"start": "2023-02-03 18:00:00-08",
+				"end": "2023-02-03 19:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Grab a bite to eat and socialize with other hackers!"
+		},
+		{
+			"title": "Team Formation",
+			"time": {
+				"start": "2023-02-03 19:00:00-08",
+				"end": "2023-02-03 20:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+
+			"description": "Have an awesome project in mind but are still looking for teammates? Join us for our team formation event where you can meet other talented hackers!"
+		},
+		{
+			"title": "Opening Ceremony",
+			"time": {
+				"start": "2023-02-03 20:00:00-08",
+				"end": "2023-02-03 21:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+
+			"description": "Join us at our opening ceremony to learn more about rules, prizes, and events we have planned during Hack at UCI 2023!"
+		},
+		{
+			"title": "Hacking Begins!",
+			"time": {
+				"start": "2023-02-03 21:00:00-08",
+				"end": "2023-02-03 21:00:00-08"
+			},
+			"category": "Announcement",
+			"host": "",
+
+			"description": ""
+		},
+		{
+			"title": "Intro to Product Design and Web Dev",
+			"time": {
+				"start": "2023-02-03 21:00:00-08",
+				"end": "2023-02-03 22:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "Design at UCI",
+
+			"description": "Join Design at UCI for a product design and web development workshop, discussing UI/UX design techniques, product development, and front-end at an introductory level. At the end of the workshop, you'll have a rough idea of what you're going to create at Hack at UCI and the tools and techniques you'll need to do so!"
+		},
+		{
+			"title": "Build a RESTful API with CockroachDB Serverless and Python",
+			"time": {
+				"start": "2023-02-03 22:00:00-08",
+				"end": "2023-02-03 23:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "Cockroach Labs",
+
+			"description": "In this workshop, we’ll walk you through getting started with CockroachDB Serverless and provide an introduction to SQL and ORMs. Then you’ll learn how to build a RESTful API using Python. This workshop will be hands on, so bring your laptops. You’ll leave with a working API powered by CockroachDB Serverless!"
+		},
+		{
+			"title": "MS Paint Art Contest",
+			"time": {
+				"start": "2023-02-03 23:00:00-08",
+				"end": "2023-02-04 00:00:00-08"
+			},
+			"category": "Social",
+			"host": "",
+
+			"description": "We know you're busy developing your masterpiece, but come create a different kind of masterpiece at our MS Paint Art Contest! We will be recreating famous paintings in Microsoft Paint that may even have a chance to end up on our website's museum!"
+		}
+	],
+	"saturday": [
+		{
+			"title": "Venue Closes",
+			"time": {
+				"start": "2023-02-04 00:00:00-08",
+				"end": "2023-02-04 00:00:00-08"
+			},
+			"category": "Announcement",
+			"host": "",
+
+			"description": ""
+		},
+		{
+			"title": "Nighttime Hacking Period",
+			"time": {
+				"start": "2023-02-04 00:00:00-08",
+				"end": "2023-02-04 08:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+
+			"description": "Get some rest! Big day tomorrow..."
+		},
+		{
+			"title": "Check In",
+			"time": {
+				"start": "2023-02-04 08:00:00-08",
+				"end": "2023-02-04 09:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+
+			"description": "Get day 2 started at Pacific Ballroom lobby!"
+		},
+		{
+			"title": "Breakfast",
+			"time": {
+				"start": "2023-02-04 09:00:00-08",
+				"end": "2023-02-04 10:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+
+			"description": "The most important meal of the day!"
+		},
+		{
+			"title": "Midway Check-In Form Opens",
+			"time": {
+				"start": "2023-02-04 10:00:00-08",
+				"end": "2023-02-04 10:00:00-08"
+			},
+			"category": "Announcement",
+			"host": "",
+			"description": "https://forms.gle/gJ7DnBqTptteGc8K8"
+		},
+		{
+			"title": "Sponsor Boothing Begins",
+			"time": {
+				"start": "2023-02-04 10:00:00-08",
+				"end": "2023-02-04 10:00:00-08"
+			},
+			"category": "Announcement",
+			"host": "",
+			"description": ""
+		},
+		{
+			"title": "Building APIs: A Brief Introduction",
+			"time": {
+				"start": "2023-02-04 10:00:00-08",
+				"end": "2023-02-04 11:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "ICS Student Council",
+			"description": "Have you ever wanted to build an API of your own? Maybe you're just curious about the different kinds of technologies used in building an API. Whatever the case, come join ICS Student Council for a quick rundown on some tips and tricks for building and hosting APIs that are sure to let your hack shine through!"
+		},
+		{
+			"title": "Interview Hacking with CoStar Group",
+			"time": {
+				"start": "2023-02-04 11:00:00-08",
+				"end": "2023-02-04 12:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "CoStar Group",
+			"description": "Want to nail your next interview? CoStar Group will be hosting an Interview Hacks workshop to get an inside look at what Fortune 500 companies look for, how to avoid common mistakes, how to prepare, and how to set yourself apart from the crowd."
+		},
+		{
+			"title": "Lunch",
+			"time": {
+				"start": "2023-02-04 12:00:00-08",
+				"end": "2023-02-04 13:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Tired of hacking? Take a break and grab some food!"
+		},
+		{
+			"title": "Intro to Python for Data Analysis",
+			"time": {
+				"start": "2023-02-04 13:00:00-08",
+				"end": "2023-02-04 14:30:00-08"
+			},
+			"category": "Workshop",
+			"host": "Data at UCI",
+			"description": "Intro to Python for Data Analysis is a 1.5 hr workshop that introduces attendees to the Pandas Python library. By the end of the workshop, attendees will be able to store external data into dataframes and be able to use different functions and methods on these dataframes. They will learn how to view, clean, and manipulate data as well as concepts such as grouping and aggregation. The workshop is beginner friendly so no previous coding experience is needed. Attendees don't even need Python on their local device! They will just need to create a DeepNote account."
+		},
+		{
+			"title": "Intro to Practical AI",
+			"time": {
+				"start": "2023-02-04 14:00:00-08",
+				"end": "2023-02-04 15:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "AI at UCI",
+			"description": "We will give you a brief introduction of practical uses of AI. We will walkthrough a basic data project. Depending on if the data is linear or more complex, we will show you how to do basic linear regression or a simple neural network."
+		},
+		{
+			"title": "Cup Stacking Contest",
+			"time": {
+				"start": "2023-02-04 15:00:00-08",
+				"end": "2023-02-04 16:00:00-08"
+			},
+			"category": "Social",
+			"host": "",
+			"description": "Need an activity to stand up and stretch for a bit? Try out your hand-eye coordination skills with cup stacking! Compete with your friends and fellow hackers to see who can get the fastest time. Feel free to drop by any time to submit a time and then you can continue to develop your amazing projects!"
+		},
+		{
+			"title": "Midway Check-In Form Due",
+			"time": {
+				"start": "2023-02-04 16:00:00-08",
+				"end": "2023-02-04 16:00:00-08"
+			},
+			"category": "Announcement",
+			"host": "",
+			"description": "https://forms.gle/gJ7DnBqTptteGc8K8"
+		},
+		{
+			"title": "Introduction to Blockchain and Cryptocurrencies",
+			"time": {
+				"start": "2023-02-04 16:00:00-08",
+				"end": "2023-02-04 17:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "Blockchain at UCI",
+			"description": "Join Blockchain at UCI for an in-depth workshop on Blockchain and Cryptocurrencies. Led by student experts, learn key concepts such as distributed ledger technology, consensus mechanisms, and smart contracts. Discover different types of blockchain platforms and their use in various industries. Gain knowledge on buying, selling and storing cryptocurrencies and learn how to install your own crypto wallet. Real-world examples and case studies included. Perfect for those looking to expand their knowledge on blockchain technology and its impact on industries."
+		},
+		{
+			"title": "CSS: Create Swag Styles!",
+			"time": {
+				"start": "2023-02-04 17:00:00-08",
+				"end": "2023-02-04 18:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "Hack at UCI",
+			"description": "Ever struggled with centering that div? Do you really know your way around styling with CSS (does anyone)? Come learn about CSS and how you can jazz up your webpage to create your very own masterpiece!"
+		},
+		{
+			"title": "Dinner",
+			"time": {
+				"start": "2023-02-04 18:00:00-08",
+				"end": "2023-02-04 19:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "We're more than halfway through the hackathon! Don't forget to fuel yourself up with some food."
+		},
+		{
+			"title": "Coding with Style: Readable and Maintainable Code",
+			"time": {
+				"start": "2023-02-04 19:00:00-08",
+				"end": "2023-02-04 20:00:00-08"
+			},
+			"category": "Workshop",
+			"host": "ACM at UCI",
+			"description": "Good code should aim to follow proper conventions, but what kind of conventions are there and how can you follow them without too much hassle? Join Sam and Zachary from ACM at UCI as they break down how to code with style on a variety of text editors!"
+		},
+		{
+			"title": "Hack Jeopardy",
+			"time": {
+				"start": "2023-02-04 20:00:00-08",
+				"end": "2023-02-04 21:00:00-08"
+			},
+			"category": "Social",
+			"host": "",
+			"description": "Hack at UCI 2023 is just full of amazing, big brain hackers. Why not put that brain to the test in a fun game of the classic game show hit Jeopardy, Hack at UCI style! Play with your hackathon team of up to 4 to try and win the most points!"
+		},
+		{
+			"title": "Evening Hacking Period",
+			"time": {
+				"start": "2023-02-04 21:00:00-08",
+				"end": "2023-02-05 00:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Less than 12 hours to go!"
+		}
+	],
+	"sunday": [
+		{
+			"title": "Venue Closes",
+			"time": {
+				"start": "2023-02-05 00:00:00-08",
+				"end": "2023-02-05 00:00:00-08"
+			},
+			"category": "Announcement",
+			"host": "",
+			"description": ""
+		},
+		{
+			"title": "Nighttime Hacking Period",
+			"time": {
+				"start": "2023-02-05 00:00:00-08",
+				"end": "2023-02-05 07:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Is it time to sleep? Or time to hack?"
+		},
+		{
+			"title": "Check In",
+			"time": {
+				"start": "2023-02-05 07:00:00-08",
+				"end": "2023-02-05 09:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Swing by check in at Pacific Ballroom lobby for the final day of hacking!"
+		},
+		{
+			"title": "Hacking Ends!",
+			"time": {
+				"start": "2023-02-05 09:00:00-08",
+				"end": "2023-02-05 09:00:00-08"
+			},
+			"category": "Announcement",
+			"host": "",
+			"description": ""
+		},
+		{
+			"title": "Breakfast",
+			"time": {
+				"start": "2023-02-05 09:00:00-08",
+				"end": "2023-02-05 12:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Grab a quick bite before the Project Expo!"
+		},
+		{
+			"title": "Project Expo",
+			"time": {
+				"start": "2023-02-05 09:30:00-08",
+				"end": "2023-02-05 12:00:00-08"
+			},
+			"category": "Main",
+			"host": "",
+			"description": "Congratulations on finishing Hack at UCI 2023! Time to show off your amazing projects to judges, mentors, organizers, and other hackers!"
+		},
+		{
+			"title": "Hack Raffle",
+			"time": {
+				"start": "2023-02-05 12:00:00-08",
+				"end": "2023-02-05 12:30:00-08"
+			},
+			"category": "Social",
+			"host": "",
+			"description": "Join us for a chance to win amazing prizes! Don't miss out on this opportunity to take your luck to the next level. Enter now and see if fortune favors you!"
+		},
+		{
+			"title": "Closing Ceremony",
+			"time": {
+				"start": "2023-02-05 12:30:00-08",
+				"end": "2023-02-05 13:00:00-08"
+			},
+			"host": "",
+			"category": "Main",
+			"description": "Come out to our closing ceremony for our final wrap-up of Hack at UCI 2023! Find out if your team came out on top and celebrate everyone's hard work over the weekend ❤️"
+		}
+	]
+}
