@@ -26,7 +26,7 @@ function Countdown(props: any) {
 		};
 
 		const startTime = () => {
-			let { total, seconds, minutes, hours, days } = remainingTime();
+			const { total, seconds, minutes, hours, days } = remainingTime();
 			if (total >= 0) {
 				setTimer(
 					days.toString().padStart(2, "0") +
