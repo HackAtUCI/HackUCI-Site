@@ -1,9 +1,11 @@
 import Card from "react-bootstrap/Card";
+
 import styles from "views/schedule/components/Announcement.module.scss";
+import { formatTime } from "views/schedule/sections/ScheduleList";
 
 interface AnnouncementProps {
 	title: string;
-	start: string;
+	start: Date;
 	description: string;
 }
 
@@ -20,7 +22,7 @@ function Announcement({ title, start, description }: AnnouncementProps) {
 						title
 					)}
 				</Card.Title>
-				<Card.Text>{start}</Card.Text>
+				<Card.Text>{formatTime(start)}</Card.Text>
 			</Card.Body>
 		</Card>
 	);
