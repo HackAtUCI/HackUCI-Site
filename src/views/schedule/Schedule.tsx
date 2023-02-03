@@ -30,10 +30,10 @@ function Schedule() {
 		if (Date.parse(hackingBegins) > Date.now()) {
 			return (
 				<section id="schedule-block">
-					<div className="schedule-countdown text-center">
+					<div className={styles.scheduleCountdown}>
 						<Countdown date={hackingBegins} />
 					</div>
-					<div className="schedule-countdown-text">
+					<div className="lead my-2">
 						<span> Until Hacking Begins</span>
 					</div>
 				</section>
@@ -41,10 +41,10 @@ function Schedule() {
 		} else {
 			return (
 				<section id="schedule-block">
-					<div className="schedule-countdown text-center">
+					<div className={styles.scheduleCountdown}>
 						<Countdown date={devpostSubmission} />
 					</div>
-					<div className="schedule-countdown-text">
+					<div className="lead my-2">
 						<span> Until Devpost Submission Closes</span>
 					</div>
 				</section>

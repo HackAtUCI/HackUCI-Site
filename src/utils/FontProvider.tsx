@@ -7,7 +7,7 @@ const merriweather = Merriweather({
 });
 
 const open_sans = Open_Sans({
-	weight: ["400", "500", "600", "700"],
+	weight: ["300", "400", "500", "600", "700", "800"],
 	subsets: ["latin"],
 	display: "swap",
 });

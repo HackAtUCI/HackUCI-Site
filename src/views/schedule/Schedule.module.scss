@@ -1,12 +1,8 @@
 @use "utils/bootstrap";
 
-.schedule-countdown {
-	font-size: 50px;
-}
-
-.schedule-countdown-text {
-	margin-top: 10px;
-	font-size: 50px;
+.scheduleCountdown {
+	@include bootstrap.font-size(4rem);
+	font-weight: 600;
 }
 
 .scheduleLanding {
