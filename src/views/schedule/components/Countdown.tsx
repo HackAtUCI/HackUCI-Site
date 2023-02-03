@@ -1,8 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import Confetti from 'react-confetti';
-import FlipNumbers from 'react-flip-numbers';
+import { useEffect, useRef, useState } from "react";
+import Confetti from "react-confetti";
+import FlipNumbers from "react-flip-numbers";
 
-function Countdown(props: any) {
+interface CountdownProps {
+	date: string;
+}
+
+function Countdown({ date }: CountdownProps) {
 	const ref = useRef<any | null>(null);
 
 	const [timer, setTimer] = useState("00:00:00:00");
@@ -17,7 +21,7 @@ function Countdown(props: any) {
 
 	useEffect(() => {
 		const remainingTime = () => {
-			const total = Date.parse(props.date) - Date.now();
+			const total = Date.parse(date) - Date.now();
 			const seconds = Math.floor((total / 1000) % 60);
 			const minutes = Math.floor((total / 1000 / 60) % 60);
 			const hours = Math.floor((total / 1000 / 60 / 60) % 24);
@@ -47,7 +51,7 @@ function Countdown(props: any) {
 			startTime();
 		}, 1000);
 		ref.current = id;
-	}, [props.date]);
+	}, [date]);
 
 	useEffect(() => {
 		function handleResize() {
