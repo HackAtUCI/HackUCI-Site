@@ -4,7 +4,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import styles from "./Resource.module.scss";
 
 interface ResourceProps {
-	resourceIndex: number;
+	resourceIndex: string;
 	name: string;
 	link: string;
 	tooltip: string;
@@ -21,7 +21,7 @@ function Resource({ resourceIndex, name, link, tooltip }: ResourceProps) {
 			>
 				<a
 					className={
-						(resourceIndex % 2 === 0
+						(resourceIndex === "gold"
 							? styles["badge-gold"]
 							: styles["badge-dark"]) + " d-block my-3 p-3 rounded-pill badge"
 					}
