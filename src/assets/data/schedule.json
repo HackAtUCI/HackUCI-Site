@@ -18,7 +18,7 @@
 			},
 			"category": "main",
 			"host": "",
-			"description": "Grab a bite to eat and socialize with other hackers!"
+			"description": "Grab a bite to eat and socialize with other hackers! We're serving UCI Catering's Asian Delights menu!"
 		},
 		{
 			"title": "Team Formation",
@@ -130,7 +130,7 @@
 			"category": "main",
 			"host": "",
 
-			"description": "The most important meal of the day!"
+			"description": "The most important meal of the day! Come by for some tasty breakfast burritos!"
 		},
 		{
 			"title": "Midway Check-In Form Opens",
@@ -180,7 +180,7 @@
 			},
 			"category": "main",
 			"host": "",
-			"description": "Tired of hacking? Take a break and grab some food!"
+			"description": "Tired of hacking? Take a break and grab some chicken and swiss rollers!"
 		},
 		{
 			"title": "Intro to Python for Data Analysis",
@@ -250,7 +250,7 @@
 			},
 			"category": "main",
 			"host": "",
-			"description": "We're more than halfway through the hackathon! Don't forget to fuel yourself up with some food."
+			"description": "We're more than halfway through the hackathon! Don't forget to fuel yourself up with some food - it's pasta night!"
 		},
 		{
 			"title": "Coding with Style: Readable and Maintainable Code",
@@ -325,14 +325,14 @@
 			"description": ""
 		},
 		{
-			"title": "Breakfast",
+			"title": "Extended Breakfast",
 			"time": {
 				"start": "2023-02-05T09:00:00-08:00",
 				"end": "2023-02-05T12:00:00-08:00"
 			},
 			"category": "main",
 			"host": "",
-			"description": "Grab a quick bite before the Project Expo!"
+			"description": "Serving breakfast snacks throughout the Project Expo!"
 		},
 		{
 			"title": "Project Expo",
