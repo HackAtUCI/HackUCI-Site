@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 import { TitleBanner } from "components";
 
@@ -7,7 +8,21 @@ import ScheduleList from "./sections/ScheduleList";
 
 import "./Schedule.module.scss";
 
+const T_REFRESH = 15_000;
+
 function Schedule() {
+	const [now, setNow] = useState<Date>(new Date());
+
+	useEffect(() => {
+		const refreshNow = setInterval(() => {
+			setNow(new Date());
+		}, T_REFRESH);
+
+		return () => {
+			clearInterval(refreshNow);
+		};
+	}, []);
+
 	const hackingBegins = "3 Feb 2023 21:00:00 PST";
 	const devpostSubmission = "5 Feb 2023 9:00:00 PST";
 
@@ -44,7 +59,7 @@ function Schedule() {
 			</Head>
 			<TitleBanner>{generateCountdown()}</TitleBanner>
 			<h2 className="visually-hidden">Events Schedule</h2>
-			<ScheduleList />
+			<ScheduleList now={now} />
 		</>
 	);
 }

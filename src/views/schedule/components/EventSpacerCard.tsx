@@ -1,7 +1,10 @@
 import dayjs from "dayjs";
 import Card from "react-bootstrap/Card";
 
+import styles from "./EventCard.module.scss";
+
 interface EventSpacerCardProps {
+	now: Date;
 	title: string;
 	start: Date;
 	end: Date;
@@ -9,6 +12,7 @@ interface EventSpacerCardProps {
 }
 
 function EventSpacerCard({
+	now,
 	title,
 	start,
 	end,
@@ -17,11 +21,12 @@ function EventSpacerCard({
 	const duration = dayjs(end).diff(dayjs(start), "hour", true);
 	const durationText = duration + " hours";
 
+	const over = now > end;
 	const minHeight = 80 * (duration + 1);
 
 	return (
 		<Card
-			className="text-end mb-4"
+			className={"text-end mb-4 " + (over && styles.pastEventCard)}
 			bg="dark"
 			text="white"
 			style={{ minHeight }}

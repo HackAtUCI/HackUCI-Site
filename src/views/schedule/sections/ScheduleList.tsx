@@ -23,14 +23,17 @@ interface Event {
 	description: string;
 }
 
-function ScheduleList() {
-	const now = new Date();
+interface ScheduleListProps {
+	now: Date;
+}
 
+function ScheduleList({ now }: ScheduleListProps) {
 	const scheduleItem = (event: Event) => {
 		if (event.category === "announcement")
 			return (
 				<Announcement
 					key={event.title}
+					now={now}
 					{...event}
 					start={new Date(event.time.start)}
 				/>
@@ -39,6 +42,7 @@ function ScheduleList() {
 			return (
 				<EventSpacerCard
 					key={event.title}
+					now={now}
 					{...event}
 					start={new Date(event.time.start)}
 					end={new Date(event.time.end)}

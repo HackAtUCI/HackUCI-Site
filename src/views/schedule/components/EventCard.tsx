@@ -5,8 +5,9 @@ dayjs.extend(relativeTime);
 import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
 
-import styles from "views/schedule/components/EventCard.module.scss";
 import { formatTime } from "views/schedule/sections/ScheduleList";
+
+import styles from "./EventCard.module.scss";
 
 interface EventProps {
 	now: Date;
@@ -30,8 +31,13 @@ function EventCard({
 	const dStart = dayjs(start);
 	const eventMoment = dStart.from(now);
 
+	const over = now > end;
+
 	return (
-		<Card text="light" className={styles.card}>
+		<Card
+			text="light"
+			className={styles.card + " " + (over && styles.pastEventCard)}
+		>
 			<Card.Body>
 				<Badge bg={category} text="dark" pill className="float-end">
 					{category}
@@ -42,11 +48,11 @@ function EventCard({
 				<Card.Subtitle className={styles.cardSubtitle}>
 					{host !== "" ? <p>Hosted by: {host}</p> : null}
 					<p>
-						{formatTime(start)} - {formatTime(end)}
+						{formatTime(start)} &ndash; {formatTime(end)}
 					</p>
 				</Card.Subtitle>
 				<Card.Text>{description}</Card.Text>
-				<footer className="text-muted text-end">{eventMoment}</footer>
+				<footer className="text-secondary text-end">{eventMoment}</footer>
 			</Card.Body>
 		</Card>
 	);

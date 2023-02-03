@@ -1,17 +1,21 @@
 import Card from "react-bootstrap/Card";
 
-import styles from "views/schedule/components/Announcement.module.scss";
 import { formatTime } from "views/schedule/sections/ScheduleList";
 
+import styles from "./Announcement.module.scss";
+
 interface AnnouncementProps {
+	now: Date;
 	title: string;
 	start: Date;
 	description: string;
 }
 
-function Announcement({ title, start, description }: AnnouncementProps) {
+function Announcement({ now, title, start, description }: AnnouncementProps) {
+	const over = now > start;
+
 	return (
-		<Card className={styles.card}>
+		<Card className={styles.card + " " + (over && styles.pastEventCard)}>
 			<Card.Body>
 				<Card.Title as="h4">
 					{description !== "" ? (
