@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import { formatTime } from "views/schedule/sections/ScheduleList";
 
 import styles from "./Announcement.module.scss";
+import cardStyles from "./EventCard.module.scss";
 
 interface AnnouncementProps {
 	now: Date;
@@ -12,10 +13,10 @@ interface AnnouncementProps {
 }
 
 function Announcement({ now, title, start, description }: AnnouncementProps) {
-	const over = now > start;
+	const past = now > start;
 
 	return (
-		<Card className={styles.card + " " + (over && styles.pastEventCard)}>
+		<Card className={styles.card + " " + (past && cardStyles.pastEventCard)}>
 			<Card.Body>
 				<Card.Title as="h4">
 					{description !== "" ? (
