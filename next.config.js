@@ -13,6 +13,10 @@ const REWRITES = [
 		source: "/volunteer",
 		destination: "https://forms.gle/bLw9nHffqoz4kAGR7",
 	},
+	{
+		source: "/googlecloud",
+		destination: "https://goo.gle/googlecloudcredits",
+	},
 ];
 
 /** @type {import('next').NextConfig} */

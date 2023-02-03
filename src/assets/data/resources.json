@@ -89,7 +89,7 @@
 	},
 	{
 		"name": "Deployment",
-		"description": "Ready to deploy? Here are some tools to help you get started.",
+		"description": "Ready to deploy? Here are some tools to help you get started. Note that registering for free Google Cloud credits may take up to 24 hours. Please refer to Slack for the redemption code and additional instructions.",
 		"resources": [
 			{
 				"name": "GitHub Pages",
@@ -105,6 +105,11 @@
 				"name": "Google Cloud Platform",
 				"link": "https://cloud.google.com/docs",
 				"tooltip": "Scale your project with Google Cloud!"
+			},
+			{
+				"name": "Google Cloud Credits",
+				"link": "/googlecloud",
+				"tooltip": "Free Google Cloud credits for your hackathon project!"
 			},
 			{
 				"name": "Amazon Web Services",
