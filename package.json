@@ -16,6 +16,7 @@
 		"@types/react-dom": "18.0.9",
 		"axios": "^1.2.2",
 		"bootstrap": "^5.2.3",
+		"dayjs": "^1.11.7",
 		"eslint": "8.29.0",
 		"eslint-config-next": "^13.1.2",
 		"formik": "^2.2.9",

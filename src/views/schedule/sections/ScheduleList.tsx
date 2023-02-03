@@ -5,13 +5,15 @@ import EventCard from "views/schedule/components/EventCard";
 
 import schedule from "assets/data/schedule.json";
 
-const formatTime = (time: string) =>
+export const formatTime = (time: string) =>
 	new Date(time).toLocaleTimeString([], {
 		hour: "2-digit",
 		minute: "2-digit",
 	});
 
 function ScheduleList() {
+	const now = new Date();
+
 	return (
 		<Container className="museum-container-wide">
 			{Object.entries(schedule).map(([day, events]) => (
@@ -29,8 +31,9 @@ function ScheduleList() {
 							<EventCard
 								key={event.title}
 								title={event.title}
-								start={formatTime(event.time.start)}
-								end={formatTime(event.time.end)}
+								now={now}
+								start={event.time.start}
+								end={event.time.end}
 								category={event.category}
 								host={event.host}
 								description={event.description}
