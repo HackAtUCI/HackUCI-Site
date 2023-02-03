@@ -46,6 +46,7 @@ function Navigation() {
 				<Navbar.Collapse id="main-navbar-nav">
 					<Nav as="ul" className="ms-auto" activeKey={currentRoute}>
 						<NavLinkItem href="/">Home</NavLinkItem>
+						<NavLinkItem href="/schedule">Schedule</NavLinkItem>
 						{!status && !isAdmin && (
 							<NavLinkItem href="/apply">Apply</NavLinkItem>
 						)}
