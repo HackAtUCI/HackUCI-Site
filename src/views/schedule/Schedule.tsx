@@ -8,8 +8,8 @@ import ScheduleList from "./sections/ScheduleList";
 import "./Schedule.module.scss";
 
 function Schedule() {
-	const hackingBegins = "3 Feb 2023 21:00:00 PDT";
-	const devpostSubmission = "5 Feb 2023 9:00:00 PDT";
+	const hackingBegins = "3 Feb 2023 21:00:00 PST";
+	const devpostSubmission = "5 Feb 2023 9:00:00 PST";
 
 	function generateCountdown() {
 		if (Date.parse(hackingBegins) > Date.now()) {
