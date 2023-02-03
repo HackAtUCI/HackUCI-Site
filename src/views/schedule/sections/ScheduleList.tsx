@@ -60,10 +60,10 @@ function ScheduleList({ now }: ScheduleListProps) {
 	};
 
 	return (
-		<Container className="museum-container-wide">
+		<Container className="museum-container-medium">
 			{Object.entries(schedule).map(([day, events]) => (
-				<section key={day}>
-					<h3>{day.toUpperCase()}</h3>
+				<section key={day} className="py-5">
+					<h3 className="text-white">{day.toUpperCase()}</h3>
 					{events.map(scheduleItem)}
 				</section>
 			))}

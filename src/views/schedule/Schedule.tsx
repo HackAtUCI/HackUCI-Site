@@ -6,7 +6,7 @@ import { TitleBanner } from "components";
 import Countdown from "./components/Countdown";
 import ScheduleList from "./sections/ScheduleList";
 
-import "./Schedule.module.scss";
+import styles from "./Schedule.module.scss";
 
 const T_REFRESH = 15_000;
 
@@ -57,7 +57,11 @@ function Schedule() {
 			<Head>
 				<title>Schedule | Hack at UCI 2023</title>
 			</Head>
-			<TitleBanner>{generateCountdown()}</TitleBanner>
+			<div className={styles.scheduleLanding}>
+				<TitleBanner className={styles.titleBanner}>
+					{generateCountdown()}
+				</TitleBanner>
+			</div>
 			<h2 className="visually-hidden">Events Schedule</h2>
 			<ScheduleList now={now} />
 		</>
