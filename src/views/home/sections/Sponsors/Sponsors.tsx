@@ -103,7 +103,10 @@ function Sponsors() {
 				))}
 			</Row>
 
-			<Row className="my-5 align-items-center gx-0">
+			<Row
+				className="my-5 align-items-center gx-0 p-0 mx-auto"
+				style={{ width: "60%" }}
+			>
 				{sponsors["mediumTier"].map((sponsor, index) => (
 					<Col key={`medium-tier-${index}`} className={styles.column + " my-3"}>
 						<SponsorItem
@@ -116,7 +119,7 @@ function Sponsors() {
 				))}
 			</Row>
 
-			<Row className="my-5 align-items-center">
+			<Row className="my-5 align-items-center gx-0">
 				{sponsors["smallTier"].map((sponsor, index) => (
 					<Col key={`small-tier-${index}`} className={styles.column + " my-3"}>
 						<SponsorItem
