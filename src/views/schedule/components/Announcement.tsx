@@ -14,10 +14,10 @@ function Announcement({ title, start, description }: AnnouncementProps) {
 				<Card.Title as="h4">
 					{description !== "" ? (
 						<a className={styles.announcementLink} href={description}>
-							<h4>{title}</h4>
+							{title}
 						</a>
 					) : (
-						<h4>{title}</h4>
+						title
 					)}
 				</Card.Title>
 				<Card.Text>{start}</Card.Text>
