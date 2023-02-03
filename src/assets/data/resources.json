@@ -102,6 +102,11 @@
 				"tooltip": "Deploy your frontend app easily!"
 			},
 			{
+				"name": "Render",
+				"link": "https://render.com/",
+				"tooltip": "Deploy your apps and services easily!"
+			},
+			{
 				"name": "Google Cloud Platform",
 				"link": "https://cloud.google.com/docs",
 				"tooltip": "Scale your project with Google Cloud!"
