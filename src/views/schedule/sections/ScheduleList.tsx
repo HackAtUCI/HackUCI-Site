@@ -1,6 +1,7 @@
 import Container from "react-bootstrap/Container";
+
 import Announcement from "views/schedule/components/Announcement";
-import Event from "views/schedule/components/Event";
+import EventCard from "views/schedule/components/EventCard";
 
 import schedule from "assets/data/schedule.json";
 
@@ -17,7 +18,7 @@ function ScheduleList() {
 				<section key={day}>
 					<h3>{day.toUpperCase()}</h3>
 					{events.map((event) =>
-						event.category === "Announcement" ? (
+						event.category === "announcement" ? (
 							<Announcement
 								key={event.title}
 								title={event.title}
@@ -25,7 +26,7 @@ function ScheduleList() {
 								description={event.description}
 							/>
 						) : (
-							<Event
+							<EventCard
 								key={event.title}
 								title={event.title}
 								start={formatTime(event.time.start)}

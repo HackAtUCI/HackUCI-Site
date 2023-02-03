@@ -1,5 +1,6 @@
+import Badge from "react-bootstrap/Badge";
 import Card from "react-bootstrap/Card";
-import styles from "views/schedule/components/Event.module.scss";
+import styles from "views/schedule/components/EventCard.module.scss";
 
 interface EventProps {
 	title: string;
@@ -10,13 +11,22 @@ interface EventProps {
 	description: string;
 }
 
-function Event({ title, start, end, category, host, description }: EventProps) {
+function EventCard({
+	title,
+	start,
+	end,
+	category,
+	host,
+	description,
+}: EventProps) {
 	return (
-		<Card className={styles.card}>
+		<Card text="light" className={styles.card}>
 			<Card.Body>
+				<Badge bg={category} text="dark" pill className="float-end">
+					{category}
+				</Badge>
 				<Card.Title as="h4" className={styles.cardTitle}>
-					<h4 className={styles.cardTitleName}>{title}</h4>
-					<h4 className={styles.cardTitleCategory}>{category}</h4>
+					{title}
 				</Card.Title>
 				<Card.Subtitle className={styles.cardSubtitle}>
 					{host !== "" ? <p>Hosted by: {host}</p> : null}
@@ -30,4 +40,4 @@ function Event({ title, start, end, category, host, description }: EventProps) {
 	);
 }
 
-export default Event;
+export default EventCard;

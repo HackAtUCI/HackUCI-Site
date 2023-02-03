@@ -1,0 +1,31 @@
+@import "styles/gallery-theme";
+
+.card {
+	background-color: $dark-chocolate-brown;
+	margin-bottom: 30px;
+
+	:global {
+		.bg-main {
+			background-color: $orange;
+		}
+		.bg-workshop {
+			background-color: hsl(210, 68%, 58%);
+		}
+		.bg-social {
+			background-color: $light-orange;
+		}
+	}
+
+	.cardTitle {
+		color: $orange;
+	}
+}
+
+.eventLink {
+	color: $orange;
+
+	&:hover {
+		color: $orange;
+		cursor: pointer;
+	}
+}
