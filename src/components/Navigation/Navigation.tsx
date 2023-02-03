@@ -55,9 +55,7 @@ function Navigation() {
 						<PrivateNavLinkItem authorized={isAdmin} href="/admin/dashboard">
 							Admin
 						</PrivateNavLinkItem>
-						<NavLinkItem href="https://forms.gle/yM8Revi2NLHGNKs17">
-							Report Incident
-						</NavLinkItem>
+						<NavLinkItem href="/report">Report Incident</NavLinkItem>
 						<NavLinkItem
 							href={logButtonPath}
 							className="btn btn-light" // style underlying next/Link
