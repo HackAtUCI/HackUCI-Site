@@ -1,3 +1,4 @@
+import Clubs from "./sections/Clubs/Clubs";
 import Faq from "./sections/Faq/Faq";
 import Landing from "./sections/Landing";
 import Sponsors from "./sections/Sponsors/Sponsors";
@@ -16,6 +17,9 @@ function Home() {
 				<Faq />
 			</div>
 			<Sponsors />
+			<div className={styles.clubsBackground}>
+				<Clubs />
+			</div>
 		</div>
 	);
 }
