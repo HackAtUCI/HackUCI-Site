@@ -11,8 +11,8 @@ import { formatTime } from "views/schedule/sections/ScheduleList";
 interface EventProps {
 	now: Date;
 	title: string;
-	start: string;
-	end: string;
+	start: Date;
+	end: Date;
 	category: string;
 	host: string;
 	description: string;
