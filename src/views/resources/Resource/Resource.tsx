@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import styles from "./Resource.module.scss";
@@ -11,8 +10,6 @@ interface ResourceProps {
 }
 
 function Resource({ resourceIndex, name, link, tooltip }: ResourceProps) {
-	const target = useRef(null);
-
 	return (
 		<>
 			<OverlayTrigger
@@ -27,7 +24,6 @@ function Resource({ resourceIndex, name, link, tooltip }: ResourceProps) {
 					}
 					href={link}
 					style={{ textDecoration: "none" }}
-					ref={target}
 				>
 					{name}
 				</a>
