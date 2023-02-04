@@ -31,12 +31,16 @@
 
 		transform-style: preserve-3d; /* needed even when not rotating for Chrome */
 		transform-origin: 50% 50% $offset; /* needed even when not rotating for Safari */
+
 		&.rotating {
 			animation: rotate-carousel infinite linear;
 			animation-duration: $rotation-period;
 			@media (prefers-reduced-motion: reduce) {
 				animation-duration: 2 * $rotation-period;
 			}
+		}
+		&:not(.rotating) {
+			transform: rotateY(60deg);
 		}
 
 		.painting {

@@ -38,7 +38,9 @@ function LoginForm() {
 					UCI students will log in with UCI SSO.
 				</Form.Text>
 			</Form.Group>
-			<Button type="submit">Continue</Button>
+			<Button type="submit" variant="museum">
+				Continue
+			</Button>
 		</ValidatingForm>
 	);
 }

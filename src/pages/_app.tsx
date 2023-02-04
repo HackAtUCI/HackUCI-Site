@@ -50,6 +50,19 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 			<Head>
 				<title>Hack at UCI 2023</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta
+					name="description"
+					content="Create. Connect. Inspire. Join us as Hack at UCI gathers the tech community from all over in a spectacular display of ideas, ambition, and talent."
+				/>
+				<meta property="og:title" content="Hack at UCI 2023" />
+				<meta
+					property="og:description"
+					content="The largest collegiate hackathon in Orange County"
+				/>
+				<meta
+					property="og:image"
+					content="https://hackuci.com/hackuci_2023_banner.png"
+				/>
 			</Head>
 			<FontProvider />
 			{!identity && <Loading />}
