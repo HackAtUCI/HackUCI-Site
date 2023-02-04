@@ -47,9 +47,6 @@ function Navigation() {
 					<Nav as="ul" className="ms-auto" activeKey={currentRoute}>
 						<NavLinkItem href="/">Home</NavLinkItem>
 						<NavLinkItem href="/schedule">Schedule</NavLinkItem>
-						{!status && !isAdmin && (
-							<NavLinkItem href="/apply">Apply</NavLinkItem>
-						)}
 						<PrivateNavLinkItem authorized={status !== null} href="/portal">
 							Portal
 						</PrivateNavLinkItem>
