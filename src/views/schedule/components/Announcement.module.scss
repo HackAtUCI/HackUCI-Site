@@ -1,0 +1,16 @@
+@import "styles/gallery-theme";
+
+.card {
+	background-color: $green;
+	color: white;
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.announcementLink {
+	color: white;
+	&:hover {
+		color: white;
+		cursor: pointer;
+	}
+}
