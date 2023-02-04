@@ -52,12 +52,12 @@ function Clubs() {
 					className="my-3 justify-content-center align-items-center"
 				>
 					{row.map((club, imgIndex) => (
-						<Col key={imgIndex} className="px-5 my-3">
+						<Col md key={imgIndex} className="px-5 my-3">
 							<a href={club.info.clubWebsite}>
 								<Image
 									key={imgIndex}
 									src={club.png}
-									className={"px-5 w-100 h-auto " + styles["hover-enlarge"]}
+									className={"w-100 h-auto " + styles["hover-enlarge"]}
 									alt={`${club.info.name} club logo`}
 								/>
 							</a>
