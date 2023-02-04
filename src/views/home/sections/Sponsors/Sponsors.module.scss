@@ -1,12 +1,5 @@
 @import "styles/gallery-theme";
 
-.card {
-	background-color: $dark-orange;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
 .column {
 	display: flex;
 	justify-content: center;
@@ -25,4 +18,19 @@
 .sponsorLink:hover {
 	color: $light-orange;
 	text-decoration: none;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+}
+
+.sponsors-section {
+	background-color: rgba(27, 82, 122, 1);
+	border: 10px solid $light-orange;
+	padding: 50px;
+}
+
+.number {
+	color: $orange;
 }

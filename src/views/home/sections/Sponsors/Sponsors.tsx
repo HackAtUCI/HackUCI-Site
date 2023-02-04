@@ -2,10 +2,9 @@ import Image from "next/image";
 
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
-import Card from "react-bootstrap/Card";
 
 import sponsors from "assets/data/sponsors.json";
-import logo_stickerMule from "assets/sponsors/sticker-mule-logo-light-bg-stacked.svg";
+import logo_stickerMule from "assets/sponsors/sticker-mule-logo-light-bg.svg";
 import logo_cockroach from "assets/sponsors/cockroach_labs.svg";
 import logo_costar from "assets/sponsors/costar_group.svg";
 import logo_googleCloud from "assets/sponsors/google_cloud.svg";
@@ -32,37 +31,28 @@ interface SponsorItemProps {
 
 function SponsorItem({ name, src, url, bg, size }: SponsorItemProps) {
 	let width, height;
-	let cardDimensions;
 	switch (size) {
 		case SponsorSize.SMALL:
 			width = 200;
-			cardDimensions = 250;
 			break;
 		case SponsorSize.MEDIUM:
 			width = 250;
-			cardDimensions = 300;
 			break;
 		default:
 			width = 300;
-			cardDimensions = 350;
 			break;
 	}
 	return (
-		<Card
-			className={styles.card + " p-0 m-0"}
-			style={{ minWidth: cardDimensions, minHeight: cardDimensions }}
-		>
-			<a href={url}>
-				<Image
-					src={src}
-					alt={name}
-					className={styles.tierImage}
-					style={{ backgroundColor: bg }}
-					width={width}
-					height={height}
-				/>
-			</a>
-		</Card>
+		<a href={url}>
+			<Image
+				src={src}
+				alt={name}
+				className={styles.tierImage}
+				style={{ backgroundColor: bg }}
+				width={width}
+				height={height}
+			/>
+		</a>
 	);
 }
 
@@ -90,47 +80,49 @@ function Sponsors() {
 				.
 			</p>
 
-			<Row className="my-5 align-items-center">
-				{sponsors["largeTier"].map((sponsor, index) => (
-					<Col key={`large-tier-${index}`} className={styles.column + " my-3"}>
-						<SponsorItem
-							key={`large-tier-${index}`}
-							{...sponsor}
-							src={largeTiers[index]}
-							size={SponsorSize.LARGE}
-						/>
-					</Col>
-				))}
-			</Row>
+			<div className={styles["sponsors-section"]}>
+				<Row className="align-items-center my-2">
+					{sponsors["largeTier"].map((sponsor, index) => (
+						<Col key={`large-tier-${index}`} className={styles.column}>
+							<SponsorItem
+								key={`large-tier-${index}`}
+								{...sponsor}
+								src={largeTiers[index]}
+								size={SponsorSize.LARGE}
+							/>
+						</Col>
+					))}
+				</Row>
 
-			<Row
-				className="my-5 align-items-center gx-0 p-0 mx-auto"
-				style={{ width: "60%" }}
-			>
-				{sponsors["mediumTier"].map((sponsor, index) => (
-					<Col key={`medium-tier-${index}`} className={styles.column + " my-3"}>
-						<SponsorItem
-							key={`medium-tier-${index}`}
-							{...sponsor}
-							src={mediumTiers[index]}
-							size={SponsorSize.MEDIUM}
-						/>
-					</Col>
-				))}
-			</Row>
+				<Row
+					className="align-items-center my-2 mx-auto"
+					style={{ width: "60%" }}
+				>
+					{sponsors["mediumTier"].map((sponsor, index) => (
+						<Col key={`medium-tier-${index}`} className={styles.column}>
+							<SponsorItem
+								key={`medium-tier-${index}`}
+								{...sponsor}
+								src={mediumTiers[index]}
+								size={SponsorSize.MEDIUM}
+							/>
+						</Col>
+					))}
+				</Row>
 
-			<Row className="my-5 align-items-center gx-0">
-				{sponsors["smallTier"].map((sponsor, index) => (
-					<Col key={`small-tier-${index}`} className={styles.column + " my-3"}>
-						<SponsorItem
-							key={`small-tier-${index}`}
-							{...sponsor}
-							src={smallTiers[index]}
-							size={SponsorSize.SMALL}
-						/>
-					</Col>
-				))}
-			</Row>
+				<Row className="align-items-center my-2 gx-0">
+					{sponsors["smallTier"].map((sponsor, index) => (
+						<Col key={`small-tier-${index}`} className={styles.column}>
+							<SponsorItem
+								key={`small-tier-${index}`}
+								{...sponsor}
+								src={smallTiers[index]}
+								size={SponsorSize.SMALL}
+							/>
+						</Col>
+					))}
+				</Row>
+			</div>
 		</section>
 	);
 }
