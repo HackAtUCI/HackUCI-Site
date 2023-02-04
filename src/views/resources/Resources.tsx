@@ -31,10 +31,10 @@ interface IndexMap {
 
 const RESOURCE_INDEX_MAP: IndexMap = {
 	"User Interface": { svg: userInterface, color: "gold" } as IndexMapValue,
-	"Backend": { svg: backend, color: "blue" } as IndexMapValue,
-	"Databases": { svg: database, color: "gold" } as IndexMapValue,
-	"Deployment": { svg: deploy, color: "blue" } as IndexMapValue,
-	"Gaming": { svg: gaming, color: "gold" } as IndexMapValue,
+	Backend: { svg: backend, color: "blue" } as IndexMapValue,
+	Databases: { svg: database, color: "gold" } as IndexMapValue,
+	Deployment: { svg: deploy, color: "blue" } as IndexMapValue,
+	Gaming: { svg: gaming, color: "gold" } as IndexMapValue,
 	"AI / Machine Learning": { svg: aiML, color: "blue" } as IndexMapValue,
 	"General Resources": { svg: tools, color: "gold" } as IndexMapValue,
 };
