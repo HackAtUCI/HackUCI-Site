@@ -31,6 +31,7 @@ class IdentityResponse(BaseModel):
 
 @router.post("/login")
 async def login(email: EmailStr = Form()) -> RedirectResponse:
+    log.info("%s requested to log in", email)
     if user_identity.uci_email(email):
         # redirect user to UCI SSO login endpoint, changing to GET method
         return RedirectResponse("/api/saml/login", status.HTTP_303_SEE_OTHER)
@@ -70,7 +71,7 @@ async def apply(
     )
 
     if EXISTING_RECORD and "status" in EXISTING_RECORD:
-        log.error("User email is already in use")
+        log.error("User %s has already applied.", user)
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     if resume is not None:
@@ -79,10 +80,12 @@ async def apply(
                 raw_application_data, resume
             )
         except TypeError:
+            log.info("%s provided invalid resume type.", user)
             raise HTTPException(
                 status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "Invalid resume file type"
             )
         except ValueError:
+            log.info("%s provided too large resume.", user)
             raise HTTPException(
                 status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "Resume upload is too large"
             )
