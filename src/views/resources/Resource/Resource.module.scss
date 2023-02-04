@@ -3,22 +3,20 @@
 .badge-gold {
 	color: black;
 	background-color: $orange;
-	transition: all 0.25s ease;
+	transition: background-color 0.25s ease;
 
 	&:hover {
 		background-color: $light-orange;
-		transition: all 0.25s ease;
 	}
 }
 
 .badge-dark {
 	color: white;
 	background-color: $midnight-blue;
-	transition: all 0.25s ease;
+	transition: background-color 0.25s ease;
 
 	&:hover {
 		color: #ddd;
 		background-color: $light-blue;
-		transition: all 0.25s ease;
 	}
 }
