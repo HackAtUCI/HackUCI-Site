@@ -56,6 +56,7 @@ function Navigation() {
 						<PrivateNavLinkItem authorized={isAdmin} href="/admin/dashboard">
 							Admin
 						</PrivateNavLinkItem>
+						<NavLinkItem href="/resources">Resources</NavLinkItem>
 						<NavLinkItem href="/report">Report Incident</NavLinkItem>
 						<NavLinkItem
 							href={logButtonPath}

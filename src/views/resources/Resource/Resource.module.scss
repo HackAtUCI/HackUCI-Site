@@ -1,0 +1,22 @@
+@import "styles/gallery-theme";
+
+.badge-gold {
+	color: black;
+	background-color: $orange;
+	transition: background-color 0.25s ease;
+
+	&:hover {
+		background-color: $light-orange;
+	}
+}
+
+.badge-dark {
+	color: white;
+	background-color: $midnight-blue;
+	transition: background-color 0.25s ease;
+
+	&:hover {
+		color: #ddd;
+		background-color: $light-blue;
+	}
+}
