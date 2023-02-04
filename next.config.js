@@ -13,7 +13,7 @@ const REWRITES = [
 		source: "/volunteer",
 		destination: "https://forms.gle/bLw9nHffqoz4kAGR7",
 	},
-  {
+	{
 		source: "/report",
 		destination: "https://forms.gle/yM8Revi2NLHGNKs17",
 	},
