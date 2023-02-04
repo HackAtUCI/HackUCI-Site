@@ -67,7 +67,7 @@
 		"resources": [
 			{
 				"name": "CockroachDB",
-				"link": "https://www.cockroachlabs.com/docs/",
+				"link": "https://www.cockroachlabs.com/docs?utm_source=hackuci2023&utm_medium=event&utm_campaign=hackathon",
 				"tooltip": "A distributed SQL database from our sponsor Cockroach Labs!"
 			},
 			{
