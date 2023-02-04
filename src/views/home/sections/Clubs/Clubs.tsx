@@ -8,6 +8,7 @@ import acm from "assets/clubs/acm_at_uci.png";
 import ai from "assets/clubs/ai_uci.png";
 import asuci from "assets/clubs/asuci.png";
 import blockchain from "assets/clubs/blockchain_at_uci.png";
+import data from "assets/clubs/data_at_uci.png";
 import design from "assets/clubs/design_at_uci.png";
 import icssc from "assets/clubs/icssc.png";
 
@@ -35,6 +36,7 @@ const CLUBS: Club[][] = [
 		{ png: blockchain, info: clubs[3] },
 		{ png: design, info: clubs[4] },
 		{ png: icssc, info: clubs[5] },
+		{ png: data, info: clubs[6] },
 	],
 ];
 
@@ -52,7 +54,7 @@ function Clubs() {
 					className="my-3 justify-content-center align-items-center"
 				>
 					{row.map((club, imgIndex) => (
-						<Col md key={imgIndex} className="px-5 my-3">
+						<Col sm key={imgIndex} className="px-5 my-3">
 							<a href={club.info.clubWebsite}>
 								<Image
 									key={imgIndex}
