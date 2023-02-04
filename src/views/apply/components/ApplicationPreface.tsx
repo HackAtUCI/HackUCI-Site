@@ -26,7 +26,7 @@ function ApplicationPreface(props: ApplicationPrefaceProps) {
 			</p>
 			{props.isLoggedIn ? (
 				<Button
-					variant="primary"
+					variant="museum"
 					className="button"
 					onClick={() => {
 						props.setAcceptedPreface(true);
@@ -35,7 +35,7 @@ function ApplicationPreface(props: ApplicationPrefaceProps) {
 					Continue
 				</Button>
 			) : (
-				<Button variant="primary" className="button" href="/login">
+				<Button variant="museum" className="button" href="/login">
 					Log In To Apply
 				</Button>
 			)}

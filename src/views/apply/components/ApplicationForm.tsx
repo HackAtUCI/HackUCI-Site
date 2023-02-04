@@ -189,9 +189,9 @@ function ApplicationForm(props: ApplicationFormProps) {
 					/>
 					<QuestionPrompts errors={errors} touched={touched} />
 					<Button
-						variant="primary"
+						variant="museum"
 						type="submit"
-						className="button"
+						className="mt-3"
 						disabled={isSubmitting}
 					>
 						Submit
