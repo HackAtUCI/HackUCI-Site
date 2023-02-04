@@ -3,10 +3,13 @@ from unittest.mock import ANY, AsyncMock, patch
 
 from fastapi import FastAPI
 
+from auth import user_identity
 from auth.user_identity import NativeUser, UserTestClient
 from models.ApplicationData import Decision
 from routers import admin
 from services.mongodb_handler import Collection
+
+user_identity.JWT_SECRET = "not a good idea"
 
 USER_ICSSC = NativeUser(
     ucinetid="icssc",

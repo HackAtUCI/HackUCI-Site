@@ -8,7 +8,9 @@ from jose import JWTError, jwt
 from pydantic import BaseModel, EmailStr
 
 JWT_ALGORITHM = "HS256"
-JWT_SECRET = os.getenv("JWT_SECRET", "not a good idea")
+JWT_SECRET = os.getenv("JWT_SECRET", "")
+if not JWT_SECRET:
+    raise RuntimeError("JWT_SECRET is not defined")
 
 
 class User(BaseModel):
