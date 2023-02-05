@@ -13,13 +13,17 @@ const REWRITES = [
 		source: "/volunteer",
 		destination: "https://forms.gle/bLw9nHffqoz4kAGR7",
 	},
-  {
+	{
 		source: "/report",
 		destination: "https://forms.gle/yM8Revi2NLHGNKs17",
 	},
 	{
 		source: "/googlecloud",
 		destination: "https://goo.gle/googlecloudcredits",
+	},
+	{
+		source: "/feedback",
+		destination: "https://tinyurl.com/hack-at-uci-2023-feedback",
 	},
 ];
 
