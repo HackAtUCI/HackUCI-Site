@@ -18,12 +18,12 @@ const REWRITES = [
 		destination: "https://forms.gle/yM8Revi2NLHGNKs17",
 	},
 	{
-		source: "/googlecloud",
-		destination: "https://goo.gle/googlecloudcredits",
+		source: "/feedback",
+		destination: "https://forms.gle/eo7gaNCQVH3PRJep7",
 	},
 	{
-		source: "/feedback",
-		destination: "https://tinyurl.com/hack-at-uci-2023-feedback",
+		source: "/googlecloud",
+		destination: "https://goo.gle/googlecloudcredits",
 	},
 ];
 
