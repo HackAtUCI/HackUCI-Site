@@ -1,0 +1,30 @@
+[
+	{
+		"name": "ACM@UCI",
+		"website": "https://acm-uci.org"
+	},
+	{
+		"name": "AI@UCI",
+		"website": "https://aiclub.ics.uci.edu/"
+	},
+	{
+		"name": "ASUCI",
+		"website": "https://asuci.uci.edu/"
+	},
+	{
+		"name": "Blockchain at UCI",
+		"website": "https://www.blockchainuci.org/"
+	},
+	{
+		"name": "Design at UCI",
+		"website": "https://designatuci.com/"
+	},
+	{
+		"name": "ICS Student Council",
+		"website": "https://studentcouncil.ics.uci.edu/"
+	},
+	{
+		"name": "Data @ UCI",
+		"website": "https://www.dataatuci.com/"
+	}
+]
