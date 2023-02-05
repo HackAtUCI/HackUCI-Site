@@ -18,6 +18,10 @@ const REWRITES = [
 		destination: "https://forms.gle/yM8Revi2NLHGNKs17",
 	},
 	{
+		source: "/feedback",
+		destination: "https://forms.gle/eo7gaNCQVH3PRJep7",
+	},
+	{
 		source: "/googlecloud",
 		destination: "https://goo.gle/googlecloudcredits",
 	},

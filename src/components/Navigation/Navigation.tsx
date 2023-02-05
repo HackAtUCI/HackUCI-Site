@@ -54,9 +54,8 @@ function Navigation() {
 							Admin
 						</PrivateNavLinkItem>
 						<NavLinkItem href="/resources">Resources</NavLinkItem>
-						<NavLinkItem href="https://hack-at-uci-2023.devpost.com/">
-							Devpost
-						</NavLinkItem>
+						<NavLinkItem href="/feedback">Feedback</NavLinkItem>
+						<NavLinkItem href="/devpost">Devpost</NavLinkItem>
 						<NavLinkItem href="/report">Report Incident</NavLinkItem>
 						<NavLinkItem
 							href={logButtonPath}
