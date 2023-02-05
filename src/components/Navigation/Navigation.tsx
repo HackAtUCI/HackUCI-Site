@@ -55,6 +55,9 @@ function Navigation() {
 						</PrivateNavLinkItem>
 						<NavLinkItem href="/resources">Resources</NavLinkItem>
 						<NavLinkItem href="/feedback">Feedback</NavLinkItem>
+						<NavLinkItem href="/devpost">
+							Devpost
+						</NavLinkItem>
 						<NavLinkItem href="/report">Report Incident</NavLinkItem>
 						<NavLinkItem
 							href={logButtonPath}

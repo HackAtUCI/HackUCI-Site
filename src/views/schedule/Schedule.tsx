@@ -45,7 +45,17 @@ function Schedule() {
 						<Countdown date={devpostSubmission} />
 					</div>
 					<div className="lead my-2">
-						<span> Until Devpost Submission Closes</span>
+						<span>
+							{" "}
+							Until{" "}
+							<a
+								href="https://hack-at-uci-2023.devpost.com/"
+								className={styles.link}
+							>
+								Devpost
+							</a>{" "}
+							Submission Closes
+						</span>
 					</div>
 				</section>
 			);

@@ -17,3 +17,12 @@
 	text-align: center;
 	color: white;
 }
+
+.link {
+	color: white;
+	transition: 0.25s ease;
+
+	&:hover {
+		color: #ccc;
+	}
+}
