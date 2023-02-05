@@ -23,12 +23,23 @@ const REWRITES = [
 	},
 ];
 
+const REDIRECTS = [
+	{
+		source: "/devpost",
+		destination: "https://hack-at-uci-2023.devpost.com",
+		permanent: true,
+	},
+];
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	...baseConfig,
 	swcMinify: false,
 	async rewrites() {
 		return REWRITES;
+	},
+	async redirects() {
+		return REDIRECTS;
 	},
 };
 
@@ -42,6 +53,9 @@ const devConfig = {
 				destination: "http://127.0.0.1:8000/:path*",
 			},
 		]);
+	},
+	async redirects() {
+		return REDIRECTS;
 	},
 };
 
