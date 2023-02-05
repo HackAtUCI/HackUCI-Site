@@ -1,3 +1,4 @@
+import Partners from "./sections/Partners/Partners";
 import Faq from "./sections/Faq/Faq";
 import Landing from "./sections/Landing";
 import Sponsors from "./sections/Sponsors/Sponsors";
@@ -16,6 +17,9 @@ function Home() {
 				<Faq />
 			</div>
 			<Sponsors />
+			<div className={styles.partnerBackground}>
+				<Partners />
+			</div>
 		</div>
 	);
 }
