@@ -27,7 +27,11 @@ import "styles/hackuci.scss";
 // }
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-	const [identity, setIdentity] = useState<Identity>();
+	const [identity, setIdentity] = useState<Identity>({
+		uid: null,
+		role: null,
+		status: null,
+	});
 
 	const router = useRouter();
 
@@ -38,7 +42,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 			setIdentity(identity);
 		};
 
-		getIdentity();
+		// getIdentity();
 	}, []);
 
 	const Layout = router.pathname.startsWith("/admin/")
