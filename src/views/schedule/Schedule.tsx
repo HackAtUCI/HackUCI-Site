@@ -3,9 +3,16 @@ import { useEffect, useState } from "react";
 
 import { TitleBanner } from "components";
 
-import Countdown from "./components/Countdown";
 import ScheduleList from "./sections/ScheduleList";
 
+const DynamicCountdownWithNoSSR = dynamic(
+	() => import("./components/Countdown"),
+	{
+		ssr: false,
+	}
+);
+
+import dynamic from "next/dynamic";
 import styles from "./Schedule.module.scss";
 
 const T_REFRESH = 15_000;
@@ -31,7 +38,7 @@ function Schedule() {
 			return (
 				<section id="schedule-block">
 					<div className={styles.scheduleCountdown}>
-						<Countdown date={hackingBegins} />
+						<DynamicCountdownWithNoSSR date={hackingBegins} />
 					</div>
 					<div className="lead my-2">
 						<span> Until Hacking Begins</span>
@@ -42,7 +49,7 @@ function Schedule() {
 			return (
 				<section id="schedule-block">
 					<div className={styles.scheduleCountdown}>
-						<Countdown date={devpostSubmission} />
+						<DynamicCountdownWithNoSSR date={devpostSubmission} />
 					</div>
 					<div className="lead my-2">
 						<span>
