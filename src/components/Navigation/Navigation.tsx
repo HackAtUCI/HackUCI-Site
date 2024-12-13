@@ -54,16 +54,16 @@ function Navigation() {
 							Admin
 						</PrivateNavLinkItem>
 						<NavLinkItem href="/resources">Resources</NavLinkItem>
-						<NavLinkItem href="/feedback">Feedback</NavLinkItem>
+						{/* <NavLinkItem href="/feedback">Feedback</NavLinkItem> */}
 						<NavLinkItem href="/devpost">Devpost</NavLinkItem>
-						<NavLinkItem href="/report">Report Incident</NavLinkItem>
-						<NavLinkItem
+						{/* <NavLinkItem href="/report">Report Incident</NavLinkItem> */}
+						{/* <NavLinkItem
 							href={logButtonPath}
 							className="btn btn-light" // style underlying next/Link
 							bsPrefix=" " // override .nav-link class while still using eventKey
 						>
 							{logText}
-						</NavLinkItem>
+						</NavLinkItem> */}
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
